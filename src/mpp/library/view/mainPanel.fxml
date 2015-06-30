@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" fx:controller="mpp.library.controller.MemberController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <ImageView fitHeight="73.25" fitWidth="97.66666666666666" layoutX="137.0" layoutY="101.0" onMouseClicked="#openChildPanel" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../Public/Pictures/Sample%20Pictures/Chrysanthemum.jpg" />
+      </image>
+    </ImageView>
+    <ImageView fitHeight="73.25" fitWidth="97.66666666666666" layoutX="352.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../Public/Pictures/Sample%20Pictures/Desert.jpg" />
+      </image>
+    </ImageView>
+    <ImageView fitHeight="73.25" fitWidth="97.66666666666666" layoutX="57.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../Public/Pictures/Sample%20Pictures/Koala.jpg" />
+      </image>
+    </ImageView>
+    <ImageView fitHeight="73.25" fitWidth="97.66666666666666" layoutX="202.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../Public/Pictures/Sample%20Pictures/Hydrangeas.jpg" />
+      </image>
+    </ImageView>
+    <ImageView fitHeight="73.25" fitWidth="97.66666666666666" layoutX="391.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@../../../../../../../Public/Pictures/Sample%20Pictures/Penguins.jpg" />
+      </image>
+    </ImageView>
+    <Label layoutX="172.0" layoutY="184.0" text="Label" />
+    <Label layoutX="391.0" layoutY="181.0" text="Label" />
+    <Label layoutX="92.0" layoutY="323.0" text="Label" />
+    <Label layoutX="237.0" layoutY="326.0" text="Label" />
+    <Label layoutX="436.0" layoutY="339.0" text="Label" />
+  </children>
+</AnchorPane>
