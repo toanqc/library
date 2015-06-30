@@ -11,6 +11,18 @@ public class Person implements Serializable {
 	private String phone;
 	private Address address;
 
+	public Person() {
+		// default constructor, this must have because of Author class
+	}
+
+	public Person(String firstName, String lastName, String phone,
+			Address address) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.phone = phone;
+		this.address = address;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

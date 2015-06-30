@@ -7,6 +7,16 @@ public class LibraryMember extends Person {
 	private int memberId;
 	private CheckoutRecord checkoutRecord;
 
+	public LibraryMember(String firstName, String lastName, String phone, Address address) {
+		super(firstName, lastName, phone, address);
+		this.memberId = generateId();
+		this.checkoutRecord = new CheckoutRecord();
+	}
+
+	private int generateId() {
+		return 0;
+	}
+
 	public int getMemberId() {
 		return memberId;
 	}
