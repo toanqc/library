@@ -24,4 +24,12 @@ public class CheckoutController {
 	@FXML protected void search(MouseEvent event) {
 		System.out.println("Search Member ID");
 	}
+	
+	@FXML protected void checkoutBook(MouseEvent event) {
+		System.out.println("Rearrange Book UI");
+	}
+	
+	@FXML protected void checkoutPeriodical(MouseEvent event) {
+		System.out.println("Rearrange Periodical UI");
+	}
 }

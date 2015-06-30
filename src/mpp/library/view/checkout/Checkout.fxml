@@ -28,23 +28,23 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </padding>
     </FlowPane>
-    <GridPane layoutX="24.0" layoutY="76.0" prefWidth="446.0" vgap="10.0">
+    <GridPane id="mainGridPane" layoutX="24.0" layoutY="76.0" prefWidth="446.0" vgap="10.0">
       <children>
         <Label prefWidth="85.0" text="Checkout Item" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x1" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <FlowPane prefHeight="30.000099999997474" prefWidth="337.0000999999975" GridPane.columnIndex="1" GridPane.rowIndex="0">
           <children>
-            <RadioButton mnemonicParsing="false" prefWidth="76.0" selected="true" text="Book">
+            <RadioButton mnemonicParsing="false" onMouseClicked="#checkoutBook" prefWidth="76.0" selected="true" text="Book">
               <FlowPane.margin>
                 <Insets left="10.0" />
               </FlowPane.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" prefWidth="118.0" text="Periodical" />
+            <RadioButton mnemonicParsing="false" onMouseClicked="#checkoutPeriodical" prefWidth="118.0" text="Periodical" />
           </children>
           <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
           </padding>
         </FlowPane>
-        <GridPane prefWidth="442.0" vgap="10.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+        <GridPane id="bookGridPane" prefWidth="442.0" vgap="10.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
           <children>
             <Label prefWidth="64.0" text="Member ID" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
             <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
@@ -75,7 +75,7 @@
         <RowConstraints maxHeight="30.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <GridPane layoutX="32.0" layoutY="277.0" prefWidth="442.0" visible="false">
+    <GridPane id="periodicalGridPane" layoutX="32.0" layoutY="277.0" prefWidth="442.0" visible="false">
       <children>
         <Label prefWidth="28.0" text="Title" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
         <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
