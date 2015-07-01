@@ -18,7 +18,7 @@ import mpp.library.model.CheckoutRecord;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
-import mpp.library.view.Main;
+import mpp.library.view.member.Main;
 
 public class MemberListController {
 

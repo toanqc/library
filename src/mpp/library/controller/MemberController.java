@@ -42,6 +42,12 @@ public class MemberController {
 	@FXML
 	public void initialize() {
 		initializeTextLimiter();
+		initalizeNumericLimiter();
+	}
+
+	private void initalizeNumericLimiter() {
+		FormValidation.addNumbericLimiter(txtZip);
+		FormValidation.addNumbericLimiter(txtPhone);
 	}
 
 	private void initializeTextLimiter() {
@@ -148,12 +154,14 @@ public class MemberController {
 		if (!FormValidation.isNumberAndExactLength(txtZip, 5)) {
 			ValidationDialog
 					.showWarning("Zip code must be numeric with exactly 5 digits!");
+			txtZip.requestFocus();
 			return false;
 		}
 
 		if (!FormValidation.isNumberAndExactLength(txtPhone, 10)) {
 			ValidationDialog
 					.showWarning("Phone number must be numeric with exactly 10 digits!");
+			txtZip.requestFocus();
 			return false;
 		}
 

@@ -1,4 +1,4 @@
-package mpp.library.view;
+package mpp.library.view.member;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
