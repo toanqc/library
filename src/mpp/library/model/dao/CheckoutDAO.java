@@ -1,5 +1,7 @@
 package mpp.library.model.dao;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import mpp.library.model.CheckoutRecord;
 import mpp.library.model.CheckoutRecordEntry;
@@ -19,5 +21,5 @@ public interface CheckoutDAO extends  BaseDAO<LibraryMember>{
 	
 	public void saveCheckoutRecord(CheckoutRecord ckRecord);
 	
-	public ObservableList<MemberCheckoutRecord> printCheckoutRecord(String memberId);
+	public List<MemberCheckoutRecord> printCheckoutRecord(String memberId);
 }

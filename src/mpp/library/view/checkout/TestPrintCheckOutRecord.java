@@ -1,35 +1,31 @@
 package mpp.library.view.checkout;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mpp.library.model.Address;
 import mpp.library.model.Book;
-import mpp.library.model.CheckoutRecord;
-import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.Periodical;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CopyDAOFacade;
 import mpp.library.model.dao.impl.PublicationDAOFacade;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
-public class Main extends Application {
-
+public class TestPrintCheckOutRecord extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent root = FXMLLoader.load(getClass().getResource("Checkout.fxml"));
-//		Parent root = FXMLLoader.load(getClass().getResource("PrintCheckoutRecord.fxml"));
+//		Parent root = FXMLLoader.load(getClass().getResource("Checkout.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("PrintCheckoutRecord.fxml"));
 		primaryStage.setTitle("Checkout");
-		primaryStage.setScene(new Scene(root, 500, 350));
-		initData();
+		primaryStage.setScene(new Scene(root, 750, 500));
+//		initData();
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		
