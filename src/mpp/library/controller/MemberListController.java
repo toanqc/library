@@ -1,5 +1,7 @@
 package mpp.library.controller;
 
+import java.util.List;
+
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -147,7 +149,11 @@ public class MemberListController {
 	private void buildData() {
 		memberDAO = new MemberDAOImpl();
 		libraryMemberList = FXCollections.observableArrayList();
-		libraryMemberList.addAll(memberDAO.getList());
+		List<LibraryMember> memberList = memberDAO.getList();
+
+		if (memberList != null && !memberList.isEmpty()) {
+			libraryMemberList.addAll(memberList);
+		}
 		memberTable.setItems(libraryMemberList);
 	}
 

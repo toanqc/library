@@ -22,30 +22,22 @@ import java.util.List;
 public abstract class AbstractSerializationDAO<T> {
 
 	public void writeObjectList(String fileName, List<T> objectList) {
-		boolean isAppend = false;
-		for (T tObject : objectList) {
-			if (!isAppend) {
-				this.writeObject(fileName, tObject, false);
-				isAppend = true;
-			} else {
-				this.writeObject(fileName, tObject, true);
-			}
-		}
+		createNewFile(fileName);
+		store(fileName, objectList);
 	}
 
 	public void writeObject(String fileName, T object) {
-		this.writeObject(fileName, object, true);
-	}
-
-	public void writeObject(String fileName, T object, boolean isAppend) {
-		createNewFile(fileName);
-
 		List<T> objectList = getObjectList(fileName);
 		if (objectList == null) {
 			objectList = new ArrayList<T>();
 		}
 		objectList.add(object);
 
+		store(fileName, objectList);
+		System.out.println("Serialized data is saved in /storage/" + fileName);
+	}
+
+	private void store(String fileName, List<T> objectList) {
 		ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(new FileOutputStream(fileName, false));
@@ -62,7 +54,6 @@ public abstract class AbstractSerializationDAO<T> {
 				}
 			}
 		}
-		System.out.println("Serialized data is saved in /storage/" + fileName);
 	}
 
 	private void createNewFile(String fileName) {
@@ -78,6 +69,7 @@ public abstract class AbstractSerializationDAO<T> {
 
 	@SuppressWarnings("unchecked")
 	public List<T> getObjectList(String fileName) {
+		createNewFile(fileName);
 		ArrayList<T> objectList = null;
 		ObjectInputStream ois = null;
 		try {
