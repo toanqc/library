@@ -10,15 +10,16 @@ public class TestDAO {
 
 	public static void main(String[] args) {
 		TestDAO testDAO = new TestDAO();
-		//testDAO.testSaveMember();
+		// testDAO.testSaveMember();
 		testDAO.testGetList();
-		//testDAO.testGet();
-		//testDAO.testUpdate();
+		// testDAO.testGet();
+		// testDAO.testUpdate();
 	}
 
 	public void testSaveMember() {
 		Address address = new Address("407 S D St", "Fairfield", "IA", 52556);
-		LibraryMember member = new LibraryMember("Toan", "Quach", "515-346-4204", address);
+		LibraryMember member = new LibraryMember(1, "Toan", "Quach",
+				"515-346-4204", address);
 
 		MemberDAO memberDAO = new MemberDAOImpl();
 		memberDAO.save(member);
@@ -41,7 +42,8 @@ public class TestDAO {
 
 	public void testUpdate() {
 		Address address = new Address("1000 N 4th St", "Fairfield", "IA", 52557);
-		LibraryMember member = new LibraryMember("Bao", "Pham", "300-000-0000", address);
+		LibraryMember member = new LibraryMember(1, "Bao", "Pham", "300-000-0000",
+				address);
 		member.setMemberId(1);
 
 		MemberDAO memberDAO = new MemberDAOImpl();
@@ -49,7 +51,8 @@ public class TestDAO {
 
 		List<LibraryMember> list = memberDAO.getList();
 		for (LibraryMember libraryMember : list) {
-			System.out.println(libraryMember.getMemberId() + " " + libraryMember.getFirstName());
+			System.out.println(libraryMember.getMemberId() + " "
+					+ libraryMember.getFirstName());
 		}
 	}
 }

@@ -2,6 +2,7 @@ package mpp.library.view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import mpp.library.controller.FunctionType;
 
 public class Main extends Application  {
 
@@ -15,11 +16,11 @@ public class Main extends Application  {
 		launch(Main.class, args);
 	}
 
-	public static void showMemberStage() {
-		new MemberStage(0);
+	public static void showMemberStage(FunctionType functionType) {
+		new MemberStage(functionType, 0);
 	}
 
-	public static void showMemberStage(int memberId) {
-		new MemberStage(memberId);
+	public static void showMemberStage(FunctionType functionType, int memberId) {
+		new MemberStage(functionType, memberId);
 	}
 }

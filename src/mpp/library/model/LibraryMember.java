@@ -8,14 +8,11 @@ public class LibraryMember extends Person {
 	private int memberId;
 	private CheckoutRecord checkoutRecord;
 
-	public LibraryMember(String firstName, String lastName, String phone, Address address) {
+	public LibraryMember(int memberId, String firstName, String lastName, String phone,
+			Address address) {
 		super(firstName, lastName, phone, address);
-		this.memberId = generateId();
+		this.memberId = memberId;
 		this.checkoutRecord = new CheckoutRecord(this);
-	}
-
-	private int generateId() {
-		return 0;
 	}
 
 	public int getMemberId() {
@@ -33,7 +30,7 @@ public class LibraryMember extends Person {
 	public void setCheckoutRecord(CheckoutRecord checkoutRecord) {
 		this.checkoutRecord = checkoutRecord;
 	}
-	
+
 	public String getFullName() {
 		return this.getFirstName() + " " + this.getLastName();
 	}

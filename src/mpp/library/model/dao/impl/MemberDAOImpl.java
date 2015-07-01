@@ -44,4 +44,10 @@ public class MemberDAOImpl extends AbstractSerializationDAO<LibraryMember>
 		}
 		return false;
 	}
+
+	@Override
+	public int generateId() {
+		List<LibraryMember> memberList = this.getList();
+		return memberList.size() + 1;
+	}
 }

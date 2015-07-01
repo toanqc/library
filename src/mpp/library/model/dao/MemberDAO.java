@@ -18,4 +18,6 @@ public interface MemberDAO extends BaseDAO<LibraryMember> {
 	 * @return
 	 */
 	boolean update(LibraryMember member);
+
+	int generateId();
 }

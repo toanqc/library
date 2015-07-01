@@ -34,6 +34,8 @@ public class MemberController {
 	@FXML
 	TextField txtPhone;
 
+	private FunctionType functionType;
+
 	private int memberId;
 
 	private MemberDAO memberDAO;
@@ -64,15 +66,31 @@ public class MemberController {
 		txtPhone.getStyleClass().add(LibraryConstant.STYLE_ERROR);
 	}
 
-	public void loadData() {
-		if (memberId != 0) {
-			memberDAO = new MemberDAOImpl();
-			LibraryMember libraryMember = memberDAO.get(String.valueOf(memberId));
-			bindData(libraryMember);
+	public void transferData(FunctionType functionType, int memberId) {
+		this.functionType = functionType;
+		this.memberId = memberId;
+		
+		if (FunctionType.UPDATE.equals(functionType)) {
+			loadData();
+		} else if (FunctionType.ADD.equals(functionType)) {
+			setGenerateMemberId();
 		}
 	}
 
+	private void setGenerateMemberId() {
+		memberDAO = new MemberDAOImpl();
+		memberId = memberDAO.generateId();
+		txtMemberId.setText(String.valueOf(memberId));
+	}
+
+	private void loadData() {
+		memberDAO = new MemberDAOImpl();
+		LibraryMember libraryMember = memberDAO.get(String.valueOf(memberId));
+		bindData(libraryMember);
+	}
+
 	private void bindData(LibraryMember libraryMember) {
+		txtMemberId.setText(String.valueOf(libraryMember.getMemberId()));
 		txtFirstName.setText(libraryMember.getFirstName());
 		txtLastName.setText(libraryMember.getLastName());
 		txtStreet.setText(libraryMember.getAddress().getStreet());
@@ -91,11 +109,24 @@ public class MemberController {
 		validation();
 		Address address = new Address(txtStreet.getText(), txtCity.getText(),
 				txtState.getText(), Integer.parseInt(txtZip.getText()));
-		LibraryMember member = new LibraryMember(txtFirstName.getText(),
+		LibraryMember member = new LibraryMember(memberId, txtFirstName.getText(),
 				txtLastName.getText(), txtPhone.getText(), address);
-		memberDAO.save(member);
+
+		if (FunctionType.ADD.equals(functionType)) {
+			memberDAO.save(member);
+		} else if (FunctionType.UPDATE.equals(functionType)) {
+			memberDAO.update(member);
+		}
 	}
 
+	public FunctionType getFunctionType() {
+		return functionType;
+	}
+
+	public void setFunctionType(FunctionType functionType) {
+		this.functionType = functionType;
+	}
+	
 	public int getMemberId() {
 		return memberId;
 	}
@@ -105,6 +136,7 @@ public class MemberController {
 	}
 
 	private boolean validation() {
+		//TODO: validation stuff
 		return false;
 	}
 

@@ -88,7 +88,7 @@ public class MemberListController {
 	}
 
 	private void openDetailMemberStage(int memberId) {
-		Main.showMemberStage(memberId);
+		Main.showMemberStage(FunctionType.UPDATE, memberId);
 	}
 
 	private void bindProperties() {
@@ -157,7 +157,7 @@ public class MemberListController {
 
 	@FXML
 	public void addMember() {
-		Main.showMemberStage();
+		Main.showMemberStage(FunctionType.ADD);
 	}
 
 	@FXML
