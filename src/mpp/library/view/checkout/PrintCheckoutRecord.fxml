@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="436.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mpp.library.controller.CheckoutController">
+<AnchorPane prefHeight="436.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mpp.library.controller.PrintCheckoutRecordController">
   <!-- TODO Add Nodes -->
   <children>
     <FlowPane hgap="0.0" layoutX="0.0" layoutY="0.0" minHeight="43.0" prefHeight="43.0" prefWidth="491.0" vgap="5.0">
@@ -28,7 +28,7 @@
     </FlowPane>
     <ScrollPane layoutX="14.0" layoutY="91.0" prefHeight="327.0" prefWidth="472.0">
       <content>
-        <TableView prefHeight="318.0" prefWidth="476.0">
+        <TableView fx:id="tableView" prefHeight="318.0" prefWidth="476.0">
           <columns>
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="98.0" text="ISBN/Issue No" />
             <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="147.0" text="Title" />
