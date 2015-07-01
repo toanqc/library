@@ -4,13 +4,17 @@ import java.util.List;
 
 import mpp.library.model.Periodical;
 
+/**
+ * @author Anil
+ *
+ */
 public interface PeriodicalDAO {
 
-	Periodical addCopy();
+	void addCopy(Periodical periodical, int copyNumber);
 
-	Periodical get();
+	Periodical get(String issueNumber, String title);
 
-	Periodical save();
+	void save(Periodical periodical);
 
 	List<Periodical> getPeriodicalList();
 

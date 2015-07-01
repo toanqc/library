@@ -11,7 +11,6 @@ public class Publication implements Serializable {
 	protected int maxCheckoutLength;
 	protected List<Copy> copies;
 
-	
 	public String getTitle() {
 		return title;
 	}

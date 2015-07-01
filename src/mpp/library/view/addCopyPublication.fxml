@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.PublicationController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.PublicationCopyController">
    <children>
       <GridPane prefHeight="31.0" prefWidth="600.0">
         <columnConstraints>
@@ -19,7 +20,7 @@
         </rowConstraints>
          <children>
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="203.0" text="Home" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="204.0" text="Add Publication" GridPane.columnIndex="1" />
+            <Button id="renderAddPublication" mnemonicParsing="false" onAction="#renderAddPublication" prefHeight="31.0" prefWidth="204.0" text="Add Publication" GridPane.columnIndex="1" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="205.0" text="Add copy of Publication" GridPane.columnIndex="2" />
          </children>
       </GridPane>
@@ -39,27 +40,28 @@
         </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="200.0" text="Publication Item" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <RadioButton mnemonicParsing="false" onAction="#showAddBookScreen" prefHeight="21.0" prefWidth="101.0" text="Book" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <RadioButton mnemonicParsing="false" onAction="#showAddBookScreen" prefHeight="21.0" prefWidth="101.0" selected="true" text="Book" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <toggleGroup>
-                  <ToggleGroup fx:id="publicationGroup" />
+                  <ToggleGroup fx:id="publicationCopyGroup" />
                </toggleGroup>
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" onAction="#showAddPeriodicalScreen" prefHeight="21.0" prefWidth="202.0" text="Periodical" toggleGroup="$publicationGroup" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
+            <RadioButton mnemonicParsing="false" onAction="#showAddPeriodicalScreen" prefHeight="21.0" prefWidth="202.0" text="Periodical" toggleGroup="$publicationCopyGroup" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
                <padding>
                   <Insets left="5.0" right="5.0" />
                </padding>
             </RadioButton>
          </children>
       </GridPane>
-      <GridPane id="bookGridPane" fx:id="bookGridPane" layoutX="6.0" layoutY="77.0" vgap="1.0" visible="false">
+      <GridPane id="bookGridPane" fx:id="bookCopyGridPane" layoutX="6.0" layoutY="77.0" vgap="1.0" visible="false">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.0" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="140.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -73,26 +75,28 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField promptText="Type ISBN Number and Search" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <TextField fx:id="bookCopyISBNNumber" promptText="Type ISBN Number and Search" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="200.0" text="ISBN Number" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="200.0" text="Author" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <Label alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="200.0" text="Title" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="200.0" text="Title" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <Label alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="200.0" text="Author" GridPane.columnSpan="2" GridPane.rowIndex="3" />
             <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="200.0" text="Maximum Checkout" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="203.0" text="Add Copy" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField fx:id="bookCopyTitle" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <TextField fx:id="bookCopyMaxCheckoutCount" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#addBookCopy" prefHeight="31.0" prefWidth="203.0" text="Add Copy" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="203.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="7" />
             <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="200.0" text="Copy Number" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <TextField fx:id="bookCopyNumber" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5" />
+            <TextField fx:id="bookCopyAuthor" prefHeight="31.0" prefWidth="211.0" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#searchBook" text="Search" GridPane.columnIndex="5" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <GridPane id="periodicalGridPane" fx:id="periodicalGridPane" layoutY="82.0" visible="false">
+      <GridPane id="periodicalGridPane" fx:id="periodicalCopyGridPane" layoutY="82.0">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="81.0" minWidth="10.0" prefWidth="32.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="10.0" prefWidth="140.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
@@ -105,18 +109,27 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <TextField fx:id="periodicalCopyIssueNumber" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="200.0" text="Issue Number" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="200.0" text="Title" GridPane.columnSpan="2" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" prefHeight="31.0" prefWidth="200.0" text="Maximum Checkout" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="203.0" text="Add Copy" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="periodicalCopyTitle" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <TextField fx:id="periodicalCopyMaxCheckoutCount" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#addPeriodicalCopy" prefHeight="31.0" prefWidth="203.0" text="Add Copy" GridPane.columnIndex="3" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="203.0" text="Cancel" GridPane.columnIndex="4" GridPane.rowIndex="6" />
             <Label alignment="CENTER_RIGHT" prefHeight="21.0" prefWidth="202.0" text="Copy Number" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <TextField fx:id="periodicalCopyNumber" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchPeriodical" text="Search">
+                     <HBox.margin>
+                        <Insets left="10.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </GridPane>
-      <Button layoutX="484.0" layoutY="124.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="102.0" text="Search" />
+      <Text fx:id="messageBox" layoutX="114.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MessageBox" visible="false" wrappingWidth="406.6708984375" />
    </children>
 </Pane>

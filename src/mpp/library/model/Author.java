@@ -34,4 +34,9 @@ public class Author extends Person {
 		this.books = books;
 	}
 
+	@Override
+	public String toString() {
+		return "Author [credentials=" + credentials + ", bio=" + bio + ", books=" + books + "]";
+	}
+
 }

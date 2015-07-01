@@ -4,11 +4,11 @@ import java.util.List;
 
 import mpp.library.model.Book;
 
-public interface BookDAO {
+public interface BookDAO extends BaseDAO<Book> {
 
-	Book addCopy();
+	void addCopy(Book book, int copyNumber);
 
-	Book get();
+	Book get(String isbn);
 
 	Book save();
 

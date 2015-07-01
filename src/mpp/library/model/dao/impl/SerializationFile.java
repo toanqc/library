@@ -1,7 +1,8 @@
 package mpp.library.model.dao.impl;
 
 public enum SerializationFile {
-	MEMBER("./storage/member.ser");
+	MEMBER("./storage/member.ser"), BOOK("./storage/book.ser"), PERIODICAL("./storage/periodical.ser"), COPY(
+			"./storage/copy.ser");
 
 	String fileName;
 
