@@ -1,18 +1,20 @@
 package mpp.library.controller;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import mpp.library.model.CheckoutRecord;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 
@@ -21,7 +23,7 @@ import mpp.library.model.dao.impl.CheckoutDAOFacade;
  * @author bpham4
  *
  */
-public class PrintCheckoutRecordController {
+public class PrintCheckoutRecordController implements Initializable {
 	
 	@FXML private TableView<MemberCheckoutRecord> tableView;
 	@FXML private TextField txtMemberID;
@@ -34,17 +36,14 @@ public class PrintCheckoutRecordController {
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
 	List<MemberCheckoutRecord> listCheckoutRecord;
 
-	@FXML public void initialize() {
-		bindProperties();
-	}
-	
+
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
 		if (listCheckoutRecord != null) {
 			StringBuilder sb = new StringBuilder();
 			sb.append("ISBN/IssueNo\t");
 			sb.append("Title\t");
-			sb.append("Type\t");
+			sb.append("Type\t\t");
 			sb.append("Checkout Date\t");
 			sb.append("Due Date\t");
 			System.out.println(sb.toString());
@@ -81,11 +80,16 @@ public class PrintCheckoutRecordController {
 	}
 	
 	private void bindProperties() {
-		ISBNTC.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
-		titleTC.setCellValueFactory(new PropertyValueFactory<>("title"));
-		typeTC.setCellValueFactory(new PropertyValueFactory<>("publicationType"));
-		chkoutDateTC.setCellValueFactory(new PropertyValueFactory<>("checkoutDate"));
-		dueDateTC.setCellValueFactory(new PropertyValueFactory<>("dueDate"));
-		ISBNTC.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
+		ISBNTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, String>("isbn"));
+		titleTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, String>("title"));
+		typeTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, String>("publicationType"));
+		chkoutDateTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, LocalDate>("checkoutDate"));
+		dueDateTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, LocalDate>("dueDate"));
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		// TODO Auto-generated method stub
+		bindProperties();
 	}
 }

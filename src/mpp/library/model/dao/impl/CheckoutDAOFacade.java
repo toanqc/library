@@ -54,9 +54,8 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 	}
 
 	@Override
-	public Copy copyIsAvailable(Publication pub) {
+	public Publication copyIsAvailable(Publication pub) {
 		// TODO Auto-generated method stub
-		List<Copy> listCopies = null;
 		if (pub instanceof Book) {
 			String ISBN = ((Book) pub).getISBN();
 			ObjectInputStream in = null;
@@ -75,9 +74,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 					}
 				}
 			}
-			if (book != null) {
-				listCopies = book.getCopies();
-			}
+			return book;
 		}
 		else if (pub instanceof Periodical) {
 			String title = ((Periodical) pub).getTitle();
@@ -98,17 +95,9 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 					}
 				}
 			}
-			if (periodical != null) {
-				listCopies = periodical.getCopies();
-			}
+			return periodical;
 		}
-		
-		if (listCopies == null || (listCopies != null && listCopies.isEmpty())) {
-			return null;
-		} else {
-			Copy copy = listCopies.get(listCopies.size() - 1);
-			return copy;
-		}
+		return null;
 	}
 
 	@Override
