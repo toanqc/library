@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -11,11 +12,13 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 import mpp.library.model.CheckoutRecord;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.view.Main;
 
 public class MemberListController {
 
@@ -69,6 +72,23 @@ public class MemberListController {
 	public void initialize() {
 		bindProperties();
 		buildData();
+		handleSelectedRow();
+	}
+
+	private void handleSelectedRow() {
+		memberTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+					openDetailMemberStage(memberTable.getSelectionModel()
+							.getSelectedItem().getMemberId());
+				}
+			}
+		});
+	}
+
+	private void openDetailMemberStage(int memberId) {
+		Main.showMemberStage(memberId);
 	}
 
 	private void bindProperties() {
@@ -137,6 +157,7 @@ public class MemberListController {
 
 	@FXML
 	public void addMember() {
+		Main.showMemberStage();
 	}
 
 	@FXML
@@ -152,5 +173,10 @@ public class MemberListController {
 			}
 			memberTable.setItems(libraryMemberList);
 		}
+	}
+
+	@FXML
+	public void test() {
+		System.out.println("test");
 	}
 }

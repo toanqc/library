@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import mpp.library.model.Address;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
+import mpp.library.model.dao.impl.MemberDAOImpl;
 import mpp.library.util.LibraryConstant;
 import mpp.library.view.FormValidation;
 
@@ -32,6 +33,8 @@ public class MemberController {
 	TextField txtZip;
 	@FXML
 	TextField txtPhone;
+
+	private int memberId;
 
 	private MemberDAO memberDAO;
 
@@ -61,6 +64,24 @@ public class MemberController {
 		txtPhone.getStyleClass().add(LibraryConstant.STYLE_ERROR);
 	}
 
+	public void loadData() {
+		if (memberId != 0) {
+			memberDAO = new MemberDAOImpl();
+			LibraryMember libraryMember = memberDAO.get(String.valueOf(memberId));
+			bindData(libraryMember);
+		}
+	}
+
+	private void bindData(LibraryMember libraryMember) {
+		txtFirstName.setText(libraryMember.getFirstName());
+		txtLastName.setText(libraryMember.getLastName());
+		txtStreet.setText(libraryMember.getAddress().getStreet());
+		txtCity.setText(libraryMember.getAddress().getCity());
+		txtState.setText(libraryMember.getAddress().getState());
+		txtZip.setText(String.valueOf(libraryMember.getAddress().getZip()));
+		txtPhone.setText(libraryMember.getPhone());
+	}
+
 	@FXML
 	public void returnHome() {
 	}
@@ -73,6 +94,14 @@ public class MemberController {
 		LibraryMember member = new LibraryMember(txtFirstName.getText(),
 				txtLastName.getText(), txtPhone.getText(), address);
 		memberDAO.save(member);
+	}
+
+	public int getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 
 	private boolean validation() {
