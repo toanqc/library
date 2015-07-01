@@ -8,7 +8,6 @@ import mpp.library.model.Address;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
-import mpp.library.util.LibraryConstant;
 import mpp.library.view.FormValidation;
 
 public class MemberController {
@@ -43,7 +42,6 @@ public class MemberController {
 	@FXML
 	public void initialize() {
 		initializeTextLimiter();
-		initializeStyleClass();
 	}
 
 	private void initializeTextLimiter() {
@@ -56,20 +54,10 @@ public class MemberController {
 		FormValidation.addLengthLimiter(txtPhone, 10);
 	}
 
-	private void initializeStyleClass() {
-		txtFirstName.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-		txtLastName.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-		txtStreet.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-		txtCity.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-		txtState.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-		txtZip.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-		txtPhone.getStyleClass().add(LibraryConstant.STYLE_ERROR);
-	}
-
 	public void transferData(FunctionType functionType, int memberId) {
 		this.functionType = functionType;
 		this.memberId = memberId;
-		
+
 		if (FunctionType.UPDATE.equals(functionType)) {
 			loadData();
 		} else if (FunctionType.ADD.equals(functionType)) {
@@ -106,16 +94,26 @@ public class MemberController {
 
 	@FXML
 	public void saveMember() {
-		validation();
+		if (!validation()) {
+			return;
+		}
 		Address address = new Address(txtStreet.getText(), txtCity.getText(),
 				txtState.getText(), Integer.parseInt(txtZip.getText()));
-		LibraryMember member = new LibraryMember(memberId, txtFirstName.getText(),
-				txtLastName.getText(), txtPhone.getText(), address);
+		LibraryMember member = new LibraryMember(memberId,
+				txtFirstName.getText(), txtLastName.getText(),
+				txtPhone.getText(), address);
 
 		if (FunctionType.ADD.equals(functionType)) {
 			memberDAO.save(member);
+			InformationDialog.showInformation(
+					"Member Manamgement",
+					"Library member was created, your id is: "
+							+ member.getMemberId());
 		} else if (FunctionType.UPDATE.equals(functionType)) {
 			memberDAO.update(member);
+			InformationDialog.showInformation("Member Manamgement",
+					"Member id " + member.getMemberId()
+							+ " was updated successfully");
 		}
 	}
 
@@ -126,7 +124,7 @@ public class MemberController {
 	public void setFunctionType(FunctionType functionType) {
 		this.functionType = functionType;
 	}
-	
+
 	public int getMemberId() {
 		return memberId;
 	}
@@ -136,8 +134,30 @@ public class MemberController {
 	}
 
 	private boolean validation() {
-		//TODO: validation stuff
-		return false;
+		if (FormValidation.isEmpty(txtFirstName)
+				|| FormValidation.isEmpty(txtLastName)
+				|| FormValidation.isEmpty(txtStreet)
+				|| FormValidation.isEmpty(txtCity)
+				|| FormValidation.isEmpty(txtState)
+				|| FormValidation.isEmpty(txtZip)
+				|| FormValidation.isEmpty(txtPhone)) {
+			ValidationDialog.showWarning("All fields are mandatory!");
+			return false;
+		}
+
+		if (!FormValidation.isNumberAndExactLength(txtZip, 5)) {
+			ValidationDialog
+					.showWarning("Zip code must be numeric with exactly 5 digits!");
+			return false;
+		}
+
+		if (!FormValidation.isNumberAndExactLength(txtPhone, 10)) {
+			ValidationDialog
+					.showWarning("Phone number must be numeric with exactly 10 digits!");
+			return false;
+		}
+
+		return true;
 	}
 
 	@FXML
