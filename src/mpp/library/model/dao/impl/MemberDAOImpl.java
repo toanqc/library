@@ -5,28 +5,43 @@ import java.util.List;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 
-public class MemberDAOImpl implements MemberDAO {
+public class MemberDAOImpl extends AbstractSerializationDAO<LibraryMember>
+		implements MemberDAO {
 
 	@Override
 	public void save(LibraryMember member) {
-		// TODO Auto-generated method stub
+		this.writeObject(SerializationFile.MEMBER.getValue(), member);
 	}
 
 	@Override
 	public LibraryMember get(String id) {
-		// TODO Auto-generated method stub
+		List<LibraryMember> memberList = getList();
+		for (LibraryMember libraryMember : memberList) {
+			if (id.equals(String.valueOf(libraryMember.getMemberId()))) {
+				return libraryMember;
+			}
+		}
+
 		return null;
 	}
 
 	@Override
 	public List<LibraryMember> getList() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getObjectList(SerializationFile.MEMBER.getValue());
 	}
 
 	@Override
 	public boolean update(LibraryMember member) {
-		// TODO Auto-generated method stub
+		List<LibraryMember> memberList = getList();
+		for (int i = 0; i < memberList.size(); i++) {
+			LibraryMember lm = memberList.get(i);
+			if (member.getMemberId() == lm.getMemberId()) {
+				memberList.set(i, member);
+				this.writeObjectList(SerializationFile.MEMBER.getValue(),
+						memberList);
+				return true;
+			}
+		}
 		return false;
 	}
 }
