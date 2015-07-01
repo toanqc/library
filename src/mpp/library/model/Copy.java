@@ -9,6 +9,7 @@ public class Copy implements Serializable {
 	private int copyNumber;
 	private Checkoutable checkoutable;
 	private boolean isAvailable;
+	private Publication publication;
 
 	public Copy(Checkoutable checkoutable, int copyNumber) {
 		this.setCheckoutable(checkoutable);
@@ -36,6 +37,10 @@ public class Copy implements Serializable {
 	
 	public boolean getAvailable() {
 		return this.isAvailable;
+	}
+	
+	public Publication getPublication() {
+		return this.publication;
 	}
 
 }

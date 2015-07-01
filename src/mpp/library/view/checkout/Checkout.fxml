@@ -74,12 +74,12 @@
         <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-    <Label fx:id="lblMessage" layoutX="143.0" layoutY="289.0" prefWidth="245.0" text="Member ID not found" textFill="RED">
+    <Label fx:id="lblMessage" alignment="CENTER" layoutX="133.0" layoutY="49.0" prefWidth="245.0" text="Member ID not found" textFill="RED" visible="false">
       <font>
-        <Font name="System Bold" size="16.0" />
+        <Font name="System Bold" size="14.0" />
       </font>
     </Label>
-    <GridPane fx:id="periodicalGridPane" hgap="15.0" layoutX="38.0" layoutY="314.0" prefWidth="393.0">
+    <GridPane fx:id="periodicalGridPane" hgap="15.0" layoutX="38.0" layoutY="314.0" prefWidth="393.0" visible="false">
       <children>
         <Label alignment="CENTER_RIGHT" minWidth="5.0" prefWidth="99.0" text="Title" GridPane.columnIndex="0" GridPane.rowIndex="0" />
         <TextField fx:id="txtTitle" prefWidth="308.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />

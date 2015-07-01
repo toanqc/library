@@ -10,7 +10,7 @@ public class TestDAO {
 
 	public static void main(String[] args) {
 		TestDAO testDAO = new TestDAO();
-		// testDAO.testSaveMember();
+		//testDAO.testSaveMember();
 		testDAO.testGetList();
 		// testDAO.testGet();
 		// testDAO.testUpdate();

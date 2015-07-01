@@ -1,6 +1,7 @@
 package mpp.library.model.dao.impl;
 
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,26 +38,25 @@ public abstract class AbstractSerializationDAO<T> {
 	}
 
 	public void writeObject(String fileName, T object, boolean isAppend) {
-		ObjectOutputStream out = null;
-		FileOutputStream fos = null;
+		createNewFile(fileName);
 
+		List<T> objectList = getObjectList(fileName);
+		if (objectList == null) {
+			objectList = new ArrayList<T>();
+		}
+		objectList.add(object);
+
+		ObjectOutputStream oos = null;
 		try {
-			if (!isAppend) {
-				fos = new FileOutputStream(fileName, false);
-				out = new ObjectOutputStream(fos);
-			} else {
-				fos = new FileOutputStream(fileName, true);
-				out = new AppendableObjectOutputStream(fos);
-			}
-			out.writeObject(object);
-			out.flush();
+			oos = new ObjectOutputStream(new FileOutputStream(fileName, false));
+			oos.writeObject(objectList);
+			oos.flush();
 		} catch (IOException i) {
 			i.printStackTrace();
 		} finally {
-			if (out != null && fos != null) {
+			if (oos != null) {
 				try {
-					out.close();
-					fos.close();
+					oos.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -65,37 +65,42 @@ public abstract class AbstractSerializationDAO<T> {
 		System.out.println("Serialized data is saved in /storage/" + fileName);
 	}
 
+	private void createNewFile(String fileName) {
+		File file = new File(fileName);
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<T> getObjectList(String fileName) {
-		List<T> memberList = new ArrayList<T>();
-		T tObject = null;
-		ObjectInputStream in = null;
-		FileInputStream fis = null;
+		ArrayList<T> objectList = null;
+		ObjectInputStream ois = null;
 		try {
-			fis = new FileInputStream(fileName);
-			in = new ObjectInputStream(fis);
-			Object object = in.readObject();
-			while (object != null) {
-				tObject = (T) object;
-				memberList.add(tObject);
-				object = in.readObject();
-			}
+			ois = new ObjectInputStream(new FileInputStream(fileName));
+			objectList = (ArrayList<T>) ois.readObject();
+			ois.close();
+
+			return objectList;
 		} catch (EOFException e) {
 			// do nothing
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
 		} finally {
-			if (in != null && fis != null) {
+			if (ois != null) {
 				try {
-					in.close();
-					fis.close();
+					ois.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		}
 
-		return memberList;
+		return objectList;
 	}
 
 	/**

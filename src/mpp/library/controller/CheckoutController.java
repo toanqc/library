@@ -1,8 +1,10 @@
 package mpp.library.controller;
 
-import java.awt.Label;
+import javafx.scene.control.Label;
 import java.time.LocalDate;
+import java.util.List;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -13,10 +15,16 @@ import mpp.library.model.CheckoutRecord;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
+import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 
+/**
+ * 
+ * @author bpham4
+ *
+ */
 public class CheckoutController {
 
 	@FXML
@@ -41,6 +49,8 @@ public class CheckoutController {
 	@FXML
 	private Label lblMessage;
 
+	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
+	
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
 		System.out.println("Goto MainScreen");
@@ -59,10 +69,11 @@ public class CheckoutController {
 		String memberId = txtMemberID.getText().trim();
 		String ISBN = txtISBN.getText().trim();
 		// check if memberID exist
-		CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
+		checkoutDAO = new CheckoutDAOFacade();
 		LibraryMember member = checkoutDAO.get(memberId);
 		if (member == null) {
 			lblMessage.setText("Member ID not found");
+			lblMessage.setVisible(true);
 		} else {
 			// check if ISBN exist and copy is available
 			Publication book = new Book(ISBN);
@@ -76,6 +87,7 @@ public class CheckoutController {
 				checkoutDAO.saveCheckoutRecord(ckRecord);
 			} else {
 				lblMessage.setText("The copy is not available");
+				lblMessage.setVisible(true);
 			}
 		}
 	}
@@ -90,6 +102,7 @@ public class CheckoutController {
 		LibraryMember member = checkoutDAO.get(memberId);
 		if (member == null) {
 			lblMessage.setText("Member ID not found");
+			lblMessage.setVisible(true);
 		} else {
 			// check if ISBN exist and copy is available
 			Publication periodical = new Periodical(title, issueNo);
@@ -103,6 +116,7 @@ public class CheckoutController {
 				checkoutDAO.saveCheckoutRecord(ckRecord);
 			} else {
 				lblMessage.setText("The copy is not available");
+				lblMessage.setVisible(true);
 			}
 		}
 	}
@@ -110,21 +124,16 @@ public class CheckoutController {
 	@FXML
 	protected void handleCancel(MouseEvent event) {
 		System.out.println("handle Cancel");
+		lblMessage.setVisible(false);
+		clear();
 	}
 
-	@FXML
-	protected void printCheckoutRecord(MouseEvent event) {
-		System.out.println("Print Check out Record");
-	}
-
-	@FXML
-	protected void search(MouseEvent event) {
-		System.out.println("Search Member ID");
-	}
+	
 
 	@FXML
 	protected void checkoutBook(MouseEvent event) {
 		if (rdBook.isSelected()) {
+			clear();
 			rdPeriodical.setSelected(false);
 			bookGridPane.setVisible(true);
 			periodicalGridPane.setVisible(false);
@@ -137,11 +146,19 @@ public class CheckoutController {
 	@FXML
 	protected void checkoutPeriodical(MouseEvent event) {
 		if (rdPeriodical.isSelected()) {
+			clear();
 			rdBook.setSelected(false);
 			bookGridPane.setVisible(false);
 			periodicalGridPane.setVisible(true);
 			mainGridPane.getChildren().remove(bookGridPane);
 			mainGridPane.add(periodicalGridPane, 0, 2, 2, 1);
 		}
+	}
+	
+	private void clear() {
+		txtMemberID.clear();
+		txtISBN.clear();
+		txtIssueNumber.clear();
+		txtTitle.clear();
 	}
 }

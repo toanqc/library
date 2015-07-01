@@ -17,6 +17,24 @@ public class FormValidation {
 		return false;
 	}
 
+	public static boolean isNumber(TextField textField) {
+		if (textField.getText() != null
+				&& textField.getText().matches("^[0-9]+")) {
+			return true;
+		}
+
+		return false;
+	}
+
+	public static boolean isNumberAndExactLength(TextField textField, int length) {
+		if (textField.getText() != null
+				&& textField.getText().matches("^[0-9]{" + length + "}$")) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public static void addLengthLimiter(TextField textField, int maxLength) {
 		textField.textProperty().addListener(new ChangeListener<String>() {
 			@Override

@@ -12,7 +12,7 @@ public class LibraryMember extends Person {
 			Address address) {
 		super(firstName, lastName, phone, address);
 		this.memberId = memberId;
-		this.checkoutRecord = new CheckoutRecord(this);
+		this.checkoutRecord = null;
 	}
 
 	public int getMemberId() {

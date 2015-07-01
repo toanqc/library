@@ -1,13 +1,16 @@
 package mpp.library.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import javafx.collections.ObservableList;
 
 public class CheckoutRecord implements Serializable {
 
 	private static final long serialVersionUID = -2464967253755304313L;
 
-	private List<CheckoutRecordEntry> checkoutRecordEntries;
+	private ObservableList<CheckoutRecordEntry> checkoutRecordEntries;
 	
 	private LibraryMember libraryMember;
 
@@ -23,11 +26,11 @@ public class CheckoutRecord implements Serializable {
 		return this.checkoutRecordEntries.remove(checkoutEntry);
 	}
 
-	public List<CheckoutRecordEntry> getCheckoutRecordEntries() {
+	public ObservableList<CheckoutRecordEntry> getCheckoutRecordEntries() {
 		return checkoutRecordEntries;
 	}
 
-	public void setCheckoutRecordEntries(List<CheckoutRecordEntry> checkoutRecordEntries) {
+	public void setCheckoutRecordEntries(ObservableList<CheckoutRecordEntry> checkoutRecordEntries) {
 		this.checkoutRecordEntries = checkoutRecordEntries;
 	}
 	
