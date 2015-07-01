@@ -7,10 +7,11 @@ public class Publication implements Serializable {
 
 	private static final long serialVersionUID = 3211163956723292734L;
 
-	private String title;
-	private int maxCheckoutLength;
-	private List<Copy> copies;
+	protected String title;
+	protected int maxCheckoutLength;
+	protected List<Copy> copies;
 
+	
 	public String getTitle() {
 		return title;
 	}

@@ -1,0 +1,8 @@
+.text-field.error {
+	-fx-border-color: red;
+	-fx-border-width: 1.0px;
+}
+
+.text-field.disable {  
+	-fx-background-color: #C0C0C0;
+}

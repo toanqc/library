@@ -1,5 +1,8 @@
 package mpp.library.model.dao;
 
-public interface AuthorDAO {
+import mpp.library.model.Author;
 
+public interface AuthorDAO extends BaseDAO<Author> {
+	
+	
 }

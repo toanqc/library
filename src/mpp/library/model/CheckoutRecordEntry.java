@@ -9,6 +9,14 @@ public class CheckoutRecordEntry implements Serializable {
 
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
+	private Copy copy;
+
+	public CheckoutRecordEntry(LocalDate checkoutDate, LocalDate dueDate,
+			Copy copy) {
+		this.checkoutDate = checkoutDate;
+		this.dueDate = dueDate;
+		this.copy = copy;
+	}
 
 	public LocalDate getCheckoutDate() {
 		return checkoutDate;
@@ -26,4 +34,11 @@ public class CheckoutRecordEntry implements Serializable {
 		this.dueDate = dueDate;
 	}
 
+	public Copy getCopy() {
+		return copy;
+	}
+
+	public void setCopy(Copy copy) {
+		this.copy = copy;
+	}
 }
