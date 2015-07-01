@@ -79,7 +79,6 @@ public abstract class AbstractSerializationDAO<T> {
 				tObject = (T) object;
 				memberList.add(tObject);
 				object = in.readObject();
-				System.out.println(object);
 			}
 		} catch (EOFException e) {
 			// do nothing

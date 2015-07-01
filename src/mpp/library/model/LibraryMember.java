@@ -1,5 +1,6 @@
 package mpp.library.model;
 
+
 public class LibraryMember extends Person {
 
 	private static final long serialVersionUID = 1373745594447872262L;
@@ -36,5 +37,4 @@ public class LibraryMember extends Person {
 	public String getFullName() {
 		return this.getFirstName() + " " + this.getLastName();
 	}
-
 }
