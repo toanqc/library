@@ -184,7 +184,6 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 					isbnOrIssueNo = ((Periodical) pub).getIssueNumber();
 					publicationType = PublicationType.PERIODICAL.getValue();
 				}
-				isbnOrIssueNo = "Bao Test";
 				MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbnOrIssueNo, title, publicationType, chkoutDate, dueDate);
 				listCheckoutRecord.add(memberChkoutRecord);
 			}

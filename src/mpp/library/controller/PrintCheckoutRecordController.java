@@ -30,8 +30,8 @@ public class PrintCheckoutRecordController implements Initializable {
 	@FXML private TableColumn<MemberCheckoutRecord, String> ISBNTC;
 	@FXML private TableColumn<MemberCheckoutRecord, String> titleTC;
 	@FXML private TableColumn<MemberCheckoutRecord, String> typeTC;
-	@FXML private TableColumn<MemberCheckoutRecord, LocalDate> chkoutDateTC;
-	@FXML private TableColumn<MemberCheckoutRecord, LocalDate> dueDateTC;
+	@FXML private TableColumn<MemberCheckoutRecord, String> chkoutDateTC;
+	@FXML private TableColumn<MemberCheckoutRecord, String> dueDateTC;
 	
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
 	List<MemberCheckoutRecord> listCheckoutRecord;
@@ -80,11 +80,11 @@ public class PrintCheckoutRecordController implements Initializable {
 	}
 	
 	private void bindProperties() {
-		ISBNTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, String>("isbn"));
-		titleTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, String>("title"));
-		typeTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, String>("publicationType"));
-		chkoutDateTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, LocalDate>("checkoutDate"));
-		dueDateTC.setCellValueFactory(new PropertyValueFactory<MemberCheckoutRecord, LocalDate>("dueDate"));
+		ISBNTC.setCellValueFactory(cellData -> cellData.getValue().issueNoProperty());
+		titleTC.setCellValueFactory(cellData -> cellData.getValue().titlePropery());
+		typeTC.setCellValueFactory(cellData -> cellData.getValue().typePropery());
+		chkoutDateTC.setCellValueFactory(cellData -> cellData.getValue().chkoutDatePropery());
+		dueDateTC.setCellValueFactory(cellData -> cellData.getValue().dueDatePropery());
 	}
 
 	@Override
