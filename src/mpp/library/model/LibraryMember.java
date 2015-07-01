@@ -32,5 +32,9 @@ public class LibraryMember extends Person {
 	public void setCheckoutRecord(CheckoutRecord checkoutRecord) {
 		this.checkoutRecord = checkoutRecord;
 	}
+	
+	public String getFullName() {
+		return this.getFirstName() + " " + this.getLastName();
+	}
 
 }

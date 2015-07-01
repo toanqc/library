@@ -8,6 +8,7 @@ public class Copy implements Serializable {
 
 	private int copyNumber;
 	private Checkoutable checkoutable;
+	private boolean isAvailable;
 
 	public Copy(Checkoutable checkoutable, int copyNumber) {
 		this.setCheckoutable(checkoutable);
@@ -27,6 +28,14 @@ public class Copy implements Serializable {
 
 	public void setCheckoutable(Checkoutable checkoutable) {
 		this.checkoutable = checkoutable;
+	}
+	
+	public void setAvailable(boolean isAvailable) {
+		this.isAvailable = isAvailable;
+	}
+	
+	public boolean getAvailable() {
+		return this.isAvailable;
 	}
 
 }

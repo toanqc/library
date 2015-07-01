@@ -9,7 +9,11 @@ public class Book extends Publication implements Checkoutable {
 	private String ISBN;
 	private List<Author> authorList;
 
-	public String getISBN() {
+	public Book(String ISBN) {
+		this.ISBN = ISBN;
+	}
+	
+		public String getISBN() {
 		return ISBN;
 	}
 

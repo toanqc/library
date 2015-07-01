@@ -6,6 +6,11 @@ public class Periodical extends Publication implements Checkoutable {
 
 	private String issueNumber;
 
+	public Periodical(String title, String issueNumber) {
+		this.title = title;
+		this.issueNumber = issueNumber;
+		
+	}
 	public String getIssueNumber() {
 		return issueNumber;
 	}
