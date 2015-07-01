@@ -4,18 +4,20 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CheckoutRecord implements Serializable {
 
 	private static final long serialVersionUID = -2464967253755304313L;
 
-	private ObservableList<CheckoutRecordEntry> checkoutRecordEntries;
+	private List<CheckoutRecordEntry> checkoutRecordEntries;
 	
 	private LibraryMember libraryMember;
 
 	public CheckoutRecord(LibraryMember member) {
 		this.libraryMember = member;
+		this.checkoutRecordEntries = new ArrayList();
 	}
 
 	public void addCheckoutEntry(CheckoutRecordEntry checkoutEntry) {
@@ -26,7 +28,7 @@ public class CheckoutRecord implements Serializable {
 		return this.checkoutRecordEntries.remove(checkoutEntry);
 	}
 
-	public ObservableList<CheckoutRecordEntry> getCheckoutRecordEntries() {
+	public List<CheckoutRecordEntry> getCheckoutRecordEntries() {
 		return checkoutRecordEntries;
 	}
 

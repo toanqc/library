@@ -3,6 +3,11 @@ package mpp.library.controller;
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 
+/**
+ * 
+ * @author Toan Quach
+ *
+ */
 @SuppressWarnings("deprecation")
 public class InformationDialog {
 

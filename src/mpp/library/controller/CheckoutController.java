@@ -79,14 +79,16 @@ public class CheckoutController {
 			Publication book = new Book(ISBN);
 			Copy copy = checkoutDAO.copyIsAvailable(book);
 			if (copy != null) {
-				CheckoutRecord ckRecord = new CheckoutRecord(member);
+				CheckoutRecord ckRecord = member.getCheckoutRecord();
 				LocalDate chkoutDate = LocalDate.now();
 				LocalDate dueDate = chkoutDate.plusDays(book.getMaxCheckoutLength());
 				CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
 				ckRecord.addCheckoutEntry(ckRecordEntry);
 				checkoutDAO.saveCheckoutRecord(ckRecord);
+				member.setCheckoutRecord(ckRecord);
+				checkoutDAO.save(member);
 			} else {
-				lblMessage.setText("The copy is not available");
+				lblMessage.setText("The book is not available");
 				lblMessage.setVisible(true);
 			}
 		}

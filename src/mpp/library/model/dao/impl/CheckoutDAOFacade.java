@@ -10,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecord;
 import mpp.library.model.CheckoutRecordEntry;
@@ -29,7 +27,7 @@ import mpp.library.model.dao.CheckoutDAO;
  * @Date 7/1/2015
  *
  */
-public class CheckoutDAOFacade implements CheckoutDAO {
+public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> implements CheckoutDAO {
 
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") + "\\storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
@@ -173,32 +171,32 @@ public class CheckoutDAOFacade implements CheckoutDAO {
 	}
 
 	@Override
-	public ObservableList<MemberCheckoutRecord> printCheckoutRecord(String memberId) {
+	public List<MemberCheckoutRecord> printCheckoutRecord(String memberId) {
 		// TODO Auto-generated method stub
-		ObservableList listCheckoutRecord = FXCollections.observableArrayList();
+		List<MemberCheckoutRecord> listCheckoutRecord = new ArrayList<MemberCheckoutRecord>();
 		LibraryMember member = get(memberId);
 		if (member != null) {
 			CheckoutRecord chkOutRecord = member.getCheckoutRecord();
-			ObservableList<CheckoutRecordEntry> listChkoutRecordEntries = chkOutRecord.getCheckoutRecordEntries();
+			List<CheckoutRecordEntry> listChkoutRecordEntries = chkOutRecord.getCheckoutRecordEntries();
 			for (int i = 0; i < listChkoutRecordEntries.size(); i++) {
 				CheckoutRecordEntry entry = listChkoutRecordEntries.get(i);
 				Copy copy = entry.getCopy();
 				LocalDate chkoutDate = entry.getCheckoutDate();
 				LocalDate dueDate = entry.getDueDate();
 				Publication pub = copy.getPublication();
-				String isbn = "";
-				String issueNo = "";
+				String isbnOrIssueNo = "";
 				String publicationType = "";
-				String title = pub.getTitle();
+				String title = "Test" ;//pub.getTitle();
 				if (pub instanceof Book) {
-					isbn = ((Book) pub).getISBN();
+					isbnOrIssueNo = ((Book) pub).getISBN();
 					publicationType = PublicationType.BOOK.getValue();
 				}
 				else if (pub instanceof Periodical) {
-					issueNo = ((Periodical) pub).getIssueNumber();
+					isbnOrIssueNo = ((Periodical) pub).getIssueNumber();
 					publicationType = PublicationType.PERIODICAL.getValue();
 				}
-				MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbn, issueNo, title, publicationType, chkoutDate, dueDate);
+				isbnOrIssueNo = "Bao Test";
+				MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbnOrIssueNo, title, publicationType, chkoutDate, dueDate);
 				listCheckoutRecord.add(memberChkoutRecord);
 			}
 		}

@@ -8,7 +8,7 @@ import mpp.library.util.LibraryConstant;
 public class FormValidation {
 
 	public static boolean isEmpty(TextField textField) {
-		if (textField.getText() == null || textField.getText().isEmpty()) {
+		if (textField.getText() == null || textField.getText().trim().isEmpty()) {
 			textField.getStyleClass().add(LibraryConstant.STYLE_ERROR);
 			return true;
 		}
@@ -19,7 +19,7 @@ public class FormValidation {
 
 	public static boolean isNumber(TextField textField) {
 		if (textField.getText() != null
-				&& textField.getText().matches("^[0-9]+")) {
+				&& textField.getText().trim().matches("^[0-9]+")) {
 			return true;
 		}
 
@@ -28,7 +28,8 @@ public class FormValidation {
 
 	public static boolean isNumberAndExactLength(TextField textField, int length) {
 		if (textField.getText() != null
-				&& textField.getText().matches("^[0-9]{" + length + "}$")) {
+				&& textField.getText().trim()
+						.matches("^[0-9]{" + length + "}$")) {
 			return true;
 		}
 
@@ -47,4 +48,24 @@ public class FormValidation {
 			}
 		});
 	}
+
+	public static void addNumbericLimiter(TextField textField) {
+		textField.lengthProperty().addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable,
+					Number oldValue, Number newValue) {
+
+				if (newValue.intValue() > oldValue.intValue()) {
+					char ch = textField.getText().charAt(oldValue.intValue());
+					// Check if the new character is the number or other's
+					if (!(ch >= '0' && ch <= '9')) {
+						// if it's not number then just setText to previous one
+						textField.setText(textField.getText().substring(0,
+								textField.getText().length() - 1));
+					}
+				}
+			}
+		});
+	}
+
 }

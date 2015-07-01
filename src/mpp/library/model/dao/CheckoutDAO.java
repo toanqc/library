@@ -21,5 +21,5 @@ public interface CheckoutDAO extends  BaseDAO<LibraryMember>{
 	
 	public void saveCheckoutRecord(CheckoutRecord ckRecord);
 	
-	public ObservableList<MemberCheckoutRecord> printCheckoutRecord(String memberId);
+	public List<MemberCheckoutRecord> printCheckoutRecord(String memberId);
 }

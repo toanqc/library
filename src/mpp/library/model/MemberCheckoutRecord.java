@@ -4,9 +4,7 @@ import java.time.LocalDate;
 
 public class MemberCheckoutRecord {
 
-	private String iSBN;
-
-	private String issueNo;
+	private String ISBN;
 
 	private String title;
 
@@ -16,23 +14,18 @@ public class MemberCheckoutRecord {
 
 	private LocalDate dueDate;
 
-	public MemberCheckoutRecord(String isbn, String issueNo, String title, String type, LocalDate chkoutDate, LocalDate dueDate) {
-		this.iSBN = isbn;
-		this.issueNo = issueNo;
+	public MemberCheckoutRecord(String isbn, String title, String type, LocalDate chkoutDate, LocalDate dueDate) {
+		this.ISBN = isbn;
 		this.title = title;
 		this.publicationType = type;
 		this.checkoutDate = chkoutDate;
 		this.dueDate = dueDate;
 	}
 	
-	public String getISBN() {
-		return this.iSBN;
+	public String getISBNOrIssueNo() {
+		return this.ISBN;
 	}
-	
-	public String getIssueNo() {
-		return this.issueNo;
-	}
-	
+		
 	public String getTitle() {
 		return this.title;
 	}
@@ -51,12 +44,7 @@ public class MemberCheckoutRecord {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		if (!this.iSBN.equals("")) {
-			sb.append(this.iSBN +"\t");
-		}
-		else {
-			sb.append(this.issueNo +"\t");
-		}
+		sb.append(this.ISBN +"\t");
 		sb.append(this.title +"\t");
 		sb.append(this.publicationType +"\t");
 		sb.append(this.checkoutDate +"\t");
