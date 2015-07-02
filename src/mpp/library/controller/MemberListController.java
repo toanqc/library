@@ -92,6 +92,7 @@ public class MemberListController implements ControlledScreen {
 	}
 
 	private void openDetailMemberStage(int memberId) {
+		myController.loadScreen(Screen.MEMBER, Screen.MEMBER_LIST.getValue());
 		MemberController memberController = (MemberController) ControlledScreen.controllerList
 				.get(Screen.MEMBER);
 		memberController.setFunctionType(FunctionType.UPDATE);
@@ -182,6 +183,7 @@ public class MemberListController implements ControlledScreen {
 
 	@FXML
 	public void addMember() {
+		myController.loadScreen(Screen.MEMBER, Screen.MEMBER.getValue());
 		MemberController memberController = (MemberController) ControlledScreen.controllerList
 				.get(Screen.MEMBER);
 		memberController.setFunctionType(FunctionType.ADD);

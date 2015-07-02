@@ -102,20 +102,24 @@ public class ScreenController extends StackPane implements ControlledScreen {
 
 	public boolean loadScreen(Screen screenName, String resource) {
 		try {
-			FXMLLoader myLoader = new FXMLLoader(getClass().getResource(
-					resource));
-			Parent loadScreen = (Parent) myLoader.load();
-			ControlledScreen myScreenControler = ((ControlledScreen) myLoader
-					.getController());
-			ControlledScreen.controllerList.put(screenName,
-					myLoader.getController());
-			myScreenControler.setScreenParent(this);
-			addScreen(screenName, loadScreen);
-			return true;
+			if (!screens.containsKey(screenName)) {
+				FXMLLoader myLoader = new FXMLLoader(getClass().getResource(
+						resource));
+				Parent loadScreen = (Parent) myLoader.load();
+				ControlledScreen myScreenControler = ((ControlledScreen) myLoader
+						.getController());
+				ControlledScreen.controllerList.put(screenName,
+						myLoader.getController());
+				myScreenControler.setScreenParent(this);
+				addScreen(screenName, loadScreen);
+				return true;
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;
 		}
+
+		return false;
 	}
 
 	@Override

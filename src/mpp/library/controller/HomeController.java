@@ -41,6 +41,8 @@ public class HomeController implements ControlledScreen {
 
 	@FXML
 	public void gotoMemberList() {
+		myController.loadScreen(Screen.MEMBER_LIST,
+				Screen.MEMBER_LIST.getValue());
 		myController.setScreen(Screen.MEMBER_LIST);
 		myController.setSize(Screen.MEMBER_LIST.getWidth(),
 				Screen.MEMBER_LIST.getHeight());

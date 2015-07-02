@@ -19,10 +19,6 @@ public class ScreenFramework extends Application {
 
 		ScreenController mainContainer = new ScreenController();
 		mainContainer.loadScreen(Screen.HOME, Screen.HOME.getValue());
-		mainContainer.loadScreen(Screen.MEMBER, Screen.MEMBER.getValue());
-		mainContainer.loadScreen(Screen.MEMBER_LIST,
-				Screen.MEMBER_LIST.getValue());
-
 		mainContainer.setScreen(Screen.HOME);
 		mainContainer.setPrimaryStage(primaryStage);
 
@@ -34,7 +30,6 @@ public class ScreenFramework extends Application {
 				.getResourceAsStream(LibraryConstant.BACKGROUND_IMAGE)),
 				BackgroundRepeat.ROUND, BackgroundRepeat.ROUND,
 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-		// then you set to your node
 		mainContainer.setBackground(new Background(myBI));
 
 		Scene scene = new Scene(root);
