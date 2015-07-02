@@ -24,14 +24,19 @@ import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.PeriodicalDAOImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.util.LibraryConstant;
+import mpp.library.view.FormValidation;
 
+/**
+ * @author Anil
+ *
+ */
 public class PublicationCopyController {
 
-	FXUtil fxUtil;
+	private FXUtil fxUtil;
 
-	BookDAO bookDao;
+	private BookDAO bookDao;
 
-	PeriodicalDAO periodicalDao;
+	private PeriodicalDAO periodicalDao;
 
 	@FXML
 	GridPane periodicalCopyGridPane;
@@ -163,8 +168,12 @@ public class PublicationCopyController {
 	@FXML
 	protected void addBookCopy(ActionEvent event) {
 		System.out.println("Adding Book Copy");
-		Book book = bookDao.get(bookCopyISBNNumber.getText().trim());
 
+		if (!validateBookCopy()) {
+			return;
+		}
+
+		Book book = bookDao.get(bookCopyISBNNumber.getText().trim());
 		if (book != null) {
 			bookDao.addCopy(book, Integer.valueOf(bookCopyNumber.getText().trim()));
 		}
@@ -178,15 +187,71 @@ public class PublicationCopyController {
 	protected void addPeriodicalCopy(ActionEvent event) {
 		System.out.println("Adding Periodical Copy");
 
+		if (!validatePeriodicalCopy()) {
+			return;
+		}
+
 		Periodical periodical = periodicalDao.get(periodicalCopyIssueNumber.getText().trim(),
 				periodicalCopyTitle.getText().trim());
-
 		if (periodical != null) {
 			periodicalDao.addCopy(periodical, Integer.valueOf(periodicalCopyNumber.getText().trim()));
 		}
 
 		messageBox.setText("Pediodical Copy successfully added");
 		messageBox.setVisible(true);
+	}
+
+	public void initialize() {
+		initializeTextLimiter();
+		initalizeNumericLimiter();
+	}
+
+	private void initalizeNumericLimiter() {
+		FormValidation.addNumbericLimiter(bookCopyMaxCheckoutCount);
+		FormValidation.addNumbericLimiter(periodicalCopyMaxCheckoutCount);
+		FormValidation.addNumbericLimiter(bookCopyNumber);
+		FormValidation.addNumbericLimiter(periodicalCopyNumber);
+	}
+
+	private void initializeTextLimiter() {
+		FormValidation.addLengthLimiter(bookCopyISBNNumber, 20);
+		FormValidation.addLengthLimiter(bookCopyAuthor, 100);
+		FormValidation.addLengthLimiter(bookCopyTitle, 50);
+		FormValidation.addLengthLimiter(periodicalCopyIssueNumber, 21);
+		FormValidation.addLengthLimiter(periodicalCopyTitle, 20);
+	}
+
+	private boolean validateBookCopy() {
+		if (FormValidation.isEmpty(bookCopyMaxCheckoutCount) || FormValidation.isEmpty(bookCopyNumber)
+				|| FormValidation.isEmpty(bookCopyISBNNumber) || FormValidation.isEmpty(bookCopyAuthor)
+				|| FormValidation.isEmpty(bookCopyTitle)) {
+			ValidationDialog.showWarning("All fields are mandatory!");
+			return false;
+		}
+
+		if (!FormValidation.isEnteredNumberGreaterThan(bookCopyMaxCheckoutCount, 21)) {
+			ValidationDialog.showWarning("Books cannot be checked out for more than " + 21 + " days.");
+			bookCopyMaxCheckoutCount.requestFocus();
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean validatePeriodicalCopy() {
+		if (FormValidation.isEmpty(periodicalCopyMaxCheckoutCount) || FormValidation.isEmpty(periodicalCopyNumber)
+				|| FormValidation.isEmpty(periodicalCopyIssueNumber) || FormValidation.isEmpty(periodicalCopyTitle)) {
+			ValidationDialog.showWarning("All fields are mandatory!");
+			return false;
+		}
+
+		if (!FormValidation.isEnteredNumberGreaterThan(periodicalCopyMaxCheckoutCount, 7)) {
+			ValidationDialog.showWarning("Periodicals cannot be checked out for more than " + 7 + " days.");
+			periodicalCopyMaxCheckoutCount.requestFocus();
+			return false;
+		}
+
+		return true;
 	}
 
 }

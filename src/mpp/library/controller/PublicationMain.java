@@ -10,7 +10,7 @@ import mpp.library.util.LibraryConstant;
 public class PublicationMain extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/mpp/library/view/member/memberList.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("/mpp/library/view/publication/addPublication.fxml"));
 		stage.setTitle("LM");
 		stage.setScene(new Scene(root, LibraryConstant.WINDOW_HEIGHT, LibraryConstant.WINDOW_WIDTH));
 		stage.show();
