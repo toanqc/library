@@ -99,4 +99,10 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		// TODO Auto-generated method stub
 		myController = screenPage;
 	}
+
+	@Override
+	public void repaint() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class CheckoutRecord implements Serializable {
@@ -18,7 +17,7 @@ public class CheckoutRecord implements Serializable {
 
 	public CheckoutRecord(LibraryMember member) {
 		this.libraryMember = member;
-		this.checkoutRecordEntries = new ArrayList();
+		this.checkoutRecordEntries = new ArrayList<CheckoutRecordEntry>();
 	}
 
 	public void addCheckoutEntry(CheckoutRecordEntry checkoutEntry) {
@@ -33,7 +32,8 @@ public class CheckoutRecord implements Serializable {
 		return checkoutRecordEntries;
 	}
 
-	public void setCheckoutRecordEntries(ObservableList<CheckoutRecordEntry> checkoutRecordEntries) {
+	public void setCheckoutRecordEntries(
+			ObservableList<CheckoutRecordEntry> checkoutRecordEntries) {
 		this.checkoutRecordEntries = checkoutRecordEntries;
 	}
 

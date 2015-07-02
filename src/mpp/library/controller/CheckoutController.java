@@ -1,13 +1,11 @@
 package mpp.library.controller;
 
-import javafx.scene.control.Label;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +15,6 @@ import mpp.library.model.CheckoutRecord;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
-import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
@@ -195,5 +192,11 @@ public class CheckoutController implements ControlledScreen {
 	public void setScreenParent(ScreenController screenPage) {
 		// TODO Auto-generated method stub
 		myController = screenPage;
+	}
+
+	@Override
+	public void repaint() {
+		// TODO Auto-generated method stub
+		
 	}
 }

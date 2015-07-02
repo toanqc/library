@@ -1,24 +1,21 @@
 package mpp.library.view.checkout;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import mpp.library.model.Address;
 import mpp.library.model.Book;
-import mpp.library.model.CheckoutRecord;
-import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.Periodical;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CopyDAOFacade;
 import mpp.library.model.dao.impl.PublicationDAOFacade;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 public class Main extends Application {
 
