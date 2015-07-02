@@ -2,54 +2,99 @@ package mpp.library.model;
 
 import java.time.LocalDate;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class MemberCheckoutRecord {
 
-	private String ISBN;
+	private final SimpleStringProperty issueNo = new SimpleStringProperty("");
+	private final SimpleStringProperty title = new SimpleStringProperty("");
+	private final SimpleStringProperty type = new SimpleStringProperty("");
+	private final SimpleStringProperty chkoutDate = new SimpleStringProperty("");
+	private final SimpleStringProperty dueDate = new SimpleStringProperty("");
 
-	private String title;
+	public MemberCheckoutRecord(String i, String t, String type, LocalDate outDate, LocalDate dueDate) {
+		// TODO Auto-generated constructor stub
+		setIssueNo(i);
+		setTitle(t);
+		setType(type);
+		setChkoutDate(outDate);
+		setDueDate(dueDate);
+	}
 
-	private String publicationType;
+	public void setIssueNo(String i) {
+		issueNo.set(i);
+	}
 
-	private LocalDate checkoutDate;
+	public String getIssueno() {
+		return this.issueNo.get();
+	}
 
-	private LocalDate dueDate;
+	public void setTitle(String t) {
+		this.title.set(t);
+	}
 
-	public MemberCheckoutRecord(String isbn, String title, String type, LocalDate chkoutDate, LocalDate dueDate) {
-		this.ISBN = isbn;
-		this.title = title;
-		this.publicationType = type;
-		this.checkoutDate = chkoutDate;
-		this.dueDate = dueDate;
+	public String getTitle() {
+		return this.title.get();
+	}
+
+	public void setType(String type) {
+		this.type.set(type);
+	}
+
+	public String getType() {
+		return this.type.get();
+	}
+
+	public void setChkoutDate(LocalDate outDate) {
+		this.chkoutDate.set(outDate.toString());
+	}
+
+	public String getChkoutDate() {
+		return this.chkoutDate.get();
+	}
+
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate.set(dueDate.toString());
+	}
+
+	public String getDueDate() {
+		return this.dueDate.get();
 	}
 	
-	public String getISBNOrIssueNo() {
-		return this.ISBN;
+	public StringProperty issueNoProperty() {
+		return this.issueNo;
 	}
-		
-	public String getTitle() {
+	
+	public StringProperty titlePropery() {
 		return this.title;
 	}
 	
-	public String getPublicationType() {
-		return this.publicationType;
+	public StringProperty typePropery() {
+		return this.type;
 	}
 	
-	public LocalDate getCheckoutDate() {
-		return this.checkoutDate;
+	public StringProperty chkoutDatePropery() {
+		return this.chkoutDate;
 	}
 	
-	public LocalDate getDueDate() {
+	public StringProperty dueDatePropery() {
 		return this.dueDate;
 	}
-	
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(this.ISBN +"\t");
-		sb.append(this.title +"\t");
-		sb.append(this.publicationType +"\t");
-		sb.append(this.checkoutDate +"\t");
-		sb.append(this.dueDate +"\t");
-		
+		sb.append(this.issueNo + "\t");
+		sb.append(this.title + "\t");
+		sb.append(this.getType());
+		if (this.getType() == PublicationType.BOOK.getValue()) {
+			sb.append("      \t");
+		} else {
+			sb.append("\t");
+		}
+		sb.append(this.getChkoutDate() + "\t");
+		sb.append(this.dueDate + "\t");
+
 		return sb.toString();
 	}
 

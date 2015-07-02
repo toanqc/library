@@ -1,7 +1,9 @@
 package mpp.library.controller;
 
 import javafx.scene.control.Label;
+
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -50,7 +52,7 @@ public class CheckoutController {
 	private Label lblMessage;
 
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
-	
+
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
 		System.out.println("Goto MainScreen");
@@ -77,16 +79,26 @@ public class CheckoutController {
 		} else {
 			// check if ISBN exist and copy is available
 			Publication book = new Book(ISBN);
-			Copy copy = checkoutDAO.copyIsAvailable(book);
-			if (copy != null) {
-				CheckoutRecord ckRecord = member.getCheckoutRecord();
-				LocalDate chkoutDate = LocalDate.now();
-				LocalDate dueDate = chkoutDate.plusDays(book.getMaxCheckoutLength());
-				CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
-				ckRecord.addCheckoutEntry(ckRecordEntry);
-				checkoutDAO.saveCheckoutRecord(ckRecord);
-				member.setCheckoutRecord(ckRecord);
-				checkoutDAO.save(member);
+			Publication publication = checkoutDAO.copyIsAvailable(book);
+			if (publication != null) {
+				List<Copy> listCopies = publication.getCopies();
+				if (listCopies != null) {
+					Copy copy = listCopies.get(listCopies.size() - 1);
+					CheckoutRecord ckRecord = member.getCheckoutRecord();
+					if (ckRecord == null) {
+						ckRecord = new CheckoutRecord(member);
+					}
+					LocalDate chkoutDate = LocalDate.now();
+					LocalDate dueDate = chkoutDate.plus(
+							publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
+					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
+							chkoutDate, dueDate, copy);
+					ckRecord.addCheckoutEntry(ckRecordEntry);
+					checkoutDAO.saveCheckoutRecord(ckRecord);
+					member.setCheckoutRecord(ckRecord);
+					checkoutDAO.save(member);
+				}
+
 			} else {
 				lblMessage.setText("The book is not available");
 				lblMessage.setVisible(true);
@@ -108,14 +120,25 @@ public class CheckoutController {
 		} else {
 			// check if ISBN exist and copy is available
 			Publication periodical = new Periodical(title, issueNo);
-			Copy copy = checkoutDAO.copyIsAvailable(periodical);
-			if (copy != null) {
-				CheckoutRecord ckRecord = new CheckoutRecord(member);
-				LocalDate chkoutDate = LocalDate.now();
-				LocalDate dueDate = chkoutDate.plusDays(periodical.getMaxCheckoutLength());
-				CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
-				ckRecord.addCheckoutEntry(ckRecordEntry);
-				checkoutDAO.saveCheckoutRecord(ckRecord);
+			Publication publication = checkoutDAO.copyIsAvailable(periodical);
+			if (publication != null) {
+				List<Copy> listCopies = publication.getCopies();
+				if (listCopies != null) {
+					CheckoutRecord ckRecord = member.getCheckoutRecord();
+					Copy copy = listCopies.get(listCopies.size() - 1);
+					if (ckRecord == null) {
+						ckRecord = new CheckoutRecord(member);
+					}
+					LocalDate chkoutDate = LocalDate.now();
+					LocalDate dueDate = chkoutDate.plus(
+							publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
+					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
+							chkoutDate, dueDate, copy);
+					ckRecord.addCheckoutEntry(ckRecordEntry);
+					checkoutDAO.saveCheckoutRecord(ckRecord);
+					member.setCheckoutRecord(ckRecord);
+					checkoutDAO.save(member);
+				}
 			} else {
 				lblMessage.setText("The copy is not available");
 				lblMessage.setVisible(true);
@@ -129,8 +152,6 @@ public class CheckoutController {
 		lblMessage.setVisible(false);
 		clear();
 	}
-
-	
 
 	@FXML
 	protected void checkoutBook(MouseEvent event) {
@@ -156,7 +177,7 @@ public class CheckoutController {
 			mainGridPane.add(periodicalGridPane, 0, 2, 2, 1);
 		}
 	}
-	
+
 	private void clear() {
 		txtMemberID.clear();
 		txtISBN.clear();
