@@ -19,7 +19,7 @@
           <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="203.0" text="Home" />
+            <Button mnemonicParsing="false" onAction="#returnHome" prefHeight="31.0" prefWidth="203.0" text="Home" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="204.0" text="Add Publication" GridPane.columnIndex="1" />
             <Button mnemonicParsing="false" onAction="#renderAddCopyPublication" prefHeight="31.0" prefWidth="205.0" text="Add copy of Publication" GridPane.columnIndex="2" />
          </children>

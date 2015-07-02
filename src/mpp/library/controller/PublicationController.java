@@ -1,22 +1,16 @@
 package mpp.library.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Copy;
@@ -26,14 +20,16 @@ import mpp.library.model.dao.PeriodicalDAO;
 import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.PeriodicalDAOImpl;
 import mpp.library.util.FXUtil;
-import mpp.library.util.LibraryConstant;
+import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
+import mpp.library.view.Screen;
+import mpp.library.view.ScreenController;
 
 /**
  * @author Anil
  *
  */
-public class PublicationController {
+public class PublicationController implements ControlledScreen {
 
 	private BookDAO bookDao;
 
@@ -73,6 +69,8 @@ public class PublicationController {
 
 	@FXML
 	Text messageBox;
+
+	ScreenController myController;
 
 	public PublicationController() {
 		bookDao = new BookDAOImpl();
@@ -115,7 +113,8 @@ public class PublicationController {
 			author = new Author();
 			String[] authorNames = string.split("\\s+");
 			author.setFirstName(authorNames[0]);
-			author.setLastName(authorNames[1]);
+			String lastName = authorNames.length > 0 ? authorNames[authorNames.length - 1] : "";
+			author.setLastName(lastName);
 			authors.add(author);
 		}
 
@@ -166,15 +165,13 @@ public class PublicationController {
 	@FXML
 	protected void renderAddCopyPublication(ActionEvent event) {
 		System.out.println("Render Add Copy Publication Scene");
-		Parent root = null;
-		try {
-			root = FXMLLoader.load(getClass().getResource("/mpp/library/view/publication/addCopyPublication.fxml"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Stage primaryStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-		primaryStage.setScene(new Scene(root, LibraryConstant.WINDOW_HEIGHT, LibraryConstant.WINDOW_WIDTH));
-		primaryStage.show();
+
+		myController.loadScreen(Screen.COPY_PUBLICATION, Screen.COPY_PUBLICATION.getValue());
+		myController.setScreen(Screen.COPY_PUBLICATION);
+		myController.setSize(Screen.COPY_PUBLICATION.getWidth(), Screen.COPY_PUBLICATION.getHeight());
+
+		fxUtil.clearTextFields(periodicalGridPane);
+		fxUtil.clearTextFields(bookGridPane);
 	}
 
 	public void initialize() {
@@ -204,8 +201,8 @@ public class PublicationController {
 			return false;
 		}
 
-		if (!FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
-			ValidationDialog.showWarning("Books cannot be checkedout more than " + 21 + " days.");
+		if (FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
+			ValidationDialog.showWarning("Books cannot be checked out for more than " + 21 + " days.");
 			bookMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -220,13 +217,29 @@ public class PublicationController {
 			return false;
 		}
 
-		if (!FormValidation.isEnteredNumberGreaterThan(periodicalMaxCheckoutCount, 7)) {
+		if (FormValidation.isEnteredNumberGreaterThan(periodicalMaxCheckoutCount, 7)) {
 			ValidationDialog.showWarning("Periodicals cannot be checkedout more than " + 7 + " days.");
 			periodicalMaxCheckoutCount.requestFocus();
 			return false;
 		}
 
 		return true;
+	}
+
+	@Override
+	public void setScreenParent(ScreenController screenParent) {
+		myController = screenParent;
+	}
+
+	@Override
+	public void repaint() {
+
+	}
+
+	@FXML
+	public void returnHome() {
+		myController.setScreen(Screen.HOME);
+		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 }
