@@ -6,36 +6,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@css/common.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.HomeController">
   <children>
-    <GridPane prefHeight="600.0" prefWidth="800.0" vgap="30.0">
+    <GridPane layoutY="91.0" prefHeight="419.0" prefWidth="800.0" vgap="30.0">
       <children>
-        <Button disable="true" mnemonicParsing="false" onAction="#openMemberListScreen" text="Member Management" GridPane.columnSpan="3" GridPane.halignment="CENTER" />
-        <Button disable="true" mnemonicParsing="false" text="Publication Management" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" />
-        <Button disable="true" mnemonicParsing="false" onMouseClicked="#gotoCheckout" text="Checkout" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <Button disable="true" mnemonicParsing="false" text="Publication Overdue" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <Button disable="true" mnemonicParsing="false" onMouseClicked="#gotoPrintCheckoutRecord" text="Print Checkout Record" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <ImageView fx:id="memberIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoMemberList" onMouseEntered="#addMemberEffect" onMouseExited="#removeMemberEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@icon/member.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <ImageView fx:id="publicationIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoPublication" onMouseEntered="#addPublicationEffect" onMouseExited="#removePublicationEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@icon/publication.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fx:id="checkoutIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoCheckout" onMouseEntered="#addCheckoutEffect" onMouseExited="#removeCheckoutEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <image>
                   <Image url="@icon/checkout.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="158.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fx:id="overdueIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoOverdue" onMouseEntered="#addOverdueEffect" onMouseExited="#removeOverdueEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <image>
                   <Image url="@icon/overdue.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="128.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <ImageView fx:id="printIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoPrintCheckoutRecord" onMouseEntered="#addPrintCheckoutEffect" onMouseExited="#removePrintCheckoutEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <image>
                   <Image url="@icon/print.png" />
                </image>
@@ -43,6 +38,11 @@
                   <Insets />
                </GridPane.margin>
             </ImageView>
+            <Label styleClass="title" text="Member Management" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label styleClass="title" text="Checkout" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Label styleClass="title" text="Publication Overdue" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Label styleClass="title" text="Print Checkout Record" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+            <Label styleClass="title" text="Publication Management" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,8 +53,10 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       </columnConstraints>
       <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" vgrow="NEVER" />
+            <RowConstraints minHeight="23.0" percentHeight="0.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="0.0" vgrow="NEVER" />
+            <RowConstraints vgrow="NEVER" />
       </rowConstraints>
     </GridPane>
   </children>

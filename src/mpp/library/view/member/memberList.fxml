@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.MemberListController">
+<AnchorPane stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.MemberListController">
    <children>
       <GridPane hgap="15.0" vgap="15.0">
         <columnConstraints>
@@ -24,7 +24,7 @@
          </padding>
          <children>
             <Button fx:id="btnHome" mnemonicParsing="false" onMouseClicked="#returnHome" text="Home" GridPane.halignment="LEFT" />
-            <Label text="All Library Member" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label styleClass="title" text="All Library Member" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="btnAdd" mnemonicParsing="false" onMouseClicked="#addMember" text="Add" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
             <TextField fx:id="txtSearch" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Button fx:id="btnSearch" mnemonicParsing="false" onMouseClicked="#searchMember" text="Search" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />

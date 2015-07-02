@@ -1,0 +1,16 @@
+.label.title {
+	-fx-font-family: Helvetica;
+	-fx-text-fill: blue;
+	-fx-font-weight: bold;
+	-fx-font-size: 15.0px;
+}
+
+.root {
+    -fx-background-image: url("https://www.google.com/images/srpr/logo3w.png");
+}
+
+#pane{
+   -fx-background-image: url("background.jpg");
+   -fx-background-repeat: stretch;   
+   -fx-background-position: center center;
+}
