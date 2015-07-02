@@ -1,6 +1,7 @@
 package mpp.library.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class CheckoutRecord implements Serializable {
 	private static final long serialVersionUID = -2464967253755304313L;
 
 	private List<CheckoutRecordEntry> checkoutRecordEntries;
-	
+
 	private LibraryMember libraryMember;
 
 	public CheckoutRecord(LibraryMember member) {
@@ -35,8 +36,22 @@ public class CheckoutRecord implements Serializable {
 	public void setCheckoutRecordEntries(ObservableList<CheckoutRecordEntry> checkoutRecordEntries) {
 		this.checkoutRecordEntries = checkoutRecordEntries;
 	}
-	
+
 	public LibraryMember getLibraryMember() {
 		return this.libraryMember;
+	}
+
+	public List<CheckoutRecordEntry> getOverdueCheckoutRecordEntries() {
+		List<CheckoutRecordEntry> crEntries = new ArrayList<>();
+
+		if (checkoutRecordEntries != null && !checkoutRecordEntries.isEmpty()) {
+
+			for (CheckoutRecordEntry checkoutRecordEntry : checkoutRecordEntries) {
+				if (checkoutRecordEntry.getDueDate().compareTo(LocalDate.now()) < 1) {
+					crEntries.add(checkoutRecordEntry);
+				}
+			}
+		}
+		return crEntries;
 	}
 }

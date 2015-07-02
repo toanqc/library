@@ -23,6 +23,7 @@ import mpp.library.model.dao.PeriodicalDAO;
 import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.PeriodicalDAOImpl;
 import mpp.library.util.FXUtil;
+import mpp.library.util.LibraryConstant;
 
 public class PublicationCopyController {
 
@@ -97,12 +98,12 @@ public class PublicationCopyController {
 		System.out.println("Render Add Publication Scene");
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/mpp/library/view/addPublication.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/mpp/library/view/publication/addPublication.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Stage primaryStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root, LibraryConstant.WINDOW_HEIGHT, LibraryConstant.WINDOW_WIDTH));
 		primaryStage.show();
 	}
 
@@ -167,7 +168,7 @@ public class PublicationCopyController {
 		if (book != null) {
 			bookDao.addCopy(book, Integer.valueOf(bookCopyNumber.getText().trim()));
 		}
-		
+
 		messageBox.setText("Book Copy successfully added");
 		messageBox.setVisible(true);
 
@@ -183,7 +184,7 @@ public class PublicationCopyController {
 		if (periodical != null) {
 			periodicalDao.addCopy(periodical, Integer.valueOf(periodicalCopyNumber.getText().trim()));
 		}
-		
+
 		messageBox.setText("Pediodical Copy successfully added");
 		messageBox.setVisible(true);
 	}

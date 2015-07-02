@@ -26,6 +26,7 @@ import mpp.library.model.dao.PeriodicalDAO;
 import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.PeriodicalDAOImpl;
 import mpp.library.util.FXUtil;
+import mpp.library.util.LibraryConstant;
 
 public class PublicationController {
 
@@ -154,12 +155,12 @@ public class PublicationController {
 		System.out.println("Render Add Copy Publication Scene");
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("/mpp/library/view/addCopyPublication.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/mpp/library/view/publication/addCopyPublication.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Stage primaryStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root, LibraryConstant.WINDOW_HEIGHT, LibraryConstant.WINDOW_WIDTH));
 		primaryStage.show();
 	}
 
