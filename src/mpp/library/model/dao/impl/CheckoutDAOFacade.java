@@ -1,9 +1,5 @@
 package mpp.library.model.dao.impl;
 
-import java.io.ObjectInputStream;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,46 +34,18 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	}
 
 	@Override
-	public Publication copyIsAvailable(Publication pub) {
+	public Publication getPublication(Publication pub) {
 		// TODO Auto-generated method stub
 		if (pub instanceof Book) {
 			String ISBN = ((Book) pub).getISBN();
-			ObjectInputStream in = null;
-			Book book = null;
-			try {
-				Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, ISBN);
-				in = new ObjectInputStream(Files.newInputStream(path));
-				book = (Book) in.readObject();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-					} catch (Exception e) {
-					}
-				}
-			}
+			BookDAOImpl bookDAO = new BookDAOImpl();
+			Book book = bookDAO.get(ISBN);
 			return book;
 		} else if (pub instanceof Periodical) {
 			String title = ((Periodical) pub).getTitle();
 			String issueNo = ((Periodical) pub).getIssueNumber();
-			ObjectInputStream in = null;
-			Periodical periodical = null;
-			try {
-				Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, title + "_" + issueNo);
-				in = new ObjectInputStream(Files.newInputStream(path));
-				periodical = (Periodical) in.readObject();
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-					} catch (Exception e) {
-					}
-				}
-			}
+			PeriodicalDAOImpl PeriodicalDAO = new PeriodicalDAOImpl();
+			Periodical periodical = PeriodicalDAO.get(issueNo, title);
 			return periodical;
 		}
 		return null;

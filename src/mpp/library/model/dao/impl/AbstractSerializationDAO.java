@@ -70,7 +70,7 @@ public abstract class AbstractSerializationDAO<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> getObjectList(String fileName) {
 		createNewFile(fileName);
-		ArrayList<T> objectList = null;
+		ArrayList<T> objectList = new ArrayList<T>();
 		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(fileName));

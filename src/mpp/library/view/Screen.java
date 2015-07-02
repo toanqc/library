@@ -6,7 +6,7 @@ public enum Screen {
 	MEMBER("member/member.fxml", 500, 400),
 	PUBLICATION("publication/addPublication.fxml",  800, 600),
 	COPY_PUBLICATION("publication/addCopyPublication.fxml",  800, 600),
-	CHECKOUT("checkout/Checkout.fxml", 520, 420),
+	CHECKOUT("checkout/Checkout.fxml", 570, 420),
 	PUBLICATION_OVERDUE("publication/publicationOverdue.fxml", 800, 600),
 	PRINT_CHECKOUT_RECORD("checkout/PrintCheckoutRecord.fxml", 630, 530);
 

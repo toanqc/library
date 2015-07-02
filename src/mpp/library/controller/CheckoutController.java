@@ -25,6 +25,7 @@ import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
+import mpp.library.model.dao.impl.CopyDAOFacade;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -62,6 +63,8 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	private Button btnCheckout;
 
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
+	private CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
+	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
 
 	private ScreenController myController;
 
@@ -96,7 +99,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		} else {
 			// check if ISBN exist and copy is available
 			Publication book = new Book(ISBN);
-			Publication publication = checkoutDAO.copyIsAvailable(book);
+			Publication publication = checkoutDAO.getPublication(book);
 			if (publication != null) {
 				List<Copy> listCopies = publication.getCopies();
 				if (listCopies != null) {
@@ -110,10 +113,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 					if (copy != null) {
 						CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
 						CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-						// read the file CheckoutRecord and then append the new
-						// record into the file
-						CheckoutRecord currentRecord = chkoutRecordDAOFacade
-								.getCheckoutRecord(memberId);
+						CheckoutRecord currentRecord = member.getCheckoutRecord();
 						LocalDate chkoutDate = LocalDate.now();
 						LocalDate dueDate = chkoutDate.plus(
 								publication.getMaxCheckoutLength(),
@@ -152,7 +152,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		} else {
 			// check if ISBN exist and copy is available
 			Publication periodical = new Periodical(title, issueNo);
-			Publication publication = checkoutDAO.copyIsAvailable(periodical);
+			Publication publication = checkoutDAO.getPublication(periodical);
 			if (publication != null) {
 				List<Copy> listCopies = publication.getCopies();
 				if (listCopies != null) {
@@ -164,13 +164,9 @@ public class CheckoutController implements ControlledScreen, Initializable {
 						}
 					}
 					if (copy != null) {
-						CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
-						CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-						// read the file CheckoutRecord and then append the new
-						// record into the file
-						CheckoutRecord currentRecord = chkoutRecordDAOFacade
-								.getCheckoutRecord(memberId);
-
+						chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
+						chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
+						CheckoutRecord currentRecord = member.getCheckoutRecord();
 						LocalDate chkoutDate = LocalDate.now();
 						LocalDate dueDate = chkoutDate.plus(
 								publication.getMaxCheckoutLength(),

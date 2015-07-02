@@ -14,7 +14,7 @@ import mpp.library.model.Publication;
 
 public interface CheckoutDAO extends  BaseDAO<LibraryMember>{
 
-	public Publication copyIsAvailable(Publication pub);
+	public Publication getPublication(Publication pub);
 	
 	LibraryMember get(String memberId) ;
 
