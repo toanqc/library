@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import mpp.library.controller.ValidationDialog;
 
 public class FXUtil {
 
@@ -15,5 +16,10 @@ public class FXUtil {
 				textField.clear();
 			}
 		}
+	}
+
+	public void createDialogAndRequestFocus(String message, TextField textField) {
+		ValidationDialog.showWarning(message);
+		textField.requestFocus();
 	}
 }

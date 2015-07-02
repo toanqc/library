@@ -101,7 +101,14 @@ public class PublicationController implements ControlledScreen {
 			return;
 		}
 
-		Book book = new Book(bookISBNNumber.getText());
+		Book book = bookDao.get(bookISBNNumber.getText());
+		if (book != null) {
+			fxUtil.createDialogAndRequestFocus("The entered book with provided ISBN already exists in the system.",
+					bookISBNNumber);
+			return;
+		}
+
+		book = new Book(bookISBNNumber.getText());
 		book.setTitle(bookTitle.getText());
 		book.setMaxCheckoutLength(7);
 
@@ -137,8 +144,15 @@ public class PublicationController implements ControlledScreen {
 		if (!validatePeriodical()) {
 			return;
 		}
+		
+		Periodical periodical = periodicalDao.get(periodicalTitle.getText(), periodicalIssueNumber.getText());
+		if (periodical != null) {
+			fxUtil.createDialogAndRequestFocus("The entered periodical with provided title and issue number already exists in the system.",
+					bookISBNNumber);
+			return;
+		}
 
-		Periodical periodical = new Periodical(periodicalTitle.getText(), periodicalTitle.getText());
+		periodical = new Periodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		periodical.setMaxCheckoutLength(Integer.valueOf(periodicalMaxCheckoutCount.getText()));
 
 		Copy copy = new Copy(periodical, 1);
