@@ -20,9 +20,12 @@ import mpp.library.model.CheckoutRecord;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.view.ControlledScreen;
+import mpp.library.view.ScreenController;
+import mpp.library.view.Screen;
 import mpp.library.view.member.Main;
 
-public class MemberListController {
+public class MemberListController implements ControlledScreen {
 
 	@FXML
 	Button btnHome;
@@ -159,11 +162,14 @@ public class MemberListController {
 
 	@FXML
 	public void returnHome() {
+		myController.setScreen(Screen.HOME);
 	}
 
 	@FXML
 	public void addMember() {
-		Main.showMemberStage(FunctionType.ADD);
+		myController.setScreen(Screen.MEMBER);
+		myController.setSize(Screen.MEMBER.getWidth(),
+				Screen.MEMBER.getHeight());
 	}
 
 	@FXML
@@ -181,8 +187,10 @@ public class MemberListController {
 		}
 	}
 
-	@FXML
-	public void test() {
-		System.out.println("test");
+	ScreenController myController;
+
+	@Override
+	public void setScreenParent(ScreenController screenParent) {
+		myController = screenParent;
 	}
 }

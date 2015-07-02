@@ -8,9 +8,12 @@ import mpp.library.model.Address;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
+import mpp.library.view.ScreenController;
+import mpp.library.view.Screen;
 
-public class MemberController {
+public class MemberController implements ControlledScreen {
 
 	@FXML
 	Button btnHome;
@@ -170,6 +173,7 @@ public class MemberController {
 
 	@FXML
 	public void handleCancel() {
+		myController.setScreen(Screen.MEMBER_LIST);
 	}
 
 	@FXML
@@ -205,5 +209,12 @@ public class MemberController {
 	@FXML
 	public boolean onPhoneChanged() {
 		return FormValidation.isEmpty(txtPhone);
+	}
+
+	ScreenController myController;
+
+	@Override
+	public void setScreenParent(ScreenController screenParent) {
+		myController = screenParent;
 	}
 }
