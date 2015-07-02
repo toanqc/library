@@ -36,4 +36,10 @@ public class HomeController implements ControlledScreen {
 		myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
 		myController.setSize(Screen.PRINT_CHECKOUT_RECORD.getWidth(), Screen.PRINT_CHECKOUT_RECORD.getHeight());
 	}
+
+	@Override
+	public void repaint() {
+		throw new UnsupportedOperationException(
+				"Repaint method not need for home screen");
+	}
 }

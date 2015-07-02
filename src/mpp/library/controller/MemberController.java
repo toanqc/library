@@ -10,8 +10,8 @@ import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
-import mpp.library.view.ScreenController;
 import mpp.library.view.Screen;
+import mpp.library.view.ScreenController;
 
 public class MemberController implements ControlledScreen {
 
@@ -43,9 +43,33 @@ public class MemberController implements ControlledScreen {
 	private MemberDAO memberDAO;
 
 	@FXML
-	public void initialize() {
+	private void initialize() {
 		initializeTextLimiter();
 		initalizeNumericLimiter();
+		builData();
+	}
+
+	public void repaint() {
+		clearTextField();
+		builData();
+	}
+
+	private void builData() {
+		if (FunctionType.UPDATE.equals(functionType)) {
+			loadData();
+		} else if (FunctionType.ADD.equals(functionType)) {
+			setGenerateMemberId();
+		}
+	}
+
+	private void clearTextField() {
+		txtFirstName.clear();
+		txtLastName.clear();
+		txtStreet.clear();
+		txtCity.clear();
+		txtState.clear();
+		txtZip.clear();
+		txtPhone.clear();
 	}
 
 	private void initalizeNumericLimiter() {
@@ -61,17 +85,6 @@ public class MemberController implements ControlledScreen {
 		FormValidation.addLengthLimiter(txtState, 20);
 		FormValidation.addLengthLimiter(txtZip, 5);
 		FormValidation.addLengthLimiter(txtPhone, 10);
-	}
-
-	public void transferData(FunctionType functionType, int memberId) {
-		this.functionType = functionType;
-		this.memberId = memberId;
-
-		if (FunctionType.UPDATE.equals(functionType)) {
-			loadData();
-		} else if (FunctionType.ADD.equals(functionType)) {
-			setGenerateMemberId();
-		}
 	}
 
 	private void setGenerateMemberId() {
@@ -99,6 +112,8 @@ public class MemberController implements ControlledScreen {
 
 	@FXML
 	public void returnHome() {
+		myController.setScreen(Screen.HOME);
+		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 	@FXML
@@ -124,6 +139,12 @@ public class MemberController implements ControlledScreen {
 					"Member id " + member.getMemberId()
 							+ " was updated successfully");
 		}
+		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
+				.get(Screen.MEMBER_LIST);
+		myController.setScreen(Screen.MEMBER_LIST);
+		myController.setSize(Screen.MEMBER_LIST.getWidth(),
+				Screen.MEMBER_LIST.getHeight());
+		memberListController.repaint();
 	}
 
 	public FunctionType getFunctionType() {
@@ -174,6 +195,8 @@ public class MemberController implements ControlledScreen {
 	@FXML
 	public void handleCancel() {
 		myController.setScreen(Screen.MEMBER_LIST);
+		myController.setSize(Screen.MEMBER_LIST.getWidth(),
+				Screen.MEMBER_LIST.getHeight());
 	}
 
 	@FXML

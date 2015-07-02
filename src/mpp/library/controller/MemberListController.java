@@ -21,9 +21,8 @@ import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
 import mpp.library.view.ControlledScreen;
-import mpp.library.view.ScreenController;
 import mpp.library.view.Screen;
-import mpp.library.view.member.Main;
+import mpp.library.view.ScreenController;
 
 public class MemberListController implements ControlledScreen {
 
@@ -74,7 +73,7 @@ public class MemberListController implements ControlledScreen {
 	private MemberDAO memberDAO = null;
 
 	@FXML
-	public void initialize() {
+	private void initialize() {
 		bindProperties();
 		buildData();
 		handleSelectedRow();
@@ -93,7 +92,14 @@ public class MemberListController implements ControlledScreen {
 	}
 
 	private void openDetailMemberStage(int memberId) {
-		Main.showMemberStage(FunctionType.UPDATE, memberId);
+		MemberController memberController = (MemberController) ControlledScreen.controllerList
+				.get(Screen.MEMBER);
+		memberController.setFunctionType(FunctionType.UPDATE);
+		memberController.setMemberId(memberId);
+		myController.setScreen(Screen.MEMBER);
+		myController.setSize(Screen.MEMBER.getWidth(),
+				Screen.MEMBER.getHeight());
+		memberController.repaint();
 	}
 
 	private void bindProperties() {
@@ -149,6 +155,14 @@ public class MemberListController implements ControlledScreen {
 						"checkoutRecord"));
 	}
 
+	/**
+	 * Repaint the layout
+	 */
+	public void repaint() {
+		txtSearch.clear();
+		buildData();
+	}
+
 	private void buildData() {
 		memberDAO = new MemberDAOImpl();
 		libraryMemberList = FXCollections.observableArrayList();
@@ -163,13 +177,18 @@ public class MemberListController implements ControlledScreen {
 	@FXML
 	public void returnHome() {
 		myController.setScreen(Screen.HOME);
+		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 	@FXML
 	public void addMember() {
+		MemberController memberController = (MemberController) ControlledScreen.controllerList
+				.get(Screen.MEMBER);
+		memberController.setFunctionType(FunctionType.ADD);
 		myController.setScreen(Screen.MEMBER);
 		myController.setSize(Screen.MEMBER.getWidth(),
 				Screen.MEMBER.getHeight());
+		memberController.repaint();
 	}
 
 	@FXML

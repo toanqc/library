@@ -23,6 +23,7 @@ public class ScreenFramework extends Application {
 
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
+		mainContainer.getChildren();
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.show();
