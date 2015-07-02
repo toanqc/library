@@ -27,14 +27,19 @@ import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.PeriodicalDAOImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.util.LibraryConstant;
+import mpp.library.view.FormValidation;
 
+/**
+ * @author Anil
+ *
+ */
 public class PublicationController {
 
-	BookDAO bookDao;
+	private BookDAO bookDao;
 
-	PeriodicalDAO periodicalDao;
+	private PeriodicalDAO periodicalDao;
 
-	FXUtil fxUtil;
+	private FXUtil fxUtil;
 
 	@FXML
 	GridPane periodicalGridPane;
@@ -94,6 +99,10 @@ public class PublicationController {
 	protected void saveBook(MouseEvent event) {
 		System.out.println("Saving Book");
 
+		if (!validateBook()) {
+			return;
+		}
+
 		Book book = new Book(bookISBNNumber.getText());
 		book.setTitle(bookTitle.getText());
 		book.setMaxCheckoutLength(7);
@@ -125,6 +134,10 @@ public class PublicationController {
 	@FXML
 	protected void savePeriodical(MouseEvent event) {
 		System.out.println("Saving Periodical...");
+
+		if (!validatePeriodical()) {
+			return;
+		}
 
 		Periodical periodical = new Periodical(periodicalTitle.getText(), periodicalTitle.getText());
 		periodical.setMaxCheckoutLength(Integer.valueOf(periodicalMaxCheckoutCount.getText()));
@@ -162,6 +175,58 @@ public class PublicationController {
 		Stage primaryStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 		primaryStage.setScene(new Scene(root, LibraryConstant.WINDOW_HEIGHT, LibraryConstant.WINDOW_WIDTH));
 		primaryStage.show();
+	}
+
+	public void initialize() {
+		initializeTextLimiter();
+		initalizeNumericLimiter();
+	}
+
+	private void initalizeNumericLimiter() {
+		FormValidation.addNumbericLimiter(bookMaxCheckoutCount);
+		FormValidation.addNumbericLimiter(periodicalMaxCheckoutCount);
+	}
+
+	private void initializeTextLimiter() {
+		FormValidation.addLengthLimiter(bookISBNNumber, 20);
+		FormValidation.addLengthLimiter(bookAuthor, 100);
+		FormValidation.addLengthLimiter(bookTitle, 50);
+		FormValidation.addLengthLimiter(bookMaxCheckoutCount, 21);
+		FormValidation.addLengthLimiter(periodicalIssueNumber, 20);
+		FormValidation.addLengthLimiter(periodicalTitle, 5);
+		FormValidation.addLengthLimiter(periodicalMaxCheckoutCount, 7);
+	}
+
+	private boolean validateBook() {
+		if (FormValidation.isEmpty(bookISBNNumber) || FormValidation.isEmpty(bookAuthor)
+				|| FormValidation.isEmpty(bookTitle) || FormValidation.isEmpty(bookMaxCheckoutCount)) {
+			ValidationDialog.showWarning("All fields are mandatory!");
+			return false;
+		}
+
+		if (!FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
+			ValidationDialog.showWarning("Books cannot be checkedout more than " + 21 + " days.");
+			bookMaxCheckoutCount.requestFocus();
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean validatePeriodical() {
+		if (FormValidation.isEmpty(periodicalIssueNumber) || FormValidation.isEmpty(periodicalTitle)
+				|| FormValidation.isEmpty(periodicalMaxCheckoutCount)) {
+			ValidationDialog.showWarning("All fields are mandatory!");
+			return false;
+		}
+
+		if (!FormValidation.isEnteredNumberGreaterThan(periodicalMaxCheckoutCount, 7)) {
+			ValidationDialog.showWarning("Periodicals cannot be checkedout more than " + 7 + " days.");
+			periodicalMaxCheckoutCount.requestFocus();
+			return false;
+		}
+
+		return true;
 	}
 
 }
