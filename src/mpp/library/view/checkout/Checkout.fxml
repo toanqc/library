@@ -7,17 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" minHeight="254.0" prefHeight="418.0" prefWidth="484.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mpp.library.controller.CheckoutController">
+<AnchorPane fx:id="anchorPane" minHeight="254.0" prefHeight="418.0" prefWidth="556.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mpp.library.controller.CheckoutController">
   <!-- TODO Add Nodes -->
   <children>
-    <FlowPane hgap="0.0" layoutX="14.0" layoutY="-3.0" minHeight="36.0" prefHeight="36.0" prefWidth="470.0" vgap="10.0">
+    <FlowPane alignment="CENTER" hgap="0.0" minHeight="36.0" prefHeight="36.0" prefWidth="519.0" vgap="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
       <children>
         <Button blendMode="SRC_OVER" cache="false" cacheHint="DEFAULT" mnemonicParsing="false" onMouseClicked="#gotoMainScreen" prefHeight="30.0" prefWidth="150.0" text="Home" textFill="BLACK" textOverrun="CLIP">
           <font>
             <Font name="System Bold" size="12.0" fx:id="x3" />
           </font>
         </Button>
-        <Button defaultButton="true" font="$x3" mnemonicParsing="false" onMouseClicked="#proceedCheckout" prefHeight="30.0" prefWidth="150.0" text="Checkout">
+        <Button fx:id="btnCheckout" defaultButton="true" font="$x3" mnemonicParsing="false" onMouseClicked="#proceedCheckout" prefHeight="30.0" prefWidth="150.0" text="Checkout">
           <FlowPane.margin>
             <Insets fx:id="x1" />
           </FlowPane.margin>
@@ -28,15 +28,19 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </padding>
     </FlowPane>
-        <Label fx:id="lblMessage" alignment="CENTER" layoutX="133.0" layoutY="49.0" prefWidth="245.0" text="Member ID not found" textFill="RED" visible="false">
+    <Label fx:id="lblMessage" alignment="CENTER" layoutX="24.0" layoutY="49.0" prefWidth="446.0" text="Member ID not found" textFill="RED" visible="false">
       <font>
         <Font name="System Bold" size="14.0" />
       </font>
     </Label>
-    <GridPane fx:id="mainGridPane" layoutX="24.0" layoutY="76.0" prefHeight="281.0" prefWidth="446.0" vgap="0.0">
+    <GridPane fx:id="mainGridPane" layoutX="24.0" layoutY="76.0" prefHeight="281.0" prefWidth="509.0" vgap="0.0">
       <children>
-        <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Checkout Item" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x1" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
-                <FlowPane prefHeight="30.000099999997474" prefWidth="337.0000999999975" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Checkout Item" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+          <GridPane.margin>
+            <Insets right="10.0" fx:id="x4" />
+          </GridPane.margin>
+        </Label>
+        <FlowPane prefHeight="30.000099999997474" prefWidth="337.0000999999975" GridPane.columnIndex="1" GridPane.rowIndex="0">
           <children>
             <RadioButton fx:id="rdBook" mnemonicParsing="false" onMouseClicked="#checkoutBook" prefWidth="76.0" selected="true" text="Book">
               <FlowPane.margin>
@@ -48,21 +52,21 @@
           <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
           </padding>
-        </FlowPane>     
-              <Label alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="85.0" text="Member ID" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-        <TextField fx:id="txtMemberID" prefWidth="318.0001220703125" GridPane.columnIndex="1" GridPane.rowIndex="1" >
-        	<GridPane.margin>
-        		<Insets left="10.0" right="10.0"/>
-        	</GridPane.margin>
+        </FlowPane>
+        <Label alignment="CENTER_RIGHT" prefHeight="19.0" prefWidth="85.0" text="Member ID" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x4" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+        <TextField fx:id="txtMemberID" prefWidth="318.0001220703125" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <GridPane.margin>
+            <Insets left="10.0" right="10.0" fx:id="x2" />
+          </GridPane.margin>
         </TextField>
-                <GridPane fx:id="bookGridPane" alignment="TOP_CENTER" prefHeight="60.0" prefWidth="446.0" vgap="0.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="1">
+        <GridPane fx:id="bookGridPane" alignment="TOP_CENTER" prefHeight="60.0" prefWidth="446.0" vgap="0.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="1">
           <children>
             <TextField fx:id="txtISBN" prefWidth="327.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
               <GridPane.margin>
                 <Insets left="10.0" right="10.0" fx:id="x2" />
               </GridPane.margin>
             </TextField>
-            <Label alignment="CENTER_RIGHT" prefWidth="85.00009999999747" text="ISBN Number" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
+            <Label alignment="CENTER_RIGHT" prefWidth="85.00009999999747" text="ISBN Number" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.margin="$x4" GridPane.rowIndex="0" GridPane.valignment="CENTER" />
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="97.0" />
@@ -72,11 +76,10 @@
             <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
-           
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="98.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="346.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="222.0" minWidth="10.0" prefWidth="142.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="373.0" minWidth="10.0" prefWidth="367.0" />
       </columnConstraints>
       <rowConstraints>
         <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -84,20 +87,19 @@
         <RowConstraints maxHeight="101.0" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>
-
-    <GridPane fx:id="periodicalGridPane" hgap="15.0" layoutX="38.0" layoutY="314.0" prefWidth="393.0" visible="false">
+    <GridPane fx:id="periodicalGridPane" hgap="15.0" layoutX="38.0" layoutY="314.0" prefWidth="485.0" visible="false">
       <children>
-        <Label alignment="CENTER_RIGHT" minWidth="5.0" prefWidth="99.0" text="Title" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label alignment="CENTER_RIGHT" minWidth="5.0" prefWidth="99.0" text="Title" GridPane.columnIndex="0" GridPane.margin="$x4" GridPane.rowIndex="0" />
         <TextField fx:id="txtTitle" prefWidth="308.0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Label alignment="CENTER_RIGHT" prefWidth="99.0" text="Issue Number" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <Label alignment="CENTER_RIGHT" prefWidth="99.0" text="Issue Number" GridPane.columnIndex="0" GridPane.margin="$x4" GridPane.rowIndex="1" />
         <TextField fx:id="txtIssueNumber" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="93.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="336.0" minWidth="10.0" prefWidth="329.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="211.0" minWidth="10.0" prefWidth="126.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="356.0" minWidth="10.0" prefWidth="334.0" />
       </columnConstraints>
       <padding>
-        <Insets right="10.0" />
+        <Insets right="10.0" fx:id="x4" />
       </padding>
       <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

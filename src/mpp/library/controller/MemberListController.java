@@ -2,21 +2,20 @@ package mpp.library.controller;
 
 import java.util.List;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import mpp.library.model.CheckoutRecord;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
@@ -66,7 +65,7 @@ public class MemberListController implements ControlledScreen {
 	TableColumn<LibraryMember, String> phone;
 
 	@FXML
-	TableColumn<LibraryMember, CheckoutRecord> checkoutRecord;
+	TableColumn<LibraryMember, String> checkoutRecord;
 
 	private ObservableList<LibraryMember> libraryMemberList;
 
@@ -74,25 +73,73 @@ public class MemberListController implements ControlledScreen {
 
 	@FXML
 	private void initialize() {
+		handleSelectedRow();
 		bindProperties();
 		buildData();
-		handleSelectedRow();
 	}
 
 	private void handleSelectedRow() {
-		memberTable.setOnMousePressed(new EventHandler<MouseEvent>() {
+		memberId.setCellFactory(new Callback<TableColumn<LibraryMember, Integer>, TableCell<LibraryMember, Integer>>() {
+			@SuppressWarnings("unchecked")
 			@Override
-			public void handle(MouseEvent event) {
-				if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-					openDetailMemberStage(memberTable.getSelectionModel()
-							.getSelectedItem().getMemberId());
-				}
+			public TableCell<LibraryMember, Integer> call(
+					TableColumn<LibraryMember, Integer> param) {
+				TableCell<LibraryMember, Integer> cell = new TableCell<LibraryMember, Integer>() {
+					@Override
+					protected void updateItem(Integer item, boolean empty) {
+						super.updateItem(item, empty);
+						setText((item == null || empty) ? null : item
+								.toString());
+						setGraphic(null);
+					}
+				};
+				cell.setOnMouseClicked(event -> {
+					if (event.getClickCount() == 2) {
+						LibraryMember member = (LibraryMember) memberTable
+								.getItems()
+								.get(((TableCell<LibraryMember, Integer>) event
+										.getSource()).getIndex());
+						System.out.println("person" + member.getMemberId());
+						openDetailMemberStage(member.getMemberId());
+					}
+				});
+
+				return cell;
 			}
 		});
+
+		checkoutRecord
+				.setCellFactory(new Callback<TableColumn<LibraryMember, String>, TableCell<LibraryMember, String>>() {
+					@SuppressWarnings("unchecked")
+					@Override
+					public TableCell<LibraryMember, String> call(
+							TableColumn<LibraryMember, String> param) {
+						TableCell<LibraryMember, String> cell = new TableCell<LibraryMember, String>() {
+							@Override
+							protected void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								setText((item == null || empty) ? null : item
+										.toString());
+								setGraphic(null);
+							}
+						};
+						cell.setOnMouseClicked(event -> {
+							if (event.getClickCount() == 2) {
+								LibraryMember member = (LibraryMember) memberTable
+										.getItems()
+										.get(((TableCell<LibraryMember, String>) event
+												.getSource()).getIndex());
+								//TODO: need to transfer to print checkout record screen
+							}
+						});
+
+						return cell;
+					}
+				});
 	}
 
 	private void openDetailMemberStage(int memberId) {
-		myController.loadScreen(Screen.MEMBER, Screen.MEMBER_LIST.getValue());
+		myController.loadScreen(Screen.MEMBER, Screen.MEMBER.getValue());
 		MemberController memberController = (MemberController) ControlledScreen.controllerList
 				.get(Screen.MEMBER);
 		memberController.setFunctionType(FunctionType.UPDATE);
@@ -152,8 +199,8 @@ public class MemberListController implements ControlledScreen {
 				"phone"));
 
 		checkoutRecord
-				.setCellValueFactory(new PropertyValueFactory<LibraryMember, CheckoutRecord>(
-						"checkoutRecord"));
+				.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(
+						"..."));
 	}
 
 	/**
