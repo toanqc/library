@@ -1,7 +1,6 @@
 package mpp.library.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,17 +12,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
+import mpp.library.view.ControlledScreen;
+import mpp.library.view.Screen;
+import mpp.library.view.ScreenController;
 
 /**
  * 
  * @author bpham4
  *
  */
-public class PrintCheckoutRecordController implements Initializable {
+public class PrintCheckoutRecordController implements Initializable, ControlledScreen {
 	
 	@FXML private TableView<MemberCheckoutRecord> tableView;
 	@FXML private TextField txtMemberID;
@@ -36,6 +37,7 @@ public class PrintCheckoutRecordController implements Initializable {
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
 	List<MemberCheckoutRecord> listCheckoutRecord;
 
+	ScreenController myController;
 
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
@@ -56,18 +58,17 @@ public class PrintCheckoutRecordController implements Initializable {
 
 	@FXML
 	protected void search(MouseEvent event) {
-		System.out.println("Search Member ID");
 		search();
 	}
 	
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
-		System.out.println("Goto MainScreen");
+		myController.setScreen(Screen.HOME);
+		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 	
 	@FXML
 	protected void onEnter(ActionEvent event) {
-		System.out.println("On Enter");
 		search();
 	}
 	
@@ -91,5 +92,11 @@ public class PrintCheckoutRecordController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		bindProperties();
+	}
+
+	@Override
+	public void setScreenParent(ScreenController screenPage) {
+		// TODO Auto-generated method stub
+		myController = screenPage;
 	}
 }

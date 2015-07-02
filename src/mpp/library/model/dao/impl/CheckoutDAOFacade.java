@@ -27,7 +27,7 @@ import mpp.library.model.dao.CheckoutDAO;
  * @Date 7/1/2015
  *
  */
-public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> implements CheckoutDAO {
+public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>implements CheckoutDAO {
 
 	public static final String OUTPUT_DIR = System.getProperty("user.dir") + "\\storage";
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
@@ -42,13 +42,14 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
 			out = new ObjectOutputStream(Files.newOutputStream(path));
 			out.writeObject(member);
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if(out != null) {
+			if (out != null) {
 				try {
 					out.close();
-				} catch(Exception e) {}
+				} catch (Exception e) {
+				}
 			}
 		}
 	}
@@ -75,8 +76,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 				}
 			}
 			return book;
-		}
-		else if (pub instanceof Periodical) {
+		} else if (pub instanceof Periodical) {
 			String title = ((Periodical) pub).getTitle();
 			String issueNo = ((Periodical) pub).getIssueNumber();
 			ObjectInputStream in = null;
@@ -129,17 +129,18 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
 			out = new ObjectOutputStream(Files.newOutputStream(path));
 			out.writeObject(ckRecordEntry);
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if(out != null) {
+			if (out != null) {
 				try {
 					out.close();
-				} catch(Exception e) {}
+				} catch (Exception e) {
+				}
 			}
 		}
 	}
-	
+
 	@Override
 	public void saveCheckoutRecord(CheckoutRecord ckRecord) {
 		ObjectOutputStream out = null;
@@ -148,13 +149,14 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
 			out = new ObjectOutputStream(Files.newOutputStream(path));
 			out.writeObject(ckRecord);
-		} catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if(out != null) {
+			if (out != null) {
 				try {
 					out.close();
-				} catch(Exception e) {}
+				} catch (Exception e) {
+				}
 			}
 		}
 	}
@@ -166,29 +168,31 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember> i
 		LibraryMember member = get(memberId);
 		if (member != null) {
 			CheckoutRecord chkOutRecord = member.getCheckoutRecord();
-			List<CheckoutRecordEntry> listChkoutRecordEntries = chkOutRecord.getCheckoutRecordEntries();
-			for (int i = 0; i < listChkoutRecordEntries.size(); i++) {
-				CheckoutRecordEntry entry = listChkoutRecordEntries.get(i);
-				Copy copy = entry.getCopy();
-				LocalDate chkoutDate = entry.getCheckoutDate();
-				LocalDate dueDate = entry.getDueDate();
-				Publication pub = copy.getPublication();
-				String isbnOrIssueNo = "";
-				String publicationType = "";
-				String title = "Test" ;//pub.getTitle();
-				if (pub instanceof Book) {
-					isbnOrIssueNo = ((Book) pub).getISBN();
-					publicationType = PublicationType.BOOK.getValue();
+			if (chkOutRecord != null) {
+				List<CheckoutRecordEntry> listChkoutRecordEntries = chkOutRecord.getCheckoutRecordEntries();
+				for (int i = 0; i < listChkoutRecordEntries.size(); i++) {
+					CheckoutRecordEntry entry = listChkoutRecordEntries.get(i);
+					Copy copy = entry.getCopy();
+					LocalDate chkoutDate = entry.getCheckoutDate();
+					LocalDate dueDate = entry.getDueDate();
+					Publication pub = copy.getPublication();
+					String isbnOrIssueNo = "";
+					String publicationType = "";
+					String title = "Test";// pub.getTitle();
+					if (pub instanceof Book) {
+						isbnOrIssueNo = ((Book) pub).getISBN();
+						publicationType = PublicationType.BOOK.getValue();
+					} else if (pub instanceof Periodical) {
+						isbnOrIssueNo = ((Periodical) pub).getIssueNumber();
+						publicationType = PublicationType.PERIODICAL.getValue();
+					}
+					MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbnOrIssueNo, title,
+							publicationType, chkoutDate, dueDate);
+					listCheckoutRecord.add(memberChkoutRecord);
 				}
-				else if (pub instanceof Periodical) {
-					isbnOrIssueNo = ((Periodical) pub).getIssueNumber();
-					publicationType = PublicationType.PERIODICAL.getValue();
-				}
-				MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbnOrIssueNo, title, publicationType, chkoutDate, dueDate);
-				listCheckoutRecord.add(memberChkoutRecord);
 			}
 		}
 		return listCheckoutRecord;
 	}
-	
+
 }

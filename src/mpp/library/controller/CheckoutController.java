@@ -21,13 +21,16 @@ import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
+import mpp.library.view.ControlledScreen;
+import mpp.library.view.Screen;
+import mpp.library.view.ScreenController;
 
 /**
  * 
  * @author bpham4
  *
  */
-public class CheckoutController {
+public class CheckoutController implements ControlledScreen {
 
 	@FXML
 	private GridPane mainGridPane;
@@ -52,10 +55,13 @@ public class CheckoutController {
 	private Label lblMessage;
 
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
+	
+	private ScreenController myController;
 
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
-		System.out.println("Goto MainScreen");
+		myController.setScreen(Screen.HOME);
+		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 	@FXML
@@ -148,7 +154,6 @@ public class CheckoutController {
 
 	@FXML
 	protected void handleCancel(MouseEvent event) {
-		System.out.println("handle Cancel");
 		lblMessage.setVisible(false);
 		clear();
 	}
@@ -183,5 +188,12 @@ public class CheckoutController {
 		txtISBN.clear();
 		txtIssueNumber.clear();
 		txtTitle.clear();
+	}
+
+	
+	@Override
+	public void setScreenParent(ScreenController screenPage) {
+		// TODO Auto-generated method stub
+		myController = screenPage;
 	}
 }

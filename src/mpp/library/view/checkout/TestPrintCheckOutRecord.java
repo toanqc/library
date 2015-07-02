@@ -24,7 +24,7 @@ public class TestPrintCheckOutRecord extends Application{
 //		Parent root = FXMLLoader.load(getClass().getResource("Checkout.fxml"));
 		Parent root = FXMLLoader.load(getClass().getResource("PrintCheckoutRecord.fxml"));
 		primaryStage.setTitle("Checkout");
-		primaryStage.setScene(new Scene(root, 750, 500));
+		primaryStage.setScene(new Scene(root, 550, 450));
 //		initData();
 		primaryStage.show();
 		primaryStage.setResizable(false);
