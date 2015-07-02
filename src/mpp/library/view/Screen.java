@@ -5,9 +5,9 @@ public enum Screen {
 	MEMBER_LIST("member/memberList.fxml", 800, 600),
 	MEMBER("member/member.fxml", 500, 400),
 	PUBLICATION("",  0, 0),
-	CHECKOUT("checkout/Checkout.fxml", 520, 420),
+	CHECKOUT("checkout/Checkout.fxml", 570, 420),
 	PUBLICATION_OVERDUE("", 0, 0),
-	PRINT_CHECKOUT_RECORD("checkout/PrintCheckoutRecord.fxml", 630, 530);
+	PRINT_CHECKOUT_RECORD("checkout/PrintCheckoutRecord.fxml", 650, 530);
 
 	String fxmlFile;
 	int height;

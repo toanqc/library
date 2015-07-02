@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -16,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.view.ControlledScreen;
+import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
@@ -33,6 +35,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	@FXML private TableColumn<MemberCheckoutRecord, String> typeTC;
 	@FXML private TableColumn<MemberCheckoutRecord, String> chkoutDateTC;
 	@FXML private TableColumn<MemberCheckoutRecord, String> dueDateTC;
+	@FXML private Label lblMessage;
 	
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
 	List<MemberCheckoutRecord> listCheckoutRecord;
@@ -58,7 +61,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 
 	@FXML
 	protected void search(MouseEvent event) {
-		search();
+		if (validateData()) {
+			lblMessage.setText("");
+			lblMessage.setVisible(false);
+			search();
+		}
 	}
 	
 	@FXML
@@ -69,7 +76,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	
 	@FXML
 	protected void onEnter(ActionEvent event) {
-		search();
+		if (validateData()) {
+			lblMessage.setText("");
+			lblMessage.setVisible(false);
+			search();
+		}
 	}
 	
 	private void search() {
@@ -104,5 +115,19 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	public void repaint() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private boolean validateData() {
+		if (FormValidation.isEmpty(txtMemberID)) {
+			lblMessage.setText("Member ID must not be non-empty");
+			lblMessage.setVisible(true);
+			return false;
+		}
+		else if (!FormValidation.isNumber(txtMemberID)) {
+			lblMessage.setText("Member ID must be numeric");
+			lblMessage.setVisible(true);
+			return false;
+		}
+		return true;
 	}
 }
