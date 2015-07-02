@@ -1,13 +1,18 @@
 package mpp.library.controller;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import mpp.library.model.Book;
@@ -19,6 +24,7 @@ import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.view.ControlledScreen;
+import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
@@ -27,7 +33,7 @@ import mpp.library.view.ScreenController;
  * @author bpham4
  *
  */
-public class CheckoutController implements ControlledScreen {
+public class CheckoutController implements ControlledScreen, Initializable {
 
 	@FXML
 	private GridPane mainGridPane;
@@ -50,9 +56,11 @@ public class CheckoutController implements ControlledScreen {
 	private TextField txtTitle;
 	@FXML
 	private Label lblMessage;
+	@FXML
+	private Button btnCheckout;
 
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
-	
+
 	private ScreenController myController;
 
 	@FXML
@@ -63,9 +71,13 @@ public class CheckoutController implements ControlledScreen {
 
 	@FXML
 	protected void proceedCheckout(MouseEvent event) {
-		if (rdBook.isSelected()) {
+		if (rdBook.isSelected() && validateData()) {
+			lblMessage.setVisible(false);
+			lblMessage.setText("");
 			checkoutBook();
-		} else if (rdPeriodical.isSelected()) {
+		} else if (rdPeriodical.isSelected() && validateData()) {
+			lblMessage.setVisible(false);
+			lblMessage.setText("");
 			checkoutPeriodical();
 		}
 	}
@@ -92,8 +104,9 @@ public class CheckoutController implements ControlledScreen {
 						ckRecord = new CheckoutRecord(member);
 					}
 					LocalDate chkoutDate = LocalDate.now();
-					LocalDate dueDate = chkoutDate.plus(
-							publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
+					LocalDate dueDate = chkoutDate
+							.plus(publication.getMaxCheckoutLength(),
+									ChronoUnit.DAYS);
 					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
 							chkoutDate, dueDate, copy);
 					ckRecord.addCheckoutEntry(ckRecordEntry);
@@ -133,8 +146,9 @@ public class CheckoutController implements ControlledScreen {
 						ckRecord = new CheckoutRecord(member);
 					}
 					LocalDate chkoutDate = LocalDate.now();
-					LocalDate dueDate = chkoutDate.plus(
-							publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
+					LocalDate dueDate = chkoutDate
+							.plus(publication.getMaxCheckoutLength(),
+									ChronoUnit.DAYS);
 					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
 							chkoutDate, dueDate, copy);
 					ckRecord.addCheckoutEntry(ckRecordEntry);
@@ -185,9 +199,10 @@ public class CheckoutController implements ControlledScreen {
 		txtISBN.clear();
 		txtIssueNumber.clear();
 		txtTitle.clear();
+		lblMessage.setText("");
+		lblMessage.setVisible(false);
 	}
 
-	
 	@Override
 	public void setScreenParent(ScreenController screenPage) {
 		// TODO Auto-generated method stub
@@ -197,6 +212,44 @@ public class CheckoutController implements ControlledScreen {
 	@Override
 	public void repaint() {
 		// TODO Auto-generated method stub
-		
+
 	}
+
+	private boolean validateData() {
+		if (FormValidation.isEmpty(txtMemberID)) {
+			lblMessage.setText("Member ID must not non-empty");
+			lblMessage.setVisible(true);
+			return false;
+		} else if (!FormValidation.isNumber(txtMemberID)) {
+			lblMessage.setText("Member ID is not numeric. Try again");
+			lblMessage.setVisible(true);
+			return false;
+		}
+		if (rdBook.isSelected()) {
+			if (!txtISBN.getText().trim().matches("^[0-9]{13}$")) {
+				lblMessage.setText("ISBN must be 13 digits long");
+				lblMessage.setVisible(true);
+				return false;
+			}
+		}
+		if (rdPeriodical.isSelected()) {
+			if ((FormValidation.isEmpty(txtTitle) || FormValidation
+					.isEmpty(txtIssueNumber))) {
+				lblMessage.setText("Title and Issue Number must not non-empty");
+				lblMessage.setVisible(true);
+				return false;
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		FormValidation.addLengthLimiter(txtISBN, ISBN_MAX_LENTH);
+
+	}
+
+	public static final int ISBN_MAX_LENTH = 13;
+	
 }
