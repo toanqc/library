@@ -30,7 +30,7 @@
             <Button fx:id="btnSearch" mnemonicParsing="false" onMouseClicked="#searchMember" text="Search" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <TableView fx:id="memberTable" GridPane.columnSpan="3" GridPane.rowIndex="2">
               <columns>
-                <TableColumn fx:id="memberId" onEditStart="#test" prefWidth="90.0" text="Member ID" />
+                <TableColumn fx:id="memberId" prefWidth="90.0" text="Member ID" />
                 <TableColumn fx:id="firstName" prefWidth="94.0" text="First Name" />
                   <TableColumn fx:id="lastName" prefWidth="89.0" text="Last Name" />
                   <TableColumn fx:id="street" prefWidth="119.0" sortable="false" text="Street" />
