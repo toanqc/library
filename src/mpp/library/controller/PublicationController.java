@@ -144,10 +144,11 @@ public class PublicationController implements ControlledScreen {
 		if (!validatePeriodical()) {
 			return;
 		}
-		
+
 		Periodical periodical = periodicalDao.get(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		if (periodical != null) {
-			fxUtil.createDialogAndRequestFocus("The entered periodical with provided title and issue number already exists in the system.",
+			fxUtil.createDialogAndRequestFocus(
+					"The entered periodical with provided title and issue number already exists in the system.",
 					bookISBNNumber);
 			return;
 		}
@@ -199,7 +200,7 @@ public class PublicationController implements ControlledScreen {
 	}
 
 	private void initializeTextLimiter() {
-		FormValidation.addLengthLimiter(bookISBNNumber, 20);
+		FormValidation.addLengthLimiter(bookISBNNumber, 13);
 		FormValidation.addLengthLimiter(bookAuthor, 100);
 		FormValidation.addLengthLimiter(bookTitle, 50);
 		FormValidation.addLengthLimiter(bookMaxCheckoutCount, 21);
@@ -218,6 +219,12 @@ public class PublicationController implements ControlledScreen {
 		if (FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
 			ValidationDialog.showWarning("Books cannot be checked out for more than " + 21 + " days.");
 			bookMaxCheckoutCount.requestFocus();
+			return false;
+		}
+
+		if (FormValidation.isNumberAndExactLength(bookISBNNumber, 14)) {
+			ValidationDialog.showWarning("Book ISBN should be length of 13 digits");
+			bookISBNNumber.requestFocus();
 			return false;
 		}
 
