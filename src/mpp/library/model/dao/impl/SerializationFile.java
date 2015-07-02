@@ -2,7 +2,7 @@ package mpp.library.model.dao.impl;
 
 public enum SerializationFile {
 	MEMBER("./storage/member.ser"), BOOK("./storage/book.ser"), PERIODICAL("./storage/periodical.ser"), COPY(
-			"./storage/copy.ser");
+			"./storage/copy.ser"), CHECKOUT_RECORD("./storage/checkoutrecord.ser"), CHECKOUT_RECORD_ENTRY("./storage/checkoutrecordentry.ser");
 
 	String fileName;
 

@@ -1,8 +1,6 @@
 package mpp.library.model.dao.impl;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,23 +33,8 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 
 	@Override
 	public void save(LibraryMember member) {
+		this.writeObject(SerializationFile.MEMBER.getValue(), member);
 		// TODO Auto-generated method stub
-		ObjectOutputStream out = null;
-		String name = member.getFullName();
-		try {
-			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
-			out = new ObjectOutputStream(Files.newOutputStream(path));
-			out.writeObject(member);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (Exception e) {
-				}
-			}
-		}
 	}
 
 	@Override
@@ -103,63 +86,17 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	@Override
 	public LibraryMember get(String memberId) {
 		// TODO Auto-generated method stub
-		ObjectInputStream in = null;
-		LibraryMember member = null;
-		try {
-			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, memberId);
-			in = new ObjectInputStream(Files.newInputStream(path));
-			member = (LibraryMember) in.readObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (in != null) {
-				try {
-					in.close();
-				} catch (Exception e) {
-				}
+		List<LibraryMember> memberList = this.getObjectList(SerializationFile.MEMBER.getValue());
+		for (LibraryMember libraryMember : memberList) {
+			if (memberId.equals(String.valueOf(libraryMember.getMemberId()))) {
+				return libraryMember;
 			}
 		}
-		return member;
+
+		return null;
 	}
 
-	@Override
-	public void saveCheckoutRecordEntry(String name, CheckoutRecordEntry ckRecordEntry) {
-		ObjectOutputStream out = null;
-		try {
-			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
-			out = new ObjectOutputStream(Files.newOutputStream(path));
-			out.writeObject(ckRecordEntry);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (Exception e) {
-				}
-			}
-		}
-	}
 
-	@Override
-	public void saveCheckoutRecord(CheckoutRecord ckRecord) {
-		ObjectOutputStream out = null;
-		try {
-			String name = CHECKOUT_RECORD_ENTRY + "_" + ckRecord.getLibraryMember().getFullName();
-			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, name);
-			out = new ObjectOutputStream(Files.newOutputStream(path));
-			out.writeObject(ckRecord);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (out != null) {
-				try {
-					out.close();
-				} catch (Exception e) {
-				}
-			}
-		}
-	}
 
 	@Override
 	public List<MemberCheckoutRecord> printCheckoutRecord(String memberId) {

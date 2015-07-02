@@ -23,6 +23,8 @@ import mpp.library.model.LibraryMember;
 import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
+import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
+import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -98,21 +100,35 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			if (publication != null) {
 				List<Copy> listCopies = publication.getCopies();
 				if (listCopies != null) {
-					Copy copy = listCopies.get(listCopies.size() - 1);
-					CheckoutRecord ckRecord = member.getCheckoutRecord();
-					if (ckRecord == null) {
-						ckRecord = new CheckoutRecord(member);
+					Copy copy = null;
+					for (int i = 0; i < listCopies.size(); i++) {
+						if (listCopies.get(i).getAvailable()) {
+							copy = listCopies.get(i);
+							i = listCopies.size();
+						}
 					}
-					LocalDate chkoutDate = LocalDate.now();
-					LocalDate dueDate = chkoutDate
-							.plus(publication.getMaxCheckoutLength(),
-									ChronoUnit.DAYS);
-					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
-							chkoutDate, dueDate, copy);
-					ckRecord.addCheckoutEntry(ckRecordEntry);
-					checkoutDAO.saveCheckoutRecord(ckRecord);
-					member.setCheckoutRecord(ckRecord);
-					checkoutDAO.save(member);
+					if (copy != null) {
+						CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
+						CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
+						// read the file CheckoutRecord and then append the new
+						// record into the file
+						CheckoutRecord currentRecord = chkoutRecordDAOFacade
+								.getCheckoutRecord(memberId);
+						LocalDate chkoutDate = LocalDate.now();
+						LocalDate dueDate = chkoutDate.plus(
+								publication.getMaxCheckoutLength(),
+								ChronoUnit.DAYS);
+						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
+								chkoutDate, dueDate, copy);
+						copy.setAvailable(false);
+						currentRecord.addCheckoutEntry(ckRecordEntry);
+						chkoutRecordDAOFacade.update(currentRecord);
+						chkoutRecordEntryDAOFacade.update(ckRecordEntry);
+					} else {
+						lblMessage
+								.setText("The copy of the book is not available");
+						lblMessage.setVisible(true);
+					}
 				}
 
 			} else {
@@ -140,21 +156,36 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			if (publication != null) {
 				List<Copy> listCopies = publication.getCopies();
 				if (listCopies != null) {
-					CheckoutRecord ckRecord = member.getCheckoutRecord();
-					Copy copy = listCopies.get(listCopies.size() - 1);
-					if (ckRecord == null) {
-						ckRecord = new CheckoutRecord(member);
+					Copy copy = null;
+					for (int i = 0; i < listCopies.size(); i++) {
+						if (listCopies.get(i).getAvailable()) {
+							copy = listCopies.get(i);
+							i = listCopies.size();
+						}
 					}
-					LocalDate chkoutDate = LocalDate.now();
-					LocalDate dueDate = chkoutDate
-							.plus(publication.getMaxCheckoutLength(),
-									ChronoUnit.DAYS);
-					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
-							chkoutDate, dueDate, copy);
-					ckRecord.addCheckoutEntry(ckRecordEntry);
-					checkoutDAO.saveCheckoutRecord(ckRecord);
-					member.setCheckoutRecord(ckRecord);
-					checkoutDAO.save(member);
+					if (copy != null) {
+						CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
+						CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
+						// read the file CheckoutRecord and then append the new
+						// record into the file
+						CheckoutRecord currentRecord = chkoutRecordDAOFacade
+								.getCheckoutRecord(memberId);
+
+						LocalDate chkoutDate = LocalDate.now();
+						LocalDate dueDate = chkoutDate.plus(
+								publication.getMaxCheckoutLength(),
+								ChronoUnit.DAYS);
+						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
+								chkoutDate, dueDate, copy);
+						copy.setAvailable(false);
+						currentRecord.addCheckoutEntry(ckRecordEntry);
+						chkoutRecordDAOFacade.update(currentRecord);
+						chkoutRecordEntryDAOFacade.update(ckRecordEntry);
+					} else {
+						lblMessage
+								.setText("The copy of the periodical is not available");
+						lblMessage.setVisible(true);
+					}
 				}
 			} else {
 				lblMessage.setText("The copy is not available");
@@ -251,5 +282,5 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	}
 
 	public static final int ISBN_MAX_LENTH = 13;
-	
+
 }
