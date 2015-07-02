@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,11 +37,15 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	@FXML private TableColumn<MemberCheckoutRecord, String> chkoutDateTC;
 	@FXML private TableColumn<MemberCheckoutRecord, String> dueDateTC;
 	@FXML private Label lblMessage;
+	@FXML private Button btnCheckout;
+	@FXML private Button btnSearch;
+	@FXML private Button btnHome;
 	
 	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
 	List<MemberCheckoutRecord> listCheckoutRecord;
 
 	ScreenController myController;
+	private boolean fromLibraryList = false;
 
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
@@ -64,14 +69,22 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		if (validateData()) {
 			lblMessage.setText("");
 			lblMessage.setVisible(false);
-			search();
+			search(txtMemberID.getText().trim());
 		}
 	}
 	
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
-		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
+		if (!fromLibraryList) {
+			myController.setScreen(Screen.HOME);
+			myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
+			repaint();
+		}
+		// return to the Member List screen
+		else {
+			myController.setScreen(Screen.MEMBER_LIST);
+			myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
+		}
 	}
 	
 	@FXML
@@ -79,12 +92,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		if (validateData()) {
 			lblMessage.setText("");
 			lblMessage.setVisible(false);
-			search();
+			search(txtMemberID.getText().trim());
 		}
 	}
 	
-	private void search() {
-		String memberId = txtMemberID.getText().trim();
+	private void search(String memberId) {
 		listCheckoutRecord = checkoutDAO.printCheckoutRecord(memberId);
 		// display in table view
 		ObservableList<MemberCheckoutRecord> listData = FXCollections.observableArrayList(listCheckoutRecord);
@@ -114,7 +126,12 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	@Override
 	public void repaint() {
 		// TODO Auto-generated method stub
-		
+		fromLibraryList = false;
+		btnCheckout.setVisible(true);
+		btnSearch.setVisible(true);
+		btnHome.setText("Home");
+		txtMemberID.setText("");
+		txtMemberID.setEditable(true);
 	}
 	
 	private boolean validateData() {
@@ -129,5 +146,26 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * This method will be called from the screen library member list
+	 * @param memberId
+	 */
+	public void loadCheckoutRecordForMember(String memberId, boolean fromLibraryList) {
+		this.fromLibraryList = fromLibraryList;
+		if (fromLibraryList) {
+			txtMemberID.setText(memberId);
+			txtMemberID.setEditable(false);
+			search(memberId);
+			paintScreenForLibraryList();
+		}
+	}
+	
+	private void paintScreenForLibraryList() {
+		btnCheckout.setVisible(false);
+		btnSearch.setVisible(false);
+		btnHome.setText("Back");
+		
 	}
 }
