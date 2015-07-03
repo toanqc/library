@@ -6,7 +6,7 @@ package mpp.library.view;
  * @author Toan Quach
  */
 public enum Screen {
-	HOME("home.fxml", 800, 630),
+	HOME("home.fxml", 800, 610),
 	MEMBER_LIST("member/memberList.fxml", 800, 620),
 	MEMBER("member/member.fxml", 530, 400),
 	PUBLICATION("publication/addPublication.fxml",  800, 600),

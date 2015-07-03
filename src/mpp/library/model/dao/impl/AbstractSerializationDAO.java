@@ -1,5 +1,6 @@
 package mpp.library.model.dao.impl;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -36,12 +37,22 @@ public abstract class AbstractSerializationDAO<T> {
 	}
 
 	private void store(String fileName, List<T> objectList) {
-		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName, false))) {
+		ObjectOutputStream oos = null;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(fileName, false));
 			oos.writeObject(objectList);
 			oos.flush();
 		} catch (IOException i) {
 			i.printStackTrace();
-		} 
+		} finally {
+			if (oos != null) {
+				try {
+					oos.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	private void createNewFile(String fileName) {
@@ -59,14 +70,26 @@ public abstract class AbstractSerializationDAO<T> {
 	public List<T> getObjectList(String fileName) {
 		createNewFile(fileName);
 		ArrayList<T> objectList = new ArrayList<T>();
-
-		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(fileName));
 			objectList = (ArrayList<T>) ois.readObject();
 			ois.close();
+
 			return objectList;
+		} catch (EOFException e) {
+			// do nothing
 		} catch (IOException | ClassNotFoundException ex) {
 			ex.printStackTrace();
-		} 
+		} finally {
+			if (ois != null) {
+				try {
+					ois.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 		return objectList;
 	}
