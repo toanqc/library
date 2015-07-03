@@ -60,7 +60,7 @@ public abstract class AbstractSerializationDAO<T> {
 		createNewFile(fileName);
 		ArrayList<T> objectList = new ArrayList<T>();
 
-		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));) {
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
 			objectList = (ArrayList<T>) ois.readObject();
 			ois.close();
 			return objectList;
