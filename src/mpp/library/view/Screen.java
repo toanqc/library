@@ -2,7 +2,7 @@ package mpp.library.view;
 
 public enum Screen {
 	HOME("home.fxml", 800, 630),
-	MEMBER_LIST("member/memberList.fxml", 800, 670),
+	MEMBER_LIST("member/memberList.fxml", 800, 620),
 	MEMBER("member/member.fxml", 530, 400),
 	PUBLICATION("publication/addPublication.fxml",  800, 600),
 	COPY_PUBLICATION("publication/addCopyPublication.fxml",  800, 600),
