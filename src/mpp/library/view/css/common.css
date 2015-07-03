@@ -5,6 +5,13 @@
 	-fx-font-size: 15.0px;
 }
 
+.label.red {
+	-fx-font-family: Helvetica;
+	-fx-text-fill: red;
+	-fx-font-weight: bold;
+	-fx-font-size: 15.0px;
+}
+
 .root {
     -fx-background-image: url("https://www.google.com/images/srpr/logo3w.png");
 }
@@ -13,4 +20,15 @@
    -fx-background-image: url("background.jpg");
    -fx-background-repeat: stretch;   
    -fx-background-position: center center;
+}
+
+.button {
+    -fx-background-color: 
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 30;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
 }
