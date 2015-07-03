@@ -76,6 +76,11 @@ public class HomeController implements ControlledScreen {
 
 	@FXML
 	public void gotoOverdue() {
+		myController.loadScreen(Screen.PUBLICATION_OVERDUE,
+				Screen.PUBLICATION_OVERDUE.getValue());
+		myController.setScreen(Screen.PUBLICATION_OVERDUE);
+		myController.setSize(Screen.PUBLICATION_OVERDUE.getWidth(),
+				Screen.PUBLICATION_OVERDUE.getHeight());
 	}
 
 	@Override

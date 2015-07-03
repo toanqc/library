@@ -182,7 +182,7 @@ public class PublicationController implements ControlledScreen {
 	private void postSavePeriodical() {
 		messageBoxPeriodical.setText("Periodical successfully added to system.");
 		messageBoxPeriodical.setVisible(true);
-		fxUtil.clearTextFields(bookGridPane);
+		fxUtil.clearTextFields(periodicalGridPane);
 		fadeOutAddPeriodicalMessage.play();
 	}
 

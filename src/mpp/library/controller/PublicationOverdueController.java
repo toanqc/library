@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.LibraryMember;
@@ -22,13 +21,16 @@ import mpp.library.model.PublicationOverdueRecord;
 import mpp.library.model.PublicationType;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.view.ControlledScreen;
+import mpp.library.view.Screen;
+import mpp.library.view.ScreenController;
 
 /**
  * @author Anil
  * 
  *
  */
-public class PublicationOverdueController implements Initializable {
+public class PublicationOverdueController implements Initializable, ControlledScreen {
 
 	@FXML
 	private TableView<PublicationOverdueRecord> tableView;
@@ -52,6 +54,8 @@ public class PublicationOverdueController implements Initializable {
 	private TableColumn<PublicationOverdueRecord, String> duedateColumn;
 
 	private MemberDAO memberDao;
+
+	private ScreenController myController;
 
 	public PublicationOverdueController() {
 		memberDao = new MemberDAOImpl();
@@ -95,9 +99,20 @@ public class PublicationOverdueController implements Initializable {
 		memberColumn.setCellValueFactory(cellData -> cellData.getValue().memberPropery());
 	}
 
+	@Override
+	public void setScreenParent(ScreenController screenParent) {
+		myController = screenParent;
+	}
+
+	@Override
+	public void repaint() {
+
+	}
+
 	@FXML
-	protected void gotoMainScreen(MouseEvent event) {
-		System.out.println("Goto MainScreen");
+	public void returnHome() {
+		myController.setScreen(Screen.HOME);
+		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 }

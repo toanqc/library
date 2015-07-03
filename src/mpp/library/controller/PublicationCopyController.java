@@ -3,6 +3,7 @@ package mpp.library.controller;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -71,9 +72,15 @@ public class PublicationCopyController implements ControlledScreen {
 	TextField periodicalCopyNumber;
 
 	@FXML
-	Text messageBox;
+	Text messageBoxBook;
+	
+	@FXML
+	Text messageBoxPeriodical;
 
 	ScreenController myController;
+	
+	private FadeTransition fadeOutAddBookMessage;
+	private FadeTransition fadeOutAddPeriodicalMessage;
 
 	public PublicationCopyController() {
 		fxUtil = new FXUtil();
@@ -174,9 +181,14 @@ public class PublicationCopyController implements ControlledScreen {
 			bookDao.addCopy(book, Integer.valueOf(bookCopyNumber.getText().trim()));
 		}
 
-		messageBox.setText("Book Copy successfully added");
-		messageBox.setVisible(true);
-
+		postSaveBook();
+	}
+	
+	private void postSaveBook() {
+		messageBoxBook.setText("Book Copy successfully added to system");
+		messageBoxBook.setVisible(true);
+		fxUtil.clearTextFields(bookCopyGridPane);
+		fadeOutAddBookMessage.play();
 	}
 
 	@FXML
@@ -193,13 +205,21 @@ public class PublicationCopyController implements ControlledScreen {
 			periodicalDao.addCopy(periodical, Integer.valueOf(periodicalCopyNumber.getText().trim()));
 		}
 
-		messageBox.setText("Pediodical Copy successfully added");
-		messageBox.setVisible(true);
+		postSavePeriodical();
+	}
+	
+	private void postSavePeriodical() {
+		messageBoxPeriodical.setText("Periodical successfully added to system.");
+		messageBoxPeriodical.setVisible(true);
+		fxUtil.clearTextFields(periodicalCopyGridPane);
+		fadeOutAddPeriodicalMessage.play();
 	}
 
 	public void initialize() {
 		initializeTextLimiter();
 		initalizeNumericLimiter();
+		fadeOutAddBookMessage = fxUtil.createFadeOutEffect(messageBoxBook, 5000);
+		fadeOutAddPeriodicalMessage = fxUtil.createFadeOutEffect(messageBoxPeriodical, 5000);
 	}
 
 	private void initalizeNumericLimiter() {
@@ -264,6 +284,18 @@ public class PublicationCopyController implements ControlledScreen {
 	public void returnHome() {
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
+	}
+	
+	@FXML
+	protected void cancelCopyBook(ActionEvent event) {
+		System.out.println("Cancel Book Copy");
+		fxUtil.clearTextFields(bookCopyGridPane);
+	}
+
+	@FXML
+	protected void cancelCopyPeriodical(ActionEvent event) {
+		System.out.println("Cancel Periodical Copy");
+		fxUtil.clearTextFields(periodicalCopyGridPane);
 	}
 
 }
