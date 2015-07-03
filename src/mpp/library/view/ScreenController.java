@@ -1,5 +1,6 @@
 package mpp.library.view;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import javafx.animation.KeyFrame;
@@ -17,6 +18,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * @author Toan Quach
+ */
 public class ScreenController extends StackPane implements ControlledScreen {
 
 	private ScreenController myController;
@@ -114,8 +118,8 @@ public class ScreenController extends StackPane implements ControlledScreen {
 				addScreen(screenName, loadScreen);
 				return true;
 			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e);
 			return false;
 		}
 

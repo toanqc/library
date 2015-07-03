@@ -1,10 +1,18 @@
 package mpp.library.model.dao.impl;
 
+/**
+ */
 import java.util.List;
 
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
 
+/**
+ * Member DAO provide save / update / get / getList method
+ * 
+ * @author Toan Quach
+ *
+ */
 public class MemberDAOImpl extends AbstractSerializationDAO<LibraryMember>
 		implements MemberDAO {
 

@@ -1,5 +1,10 @@
 package mpp.library.view;
 
+/**
+ * Enum of all screen list of the system
+ * 
+ * @author Toan Quach
+ */
 public enum Screen {
 	HOME("home.fxml", 800, 630),
 	MEMBER_LIST("member/memberList.fxml", 800, 620),

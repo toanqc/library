@@ -10,6 +10,12 @@ import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
+/**
+ * Controller for home screen
+ * 
+ * @author Toan Quach
+ *
+ */
 public class HomeController implements ControlledScreen {
 
 	ScreenController myController;
