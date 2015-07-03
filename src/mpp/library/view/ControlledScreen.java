@@ -2,6 +2,10 @@ package mpp.library.view;
 
 import java.util.HashMap;
 
+/**
+ * @author Toan Quach
+ *
+ */
 public interface ControlledScreen {
 
 	/**

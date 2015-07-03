@@ -1,6 +1,10 @@
 package mpp.library.model;
 
-
+/**
+ * 
+ * @author Toan Quach
+ *
+ */
 public class LibraryMember extends Person {
 
 	private static final long serialVersionUID = 1373745594447872262L;

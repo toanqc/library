@@ -12,6 +12,9 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 import mpp.library.util.LibraryConstant;
 
+/**
+ * @author Toan Quach
+ */
 public class ScreenFramework extends Application {
 
 	@Override

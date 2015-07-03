@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,25 +92,5 @@ public abstract class AbstractSerializationDAO<T> {
 		}
 
 		return objectList;
-	}
-
-	/**
-	 * Appendable object out stream class allows us to append a new object to
-	 * the current serialization file
-	 * 
-	 * @author Toan Quach
-	 *
-	 */
-	class AppendableObjectOutputStream extends ObjectOutputStream {
-
-		public AppendableObjectOutputStream(OutputStream out)
-				throws IOException {
-			super(out);
-		}
-
-		@Override
-		protected void writeStreamHeader() throws IOException {
-			// do not write a header
-		}
 	}
 }

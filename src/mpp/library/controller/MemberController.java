@@ -13,6 +13,12 @@ import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
+/**
+ * Controller for library member screen
+ * 
+ * @author Toan Quach
+ *
+ */
 public class MemberController implements ControlledScreen {
 
 	@FXML
