@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -68,9 +69,15 @@ public class PublicationController implements ControlledScreen {
 	TextField periodicalMaxCheckoutCount;
 
 	@FXML
-	Text messageBox;
+	Text messageBoxBook;
+
+	@FXML
+	Text messageBoxPeriodical;
 
 	ScreenController myController;
+
+	private FadeTransition fadeOutAddBookMessage;
+	private FadeTransition fadeOutAddPeriodicalMessage;
 
 	public PublicationController() {
 		bookDao = new BookDAOImpl();
@@ -133,8 +140,14 @@ public class PublicationController implements ControlledScreen {
 
 		book.setAuthorList(authors);
 		bookDao.save(book);
-		messageBox.setText("Book successfully saved");
-		messageBox.setVisible(true);
+		postSaveBook();
+	}
+
+	private void postSaveBook() {
+		messageBoxBook.setText("Book successfully added to system.");
+		messageBoxBook.setVisible(true);
+		fxUtil.clearTextFields(bookGridPane);
+		fadeOutAddBookMessage.play();
 	}
 
 	@FXML
@@ -163,6 +176,14 @@ public class PublicationController implements ControlledScreen {
 		periodical.setCopies(copies);
 
 		periodicalDao.save(periodical);
+		postSavePeriodical();
+	}
+
+	private void postSavePeriodical() {
+		messageBoxPeriodical.setText("Periodical successfully added to system.");
+		messageBoxPeriodical.setVisible(true);
+		fxUtil.clearTextFields(bookGridPane);
+		fadeOutAddPeriodicalMessage.play();
 	}
 
 	@FXML
@@ -189,9 +210,12 @@ public class PublicationController implements ControlledScreen {
 		fxUtil.clearTextFields(bookGridPane);
 	}
 
+	@FXML
 	public void initialize() {
 		initializeTextLimiter();
 		initalizeNumericLimiter();
+		fadeOutAddBookMessage = fxUtil.createFadeOutEffect(messageBoxBook, 5000);
+		fadeOutAddPeriodicalMessage = fxUtil.createFadeOutEffect(messageBoxPeriodical, 5000);
 	}
 
 	private void initalizeNumericLimiter() {
