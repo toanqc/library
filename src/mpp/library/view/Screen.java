@@ -7,7 +7,8 @@ public enum Screen {
 	PUBLICATION("",  0, 0),
 	CHECKOUT("checkout/Checkout.fxml", 520, 420),
 	PUBLICATION_OVERDUE("", 0, 0),
-	PRINT_CHECKOUT_RECORD("checkout/PrintCheckoutRecord.fxml", 630, 530);
+	PRINT_CHECKOUT_RECORD("checkout/PrintCheckoutRecord.fxml", 630, 530),
+	COPY_PUBLICATION("", 0, 0);
 
 	String fxmlFile;
 	int height;
