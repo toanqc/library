@@ -10,8 +10,6 @@ import mpp.library.model.Periodical;
  */
 public interface PeriodicalDAO {
 
-	void addCopy(Periodical periodical, int copyNumber);
-
 	Periodical get(String issueNumber, String title);
 
 	void save(Periodical periodical);
@@ -19,4 +17,6 @@ public interface PeriodicalDAO {
 	List<Periodical> getPeriodicalList();
 
 	boolean isAvailable();
+
+	void update(Periodical periodical);
 }

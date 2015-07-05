@@ -14,12 +14,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
-import mpp.library.model.Copy;
 import mpp.library.model.Periodical;
-import mpp.library.model.dao.BookDAO;
-import mpp.library.model.dao.PeriodicalDAO;
-import mpp.library.model.dao.impl.BookDAOImpl;
-import mpp.library.model.dao.impl.PeriodicalDAOImpl;
+import mpp.library.model.service.BookService;
+import mpp.library.model.service.PeriodicalService;
+import mpp.library.model.service.impl.BookServiceImpl;
+import mpp.library.model.service.impl.PeriodicalServiceImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
@@ -32,9 +31,9 @@ import mpp.library.view.ScreenController;
  */
 public class PublicationController implements ControlledScreen {
 
-	private BookDAO bookDao;
+	private BookService bookService;
 
-	private PeriodicalDAO periodicalDao;
+	private PeriodicalService periodicalSerivce;
 
 	private FXUtil fxUtil;
 
@@ -80,8 +79,8 @@ public class PublicationController implements ControlledScreen {
 	private FadeTransition fadeOutAddPeriodicalMessage;
 
 	public PublicationController() {
-		bookDao = new BookDAOImpl();
-		periodicalDao = new PeriodicalDAOImpl();
+		bookService = new BookServiceImpl();
+		periodicalSerivce = new PeriodicalServiceImpl();
 		fxUtil = new FXUtil();
 	}
 
@@ -108,7 +107,7 @@ public class PublicationController implements ControlledScreen {
 			return;
 		}
 
-		Book book = bookDao.get(bookISBNNumber.getText());
+		Book book = bookService.getBook(bookISBNNumber.getText());
 		if (book != null) {
 			fxUtil.createDialogAndRequestFocus("The entered book with provided ISBN already exists in the system.",
 					bookISBNNumber);
@@ -131,15 +130,9 @@ public class PublicationController implements ControlledScreen {
 			author.setLastName(lastName);
 			authors.add(author);
 		}
-
-		Copy copy = new Copy(book, 1);
-		copy.setAvailable(true);
-		List<Copy> copies = new ArrayList<>();
-		copies.add(copy);
-		book.setCopies(copies);
-
 		book.setAuthorList(authors);
-		bookDao.save(book);
+		
+		bookService.saveBook(book);
 		postSaveBook();
 	}
 
@@ -158,7 +151,7 @@ public class PublicationController implements ControlledScreen {
 			return;
 		}
 
-		Periodical periodical = periodicalDao.get(periodicalTitle.getText(), periodicalIssueNumber.getText());
+		Periodical periodical = periodicalSerivce.getPeriodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		if (periodical != null) {
 			fxUtil.createDialogAndRequestFocus(
 					"The entered periodical with provided title and issue number already exists in the system.",
@@ -168,14 +161,8 @@ public class PublicationController implements ControlledScreen {
 
 		periodical = new Periodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		periodical.setMaxCheckoutLength(Integer.valueOf(periodicalMaxCheckoutCount.getText()));
-
-		Copy copy = new Copy(periodical, 1);
-		copy.setAvailable(true);
-		List<Copy> copies = new ArrayList<>();
-		copies.add(copy);
-		periodical.setCopies(copies);
-
-		periodicalDao.save(periodical);
+		
+		periodicalSerivce.savePeriodical(periodical);
 		postSavePeriodical();
 	}
 

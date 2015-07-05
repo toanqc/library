@@ -115,18 +115,14 @@ public class CheckoutController implements ControlledScreen, Initializable {
 						CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
 						CheckoutRecord currentRecord = member.getCheckoutRecord();
 						LocalDate chkoutDate = LocalDate.now();
-						LocalDate dueDate = chkoutDate.plus(
-								publication.getMaxCheckoutLength(),
-								ChronoUnit.DAYS);
-						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
-								chkoutDate, dueDate, copy);
+						LocalDate dueDate = chkoutDate.plus(publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
+						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
 						copy.setAvailable(false);
 						currentRecord.addCheckoutEntry(ckRecordEntry);
 						chkoutRecordDAOFacade.update(currentRecord);
 						chkoutRecordEntryDAOFacade.update(ckRecordEntry);
 					} else {
-						lblMessage
-								.setText("The copy of the book is not available");
+						lblMessage.setText("The copy of the book is not available");
 						lblMessage.setVisible(true);
 					}
 				}
@@ -168,18 +164,14 @@ public class CheckoutController implements ControlledScreen, Initializable {
 						chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
 						CheckoutRecord currentRecord = member.getCheckoutRecord();
 						LocalDate chkoutDate = LocalDate.now();
-						LocalDate dueDate = chkoutDate.plus(
-								publication.getMaxCheckoutLength(),
-								ChronoUnit.DAYS);
-						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
-								chkoutDate, dueDate, copy);
+						LocalDate dueDate = chkoutDate.plus(publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
+						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
 						copy.setAvailable(false);
 						currentRecord.addCheckoutEntry(ckRecordEntry);
 						chkoutRecordDAOFacade.update(currentRecord);
 						chkoutRecordEntryDAOFacade.update(ckRecordEntry);
 					} else {
-						lblMessage
-								.setText("The copy of the periodical is not available");
+						lblMessage.setText("The copy of the periodical is not available");
 						lblMessage.setVisible(true);
 					}
 				}
@@ -260,8 +252,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			}
 		}
 		if (rdPeriodical.isSelected()) {
-			if ((FormValidation.isEmpty(txtTitle) || FormValidation
-					.isEmpty(txtIssueNumber))) {
+			if ((FormValidation.isEmpty(txtTitle) || FormValidation.isEmpty(txtIssueNumber))) {
 				lblMessage.setText("Title and Issue Number must not non-empty");
 				lblMessage.setVisible(true);
 				return false;

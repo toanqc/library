@@ -6,7 +6,6 @@ import mpp.library.model.Book;
 
 public interface BookDAO extends BaseDAO<Book> {
 
-	void addCopy(Book book, int copyNumber);
 
 	Book get(String isbn);
 
@@ -15,5 +14,7 @@ public interface BookDAO extends BaseDAO<Book> {
 	List<Book> getBookList();
 
 	boolean isAvailable();
+
+	void update(Book book);
 
 }

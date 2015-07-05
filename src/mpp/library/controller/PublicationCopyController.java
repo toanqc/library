@@ -13,10 +13,10 @@ import javafx.scene.text.Text;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
-import mpp.library.model.dao.BookDAO;
-import mpp.library.model.dao.PeriodicalDAO;
-import mpp.library.model.dao.impl.BookDAOImpl;
-import mpp.library.model.dao.impl.PeriodicalDAOImpl;
+import mpp.library.model.service.BookService;
+import mpp.library.model.service.PeriodicalService;
+import mpp.library.model.service.impl.BookServiceImpl;
+import mpp.library.model.service.impl.PeriodicalServiceImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
@@ -31,9 +31,9 @@ public class PublicationCopyController implements ControlledScreen {
 
 	private FXUtil fxUtil;
 
-	private BookDAO bookDao;
+	private BookService bookService;
 
-	private PeriodicalDAO periodicalDao;
+	private PeriodicalService periodicalService;
 
 	@FXML
 	GridPane periodicalCopyGridPane;
@@ -84,8 +84,8 @@ public class PublicationCopyController implements ControlledScreen {
 
 	public PublicationCopyController() {
 		fxUtil = new FXUtil();
-		bookDao = new BookDAOImpl();
-		periodicalDao = new PeriodicalDAOImpl();
+		bookService = new BookServiceImpl();
+		periodicalService = new PeriodicalServiceImpl();
 	}
 
 	@FXML
@@ -122,7 +122,7 @@ public class PublicationCopyController implements ControlledScreen {
 		Book book = null;
 
 		if (isbnNumber.length() > 0) {
-			book = bookDao.get(isbnNumber);
+			book = bookService.getBook(isbnNumber);
 			if (book != null) {
 				bookCopyMaxCheckoutCount.setText(String.valueOf(book.getMaxCheckoutLength()));
 				bookCopyTitle.setText(book.getTitle());
@@ -157,7 +157,7 @@ public class PublicationCopyController implements ControlledScreen {
 		Periodical periodical = null;
 
 		if (title.length() > 0) {
-			periodical = periodicalDao.get(issueNumber, title);
+			periodical = periodicalService.getPeriodical(issueNumber, title);
 			if (periodical != null) {
 				System.out.println("Got it");
 				periodicalCopyMaxCheckoutCount.setText(String.valueOf(periodical.getMaxCheckoutLength()));
@@ -176,9 +176,9 @@ public class PublicationCopyController implements ControlledScreen {
 			return;
 		}
 
-		Book book = bookDao.get(bookCopyISBNNumber.getText().trim());
+		Book book = bookService.getBook(bookCopyISBNNumber.getText().trim());
 		if (book != null) {
-			bookDao.addCopy(book, Integer.valueOf(bookCopyNumber.getText().trim()));
+			bookService.addCopy(book, Integer.valueOf(bookCopyNumber.getText().trim()));
 		}
 
 		postSaveBook();
@@ -199,10 +199,10 @@ public class PublicationCopyController implements ControlledScreen {
 			return;
 		}
 
-		Periodical periodical = periodicalDao.get(periodicalCopyIssueNumber.getText().trim(),
+		Periodical periodical = periodicalService.getPeriodical(periodicalCopyIssueNumber.getText().trim(),
 				periodicalCopyTitle.getText().trim());
 		if (periodical != null) {
-			periodicalDao.addCopy(periodical, Integer.valueOf(periodicalCopyNumber.getText().trim()));
+			periodicalService.addCopy(periodical, Integer.valueOf(periodicalCopyNumber.getText().trim()));
 		}
 
 		postSavePeriodical();

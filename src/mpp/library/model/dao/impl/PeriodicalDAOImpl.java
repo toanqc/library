@@ -2,28 +2,10 @@ package mpp.library.model.dao.impl;
 
 import java.util.List;
 
-import mpp.library.model.Copy;
 import mpp.library.model.Periodical;
 import mpp.library.model.dao.PeriodicalDAO;
 
 public class PeriodicalDAOImpl extends AbstractSerializationDAO<Periodical>implements PeriodicalDAO {
-
-	@Override
-	public void addCopy(Periodical periodical, int copyNumber) {
-		Copy copy = new Copy(periodical, copyNumber);
-		copy.setAvailable(true);
-		periodical.getCopies().add(copy);
-
-		List<Periodical> periodicals = getPeriodicalList();
-		for (int i = 0; i < periodicals.size(); i++) {
-			if (periodicals.get(i).getIssueNumber().equals(periodical.getIssueNumber())
-					&& periodicals.get(i).getTitle().equals(periodical.getTitle())) {
-				periodicals.set(i, periodical);
-			}
-		}
-
-		writeObjectList(SerializationFile.PERIODICAL.getValue(), periodicals);
-	}
 
 	@Override
 	public void save(Periodical periodical) {
@@ -50,6 +32,18 @@ public class PeriodicalDAOImpl extends AbstractSerializationDAO<Periodical>imple
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public void update(Periodical periodical) {
+		List<Periodical> periodicals = getPeriodicalList();
+		for (int i = 0; i < periodicals.size(); i++) {
+			if (periodicals.get(i).getIssueNumber().equals(periodical.getIssueNumber())
+					&& periodicals.get(i).getTitle().equals(periodical.getTitle())) {
+				periodicals.set(i, periodical);
+			}
+		}
+		writeObjectList(SerializationFile.PERIODICAL.getValue(), periodicals);
 	}
 
 }
