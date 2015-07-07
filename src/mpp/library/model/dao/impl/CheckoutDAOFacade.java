@@ -27,6 +27,8 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	public static final String DATE_PATTERN = "MM/dd/yyyy";
 	public static final String CHECKOUT_RECORD_ENTRY = "CheckoutRecord";
 
+	private CheckoutRecordEntryDAOFacade checkoutRecordEntryDAO = new CheckoutRecordEntryDAOFacade();
+	
 	@Override
 	public void save(LibraryMember member) {
 		this.writeObject(SerializationFile.MEMBER.getValue(), member);
@@ -74,7 +76,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 		if (member != null) {
 			CheckoutRecord chkOutRecord = member.getCheckoutRecord();
 			if (chkOutRecord != null) {
-				List<CheckoutRecordEntry> listChkoutRecordEntries = chkOutRecord.getCheckoutRecordEntries();
+				List<CheckoutRecordEntry> listChkoutRecordEntries = checkoutRecordEntryDAO.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue());
 				for (int i = 0; i < listChkoutRecordEntries.size(); i++) {
 					CheckoutRecordEntry entry = listChkoutRecordEntries.get(i);
 					Copy copy = entry.getCopy();

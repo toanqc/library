@@ -56,7 +56,7 @@ public class TestPrintCheckOutRecord extends Application{
 		listCopyBook.add(copy1);
 		listCopyBook.add(copy2);
 		
-		book.setCopies(listCopyBook);
+//		book.setCopies(listCopyBook);
 		
 		Copy copy3 = new Copy(periodical, 3);
 		Copy copy4 = new Copy(periodical, 4);
@@ -65,7 +65,7 @@ public class TestPrintCheckOutRecord extends Application{
 		listCopyPeriod.add(copy3);
 		listCopyPeriod.add(copy4);
 		
-		periodical.setCopies(listCopyPeriod);
+//		periodical.setCopies(listCopyPeriod);
 		
 		CopyDAOFacade copyDAOFacade = new CopyDAOFacade();
 		copyDAOFacade.save(copy1);

@@ -2,7 +2,7 @@ package mpp.library.model;
 
 import java.util.List;
 
-public class Book extends Publication implements Checkoutable {
+public class Book extends Publication{
 
 	private static final long serialVersionUID = -6787991247823942688L;
 
@@ -27,12 +27,6 @@ public class Book extends Publication implements Checkoutable {
 
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;
-	}
-
-	@Override
-	public CheckoutRecordEntry checkout() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

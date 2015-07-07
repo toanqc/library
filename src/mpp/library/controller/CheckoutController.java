@@ -1,9 +1,7 @@
 package mpp.library.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -12,20 +10,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import mpp.library.model.Book;
-import mpp.library.model.CheckoutRecord;
-import mpp.library.model.CheckoutRecordEntry;
-import mpp.library.model.Copy;
-import mpp.library.model.LibraryMember;
 import mpp.library.model.Periodical;
-import mpp.library.model.Publication;
-import mpp.library.model.dao.impl.CheckoutDAOFacade;
-import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
-import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
-import mpp.library.model.dao.impl.CopyDAOFacade;
+import mpp.library.model.service.impl.CheckoutBookServiceImpl;
+import mpp.library.model.service.impl.CheckoutPeriodicalServiceImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -62,9 +52,10 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	@FXML
 	private Button btnCheckout;
 
-	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
-	private CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
-	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
+	private CheckoutBookServiceImpl chkoutBookService = new CheckoutBookServiceImpl();
+	private CheckoutPeriodicalServiceImpl chkoutPeriodicalService = new CheckoutPeriodicalServiceImpl();
+
+	public static final int ISBN_MAX_LENTH = 13;
 
 	private ScreenController myController;
 
@@ -79,104 +70,25 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		if (rdBook.isSelected() && validateData()) {
 			lblMessage.setVisible(false);
 			lblMessage.setText("");
-			checkoutBook();
+			String memberId = txtMemberID.getText().trim();
+			String ISBN = txtISBN.getText().trim();
+			try {
+				chkoutBookService.checkout(memberId, new Book(ISBN));
+			} catch (Exception e) {
+				lblMessage.setText(e.getMessage());
+				lblMessage.setVisible(true);
+			}
+
 		} else if (rdPeriodical.isSelected() && validateData()) {
 			lblMessage.setVisible(false);
 			lblMessage.setText("");
-			checkoutPeriodical();
-		}
-	}
-
-	private void checkoutBook() {
-		String memberId = txtMemberID.getText().trim();
-		String ISBN = txtISBN.getText().trim();
-		// check if memberID exist
-		checkoutDAO = new CheckoutDAOFacade();
-		LibraryMember member = checkoutDAO.get(memberId);
-		if (member == null) {
-			lblMessage.setText("Member ID not found");
-			lblMessage.setVisible(true);
-		} else {
-			// check if ISBN exist and copy is available
-			Publication book = new Book(ISBN);
-			Publication publication = checkoutDAO.getPublication(book);
-			if (publication != null) {
-				List<Copy> listCopies = publication.getCopies();
-				if (listCopies != null) {
-					Copy copy = null;
-					for (int i = 0; i < listCopies.size(); i++) {
-						if (listCopies.get(i).getAvailable()) {
-							copy = listCopies.get(i);
-							i = listCopies.size();
-						}
-					}
-					if (copy != null) {
-						CheckoutRecordDAOFacade chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
-						CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-						CheckoutRecord currentRecord = member.getCheckoutRecord();
-						LocalDate chkoutDate = LocalDate.now();
-						LocalDate dueDate = chkoutDate.plus(publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
-						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
-						copy.setAvailable(false);
-						currentRecord.addCheckoutEntry(ckRecordEntry);
-						chkoutRecordDAOFacade.update(currentRecord);
-						chkoutRecordEntryDAOFacade.update(ckRecordEntry);
-					} else {
-						lblMessage.setText("The copy of the book is not available");
-						lblMessage.setVisible(true);
-					}
-				}
-
-			} else {
-				lblMessage.setText("The book is not available");
-				lblMessage.setVisible(true);
-			}
-		}
-	}
-
-	private void checkoutPeriodical() {
-		String memberId = txtMemberID.getText().trim();
-		String title = txtTitle.getText().trim();
-		String issueNo = txtIssueNumber.getText().trim();
-
-		// check if memberID exist
-		CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
-		LibraryMember member = checkoutDAO.get(memberId);
-		if (member == null) {
-			lblMessage.setText("Member ID not found");
-			lblMessage.setVisible(true);
-		} else {
-			// check if ISBN exist and copy is available
-			Publication periodical = new Periodical(title, issueNo);
-			Publication publication = checkoutDAO.getPublication(periodical);
-			if (publication != null) {
-				List<Copy> listCopies = publication.getCopies();
-				if (listCopies != null) {
-					Copy copy = null;
-					for (int i = 0; i < listCopies.size(); i++) {
-						if (listCopies.get(i).getAvailable()) {
-							copy = listCopies.get(i);
-							i = listCopies.size();
-						}
-					}
-					if (copy != null) {
-						chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
-						chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-						CheckoutRecord currentRecord = member.getCheckoutRecord();
-						LocalDate chkoutDate = LocalDate.now();
-						LocalDate dueDate = chkoutDate.plus(publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
-						CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
-						copy.setAvailable(false);
-						currentRecord.addCheckoutEntry(ckRecordEntry);
-						chkoutRecordDAOFacade.update(currentRecord);
-						chkoutRecordEntryDAOFacade.update(ckRecordEntry);
-					} else {
-						lblMessage.setText("The copy of the periodical is not available");
-						lblMessage.setVisible(true);
-					}
-				}
-			} else {
-				lblMessage.setText("The copy is not available");
+			String memberId = txtMemberID.getText().trim();
+			String title = txtTitle.getText().trim();
+			String issueNo = txtIssueNumber.getText().trim();
+			try {
+				chkoutPeriodicalService.checkout(memberId, new Periodical(title, issueNo));
+			} catch (Exception e) {
+				lblMessage.setText(e.getMessage());
 				lblMessage.setVisible(true);
 			}
 		}
@@ -267,7 +179,5 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		FormValidation.addLengthLimiter(txtISBN, ISBN_MAX_LENTH);
 
 	}
-
-	public static final int ISBN_MAX_LENTH = 13;
 
 }

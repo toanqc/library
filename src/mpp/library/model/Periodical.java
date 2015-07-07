@@ -1,6 +1,6 @@
 package mpp.library.model;
 
-public class Periodical extends Publication implements Checkoutable {
+public class Periodical extends Publication {
 
 	private static final long serialVersionUID = -441236339168212465L;
 
@@ -17,12 +17,6 @@ public class Periodical extends Publication implements Checkoutable {
 
 	public void setIssueNumber(String issueNumber) {
 		this.issueNumber = issueNumber;
-	}
-
-	@Override
-	public CheckoutRecordEntry checkout() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
