@@ -84,8 +84,8 @@ public class MemberCheckoutRecord {
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(this.issueNo + "\t");
-		sb.append(this.title + "\t");
+		sb.append(this.issueNo.get() + "\t");
+		sb.append(this.title.get() + "\t");
 		sb.append(this.getType());
 		if (this.getType() == PublicationType.BOOK.getValue()) {
 			sb.append("      \t");
@@ -93,7 +93,7 @@ public class MemberCheckoutRecord {
 			sb.append("\t");
 		}
 		sb.append(this.getChkoutDate() + "\t");
-		sb.append(this.dueDate + "\t");
+		sb.append(this.getDueDate() + "\t");
 
 		return sb.toString();
 	}

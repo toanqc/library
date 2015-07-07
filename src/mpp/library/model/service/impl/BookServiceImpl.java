@@ -69,6 +69,7 @@ public class BookServiceImpl implements BookService {
 					if (copies.get(i).getCopyNumber() == copy.getCopyNumber()) {
 						
 						copies.set(i, copy);
+						bk.setCopies(copies);
 						updateBook(bk);
 						break;
 						

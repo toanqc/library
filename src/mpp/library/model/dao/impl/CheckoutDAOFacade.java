@@ -85,7 +85,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 					Publication pub = copy.getPublication();
 					String isbnOrIssueNo = "";
 					String publicationType = "";
-					String title = "Test";// pub.getTitle();
+					String title = pub.getTitle();
 					if (pub instanceof Book) {
 						isbnOrIssueNo = ((Book) pub).getISBN();
 						publicationType = PublicationType.BOOK.getValue();
@@ -98,7 +98,14 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 					listCheckoutRecord.add(memberChkoutRecord);
 				}
 			}
+			else {
+				throw new IllegalArgumentException("Member has no checkout record");
+			}
 		}
+		else {
+			throw new IllegalArgumentException("Member Id not found");
+		}
+		
 		return listCheckoutRecord;
 	}
 

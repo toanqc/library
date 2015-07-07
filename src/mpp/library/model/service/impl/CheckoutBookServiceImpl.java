@@ -20,14 +20,14 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 	private CheckoutDAOFacade checkoutDAO;
 	private CheckoutRecordDAOFacade chkoutRecordDAOFacade;
 	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade;
-	private CopyServiceImpl copyService;
+	private BookServiceImpl bookService;
 
 	public CheckoutBookServiceImpl() {
 		// TODO Auto-generated constructor stub
 		checkoutDAO = new CheckoutDAOFacade();
 		chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
 		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-		copyService = new CopyServiceImpl();
+		bookService = new BookServiceImpl();
 	}
 
 	@Override
@@ -35,7 +35,6 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 		// TODO Auto-generated method stub
 		if (pub instanceof Book) {
 			// check if memberID exist
-			checkoutDAO = new CheckoutDAOFacade();
 			LibraryMember member = checkoutDAO.get(memberId);
 			if (member == null) {
 				throw new IllegalArgumentException("Member ID not found");
@@ -62,7 +61,7 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 							currentRecord.addCheckoutEntry(ckRecordEntry);
 							chkoutRecordDAOFacade.update(currentRecord);
 							chkoutRecordEntryDAOFacade.update(ckRecordEntry);
-							copyService.updateCopy(copy);
+							bookService.updateBookCopy((Book)publication, copy);
 							
 						} else {
 							throw new IllegalArgumentException("The copy of the book is not available");

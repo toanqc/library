@@ -16,7 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import mpp.library.model.MemberCheckoutRecord;
-import mpp.library.model.dao.impl.CheckoutDAOFacade;
+import mpp.library.model.service.impl.PrintCheckoutServiceImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -40,27 +40,34 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	@FXML private Button btnCheckout;
 	@FXML private Button btnSearch;
 	@FXML private Button btnHome;
-	
-	private CheckoutDAOFacade checkoutDAO = new CheckoutDAOFacade();
+
 	List<MemberCheckoutRecord> listCheckoutRecord;
+	private PrintCheckoutServiceImpl printCheckoutService; 
 
 	ScreenController myController;
 	private boolean fromLibraryList = false;
 
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
-		if (listCheckoutRecord != null) {
-			StringBuilder sb = new StringBuilder();
-			sb.append("ISBN/IssueNo\t");
-			sb.append("Title\t");
-			sb.append("Type\t\t");
-			sb.append("Checkout Date\t");
-			sb.append("Due Date\t");
-			System.out.println(sb.toString());
-			for (int i = 0; i < listCheckoutRecord.size(); i++) {
-				MemberCheckoutRecord record = listCheckoutRecord.get(i);
-				System.out.println(record);
+		try {
+			listCheckoutRecord = printCheckoutService.search(txtMemberID.getText().trim());
+			if (listCheckoutRecord != null) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("ISBN/IssueNo\t");
+				sb.append("Title\t");
+				sb.append("Type\t\t");
+				sb.append("Checkout Date\t");
+				sb.append("Due Date\t");
+				System.out.println(sb.toString());
+				for (int i = 0; i < listCheckoutRecord.size(); i++) {
+					MemberCheckoutRecord record = listCheckoutRecord.get(i);
+					System.out.println(record);
+				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			lblMessage.setText(e.getMessage());
+			lblMessage.setVisible(true);
 		}
 	}
 
@@ -69,7 +76,13 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		if (validateData()) {
 			lblMessage.setText("");
 			lblMessage.setVisible(false);
-			search(txtMemberID.getText().trim());
+			try {
+				search(txtMemberID.getText().trim());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				lblMessage.setText(e.getMessage());
+				lblMessage.setVisible(true);
+			}
 		}
 	}
 	
@@ -92,14 +105,19 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		if (validateData()) {
 			lblMessage.setText("");
 			lblMessage.setVisible(false);
-			search(txtMemberID.getText().trim());
+			try {
+				search(txtMemberID.getText().trim());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				lblMessage.setText(e.getMessage());
+				lblMessage.setVisible(true);
+			}
 		}
 	}
 	
-	private void search(String memberId) {
-		listCheckoutRecord = checkoutDAO.printCheckoutRecord(memberId);
+	private void search(String memberId) throws Exception {
 		// display in table view
-		ObservableList<MemberCheckoutRecord> listData = FXCollections.observableArrayList(listCheckoutRecord);
+		ObservableList<MemberCheckoutRecord> listData = FXCollections.observableArrayList(printCheckoutService.search(memberId));
 		tableView.setItems(listData);
 	}
 	
@@ -115,6 +133,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		bindProperties();
+		printCheckoutService =  new PrintCheckoutServiceImpl();
 	}
 
 	@Override
@@ -152,13 +171,18 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	 * This method will be called from the screen library member list
 	 * @param memberId
 	 */
-	public void loadCheckoutRecordForMember(String memberId, boolean fromLibraryList) {
+	public void loadCheckoutRecordForMember(String memberId, boolean fromLibraryList) throws Exception {
 		this.fromLibraryList = fromLibraryList;
 		if (fromLibraryList) {
 			txtMemberID.setText(memberId);
 			txtMemberID.setEditable(false);
-			search(memberId);
-			paintScreenForLibraryList();
+			try {
+				search(memberId);
+				paintScreenForLibraryList();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				throw e;
+			}
 		}
 	}
 	

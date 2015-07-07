@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecord;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
@@ -20,14 +21,14 @@ public class CheckoutPeriodicalServiceImpl implements CheckoutService {
 	private CheckoutDAOFacade checkoutDAO;
 	private CheckoutRecordDAOFacade chkoutRecordDAOFacade;
 	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade;
-	private CopyServiceImpl copyService;
+	private BookServiceImpl bookService;
 
 	public CheckoutPeriodicalServiceImpl() {
 		// TODO Auto-generated constructor stub
 		checkoutDAO = new CheckoutDAOFacade();
 		chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
 		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-		copyService = new CopyServiceImpl();
+		bookService = new BookServiceImpl();
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class CheckoutPeriodicalServiceImpl implements CheckoutService {
 							currentRecord.addCheckoutEntry(ckRecordEntry);
 							chkoutRecordDAOFacade.update(currentRecord);
 							chkoutRecordEntryDAOFacade.update(ckRecordEntry);
-							copyService.updateCopy(copy);
+							bookService.updateBookCopy((Book)publication, copy);
 						} else {
 							throw new IllegalArgumentException("The copy of the periodical is not available");
 						}
