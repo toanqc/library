@@ -6,8 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mpp.library.model.Address;
 import mpp.library.model.LibraryMember;
-import mpp.library.model.dao.MemberDAO;
-import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.model.service.MemberService;
+import mpp.library.model.service.impl.MemberServiceImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -46,7 +46,11 @@ public class MemberController implements ControlledScreen {
 
 	private int memberId;
 
-	private MemberDAO memberDAO;
+	private MemberService memberService;
+
+	public MemberController() {
+		memberService = new MemberServiceImpl();
+	}
 
 	@FXML
 	private void initialize() {
@@ -94,14 +98,12 @@ public class MemberController implements ControlledScreen {
 	}
 
 	private void setGenerateMemberId() {
-		memberDAO = new MemberDAOImpl();
-		memberId = memberDAO.generateId();
+		memberId = memberService.generateId();
 		txtMemberId.setText(String.valueOf(memberId));
 	}
 
 	private void loadData() {
-		memberDAO = new MemberDAOImpl();
-		LibraryMember libraryMember = memberDAO.get(String.valueOf(memberId));
+		LibraryMember libraryMember = memberService.get(String.valueOf(memberId));
 		bindData(libraryMember);
 	}
 
@@ -127,29 +129,24 @@ public class MemberController implements ControlledScreen {
 		if (!validation()) {
 			return;
 		}
-		Address address = new Address(txtStreet.getText(), txtCity.getText(),
-				txtState.getText(), Integer.parseInt(txtZip.getText()));
-		LibraryMember member = new LibraryMember(memberId,
-				txtFirstName.getText(), txtLastName.getText(),
+		Address address = new Address(txtStreet.getText(), txtCity.getText(), txtState.getText(),
+				Integer.parseInt(txtZip.getText()));
+		LibraryMember member = new LibraryMember(memberId, txtFirstName.getText(), txtLastName.getText(),
 				txtPhone.getText(), address);
 
 		if (FunctionType.ADD.equals(functionType)) {
-			memberDAO.save(member);
-			InformationDialog.showInformation(
-					"Member Manamgement",
-					"Library member was created, your id is: "
-							+ member.getMemberId());
-		} else if (FunctionType.UPDATE.equals(functionType)) {
-			memberDAO.update(member);
+			memberService.saveMember(member);
 			InformationDialog.showInformation("Member Manamgement",
-					"Member id " + member.getMemberId()
-							+ " was updated successfully");
+					"Library member was created, your id is: " + member.getMemberId());
+		} else if (FunctionType.UPDATE.equals(functionType)) {
+			memberService.updateMember(member);
+			InformationDialog.showInformation("Member Manamgement",
+					"Member id " + member.getMemberId() + " was updated successfully");
 		}
 		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
 				.get(Screen.MEMBER_LIST);
 		myController.setScreen(Screen.MEMBER_LIST);
-		myController.setSize(Screen.MEMBER_LIST.getWidth(),
-				Screen.MEMBER_LIST.getHeight());
+		myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
 		memberListController.repaint();
 	}
 
@@ -170,27 +167,22 @@ public class MemberController implements ControlledScreen {
 	}
 
 	private boolean validation() {
-		if (FormValidation.isEmpty(txtFirstName)
-				|| FormValidation.isEmpty(txtLastName)
-				|| FormValidation.isEmpty(txtStreet)
-				|| FormValidation.isEmpty(txtCity)
-				|| FormValidation.isEmpty(txtState)
-				|| FormValidation.isEmpty(txtZip)
+		if (FormValidation.isEmpty(txtFirstName) || FormValidation.isEmpty(txtLastName)
+				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtCity)
+				|| FormValidation.isEmpty(txtState) || FormValidation.isEmpty(txtZip)
 				|| FormValidation.isEmpty(txtPhone)) {
 			ValidationDialog.showWarning("All fields are mandatory!");
 			return false;
 		}
 
 		if (!FormValidation.isNumberAndExactLength(txtZip, 5)) {
-			ValidationDialog
-					.showWarning("Zip code must be numeric with exactly 5 digits!");
+			ValidationDialog.showWarning("Zip code must be numeric with exactly 5 digits!");
 			txtZip.requestFocus();
 			return false;
 		}
 
 		if (!FormValidation.isNumberAndExactLength(txtPhone, 10)) {
-			ValidationDialog
-					.showWarning("Phone number must be numeric with exactly 10 digits!");
+			ValidationDialog.showWarning("Phone number must be numeric with exactly 10 digits!");
 			txtZip.requestFocus();
 			return false;
 		}
@@ -201,8 +193,7 @@ public class MemberController implements ControlledScreen {
 	@FXML
 	public void handleCancel() {
 		myController.setScreen(Screen.MEMBER_LIST);
-		myController.setSize(Screen.MEMBER_LIST.getWidth(),
-				Screen.MEMBER_LIST.getHeight());
+		myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
 	}
 
 	@FXML

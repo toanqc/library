@@ -22,11 +22,4 @@ public interface MemberDAO extends BaseDAO<LibraryMember> {
 	 * @return boolean
 	 */
 	boolean update(LibraryMember member);
-
-	/**
-	 * Auto generate the member id when adding new member
-	 * 
-	 * @return int
-	 */
-	int generateId();
 }
