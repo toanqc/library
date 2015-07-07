@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" minHeight="254.0" prefHeight="418.0" prefWidth="556.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mpp.library.controller.CheckoutController">
+<AnchorPane fx:id="anchorPane" minHeight="254.0" prefHeight="418.0" prefWidth="556.0" stylesheets="@../css/common.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="mpp.library.controller.CheckoutController">
   <!-- TODO Add Nodes -->
   <children>
     <FlowPane alignment="CENTER" hgap="0.0" minHeight="36.0" prefHeight="36.0" prefWidth="519.0" vgap="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
