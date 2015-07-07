@@ -9,7 +9,7 @@ public class Publication implements Serializable {
 
 	protected String title;
 	protected int maxCheckoutLength;
-	protected List<Integer> copies;
+	protected List<Copy> copies;
 
 	public String getTitle() {
 		return title;
@@ -27,11 +27,11 @@ public class Publication implements Serializable {
 		this.maxCheckoutLength = maxCheckoutLength;
 	}
 
-	public List<Integer> getCopies() {
+	public List<Copy> getCopies() {
 		return copies;
 	}
 
-	public void setCopies(List<Integer> copies) {
+	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
 	}
 

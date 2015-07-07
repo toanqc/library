@@ -6,7 +6,6 @@ public class Copy implements Serializable {
 
 	private static final long serialVersionUID = 3241319027263293899L;
 
-	private int id;
 	private int copyNumber;
 	private Checkoutable checkoutable;
 	private boolean isAvailable;
@@ -47,14 +46,6 @@ public class Copy implements Serializable {
 
 	public void setPublication(Publication pub) {
 		this.publication = pub;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 }

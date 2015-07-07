@@ -4,12 +4,19 @@ import mpp.library.model.Copy;
 
 public interface CopyService {
 
-	Copy saveCopy(Copy copy);
+	/**
+	 * Saves {@link Copy} in DB.
+	 * 
+	 * @param copy
+	 */
+	void saveCopy(Copy copy);
 
-
+	/**
+	 * Updates {@link Copy} in Copy File and also updates associated Publication
+	 * file.
+	 * 
+	 * @param copy
+	 */
 	void updateCopy(Copy copy);
-
-
-	Copy getCopy(int id);
 
 }
