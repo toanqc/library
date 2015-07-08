@@ -99,7 +99,6 @@ public class MemberListController implements ControlledScreen {
 					if (event.getClickCount() == 2) {
 						LibraryMember member = (LibraryMember) memberTable.getItems()
 								.get(((TableCell<LibraryMember, Integer>) event.getSource()).getIndex());
-						System.out.println("person" + member.getMemberId());
 						openDetailMemberStage(member.getMemberId());
 					}
 				});
@@ -125,8 +124,14 @@ public class MemberListController implements ControlledScreen {
 							if (event.getClickCount() == 2) {
 								LibraryMember member = (LibraryMember) memberTable.getItems()
 										.get(((TableCell<LibraryMember, String>) event.getSource()).getIndex());
-								// TODO: need to transfer to print checkout
-								// record screen
+								myController.loadScreen(Screen.PRINT_CHECKOUT_RECORD,
+										Screen.PRINT_CHECKOUT_RECORD.getValue());
+								PrintCheckoutRecordController printCheckoutRecordController = (PrintCheckoutRecordController) ControlledScreen.controllerList
+										.get(Screen.PRINT_CHECKOUT_RECORD);
+								printCheckoutRecordController
+										.loadCheckoutRecordForMember(String.valueOf(member.getMemberId()), true);
+								myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
+								myController.setSize(Screen.PRINT_CHECKOUT_RECORD.getWidth(), Screen.PRINT_CHECKOUT_RECORD.getHeight());
 							}
 						});
 

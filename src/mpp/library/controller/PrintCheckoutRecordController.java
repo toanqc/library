@@ -21,6 +21,7 @@ import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -46,6 +47,8 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 
 	ScreenController myController;
 	private boolean fromLibraryList = false;
+	@FXML ImageView iconSearch;
+	@FXML ImageView iconPrint;
 
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
@@ -65,7 +68,6 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			lblMessage.setText(e.getMessage());
 			lblMessage.setVisible(true);
 		}
@@ -97,6 +99,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		else {
 			myController.setScreen(Screen.MEMBER_LIST);
 			myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
+			repaint();
 		}
 	}
 	
@@ -108,7 +111,6 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			try {
 				search(txtMemberID.getText().trim());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				lblMessage.setText(e.getMessage());
 				lblMessage.setVisible(true);
 			}
@@ -131,26 +133,26 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		bindProperties();
 		printCheckoutService =  new PrintCheckoutServiceImpl();
 	}
 
 	@Override
 	public void setScreenParent(ScreenController screenPage) {
-		// TODO Auto-generated method stub
 		myController = screenPage;
 	}
 
 	@Override
 	public void repaint() {
-		// TODO Auto-generated method stub
 		fromLibraryList = false;
 		btnCheckout.setVisible(true);
+		iconPrint.setVisible(true);
 		btnSearch.setVisible(true);
+		iconPrint.setVisible(true);
 		btnHome.setText("Home");
 		txtMemberID.setText("");
 		txtMemberID.setEditable(true);
+		txtMemberID.getStyleClass().remove("disable");
 	}
 	
 	private boolean validateData() {
@@ -171,25 +173,26 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	 * This method will be called from the screen library member list
 	 * @param memberId
 	 */
-	public void loadCheckoutRecordForMember(String memberId, boolean fromLibraryList) throws Exception {
+	public void loadCheckoutRecordForMember(String memberId, boolean fromLibraryList) {
 		this.fromLibraryList = fromLibraryList;
 		if (fromLibraryList) {
 			txtMemberID.setText(memberId);
 			txtMemberID.setEditable(false);
+			txtMemberID.getStyleClass().add("disable");
 			try {
 				search(memberId);
 				paintScreenForLibraryList();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				throw e;
+				e.printStackTrace();
 			}
 		}
 	}
 	
 	private void paintScreenForLibraryList() {
 		btnCheckout.setVisible(false);
+		iconPrint.setVisible(false);
 		btnSearch.setVisible(false);
+		iconSearch.setVisible(false);
 		btnHome.setText("Back");
-		
 	}
 }

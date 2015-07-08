@@ -38,7 +38,7 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ImageView fx:id="iconSearch" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <image>
                   <Image url="@../icon/search.png" />
                </image>
@@ -46,7 +46,7 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fx:id="iconPrint" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@../icon/print.png" />
                </image>

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mpp.library.model.CheckoutRecord;
-import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.dao.CheckoutRecordDAO;
 
 
