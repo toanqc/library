@@ -40,7 +40,7 @@ public class ScreenFramework extends Application {
 		primaryStage.getIcons().add(
 				new Image(getClass().getResourceAsStream(
 						LibraryConstant.APP_ICON)));
-		primaryStage.setResizable(false);
+		//primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
