@@ -274,4 +274,6 @@ public class PublicationController implements ControlledScreen {
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
+	@FXML public void renderAddPublication() {}
+
 }

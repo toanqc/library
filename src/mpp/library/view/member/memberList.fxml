@@ -9,7 +9,7 @@
 
 <AnchorPane stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.MemberListController">
    <children>
-      <GridPane hgap="15.0" prefHeight="600.0" prefWidth="800.0" vgap="15.0">
+      <GridPane hgap="15.0" prefHeight="580.0" prefWidth="800.0" vgap="15.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="635.0" />
@@ -28,7 +28,7 @@
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Button>
-            <Label styleClass="title" text="All Library Member" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label styleClass="title" text="Library Member" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <Button fx:id="btnAdd" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#addMember" prefWidth="110.0" styleClass="lion" text="Add" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
             <TextField fx:id="txtSearch" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Button fx:id="btnSearch" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#searchMember" prefWidth="110.0" styleClass="lion" text="Find" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
