@@ -107,8 +107,6 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			rdPeriodical.setSelected(false);
 			bookGridPane.setVisible(true);
 			periodicalGridPane.setVisible(false);
-			mainGridPane.getChildren().remove(periodicalGridPane);
-			mainGridPane.add(bookGridPane, 0, 2, 2, 1);
 		}
 
 	}
@@ -120,8 +118,6 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			rdBook.setSelected(false);
 			bookGridPane.setVisible(false);
 			periodicalGridPane.setVisible(true);
-			mainGridPane.getChildren().remove(bookGridPane);
-			mainGridPane.add(periodicalGridPane, 0, 2, 2, 1);
 		}
 	}
 
