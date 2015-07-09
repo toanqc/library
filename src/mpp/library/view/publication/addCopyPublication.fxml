@@ -12,11 +12,11 @@
    <children>
       <GridPane hgap="15.0" layoutX="10.0" layoutY="10.0" prefWidth="800.0" vgap="15.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#returnHome" prefWidth="85.0" text="Home" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <Button id="renderAddPublication" mnemonicParsing="false" onAction="#renderAddPublication" prefWidth="130.0" text="Add Publication" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <Button disable="true" mnemonicParsing="false" prefWidth="180.0" text="Add copy of Publication" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <Label id="messageBox" styleClass="red" stylesheets="@../css/common.css" text="All fields are mandatory" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#returnHome" prefWidth="85.0" text="Home" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button id="renderAddPublication" mnemonicParsing="false" onAction="#renderAddPublication" prefWidth="130.0" text="Add Publication" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Button disable="true" mnemonicParsing="false" prefWidth="180.0" text="Add copy of Publication" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
+            <Label id="messageFormBox" styleClass="red" stylesheets="@../css/common.css" text="All fields are mandatory" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../icon/home.png" />
                </image>
@@ -24,11 +24,12 @@
                   <Insets left="95.0" />
                </GridPane.margin>
             </ImageView>
+            <Text fx:id="messageBoxCopyPublication" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" visible="false" wrappingWidth="372.6708984375" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.0" minWidth="10.0" prefWidth="255.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.0" minWidth="10.0" prefWidth="244.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="241.0" minWidth="10.0" prefWidth="241.0" />
          </columnConstraints>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -102,15 +103,16 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </ImageView>
-            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#searchPeriodical" prefWidth="95.0" text="Search" GridPane.columnIndex="3" />
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-               <image>
-                  <Image url="@../icon/search.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </ImageView>
+            <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowSpan="2">
+               <children>
+                  <Button alignment="CENTER_RIGHT" layoutY="22.0" mnemonicParsing="false" onAction="#searchPeriodical" prefWidth="95.0" text="Search" />
+                  <ImageView fitHeight="16.0" fitWidth="16.0" layoutX="14.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/search.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

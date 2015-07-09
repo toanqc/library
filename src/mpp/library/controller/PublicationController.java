@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -68,15 +67,9 @@ public class PublicationController implements ControlledScreen {
 	TextField periodicalMaxCheckoutCount;
 
 	@FXML
-	Text messageBoxBook;
-
-	@FXML
-	Text messageBoxPeriodical;
+	Text messageBoxPublication;
 
 	ScreenController myController;
-
-	private FadeTransition fadeOutAddBookMessage;
-	private FadeTransition fadeOutAddPeriodicalMessage;
 
 	public PublicationController() {
 		bookService = new BookServiceImpl();
@@ -109,8 +102,7 @@ public class PublicationController implements ControlledScreen {
 
 		Book book = bookService.getBook(bookISBNNumber.getText());
 		if (book != null) {
-			fxUtil.createDialogAndRequestFocus("The entered book with provided ISBN already exists in the system.",
-					bookISBNNumber);
+			fxUtil.showErrorMessage(messageBoxPublication, "The entered book with provided ISBN already exists in the system.");
 			return;
 		}
 
@@ -131,16 +123,14 @@ public class PublicationController implements ControlledScreen {
 			authors.add(author);
 		}
 		book.setAuthorList(authors);
-		
+
 		bookService.saveBook(book);
 		postSaveBook();
 	}
 
 	private void postSaveBook() {
-		messageBoxBook.setText("Book successfully added to system.");
-		messageBoxBook.setVisible(true);
+		fxUtil.showSuccessMessage(messageBoxPublication, "Book successfully added to system.");
 		fxUtil.clearTextFields(bookGridPane);
-		fadeOutAddBookMessage.play();
 	}
 
 	@FXML
@@ -151,26 +141,24 @@ public class PublicationController implements ControlledScreen {
 			return;
 		}
 
-		Periodical periodical = periodicalSerivce.getPeriodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
+		Periodical periodical = periodicalSerivce.getPeriodical(periodicalTitle.getText(),
+				periodicalIssueNumber.getText());
 		if (periodical != null) {
-			fxUtil.createDialogAndRequestFocus(
-					"The entered periodical with provided title and issue number already exists in the system.",
-					bookISBNNumber);
+			fxUtil.showErrorMessage(messageBoxPublication,
+					"The entered periodical with provided title and issue number already exists in the system.");
 			return;
 		}
 
 		periodical = new Periodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		periodical.setMaxCheckoutLength(Integer.valueOf(periodicalMaxCheckoutCount.getText()));
-		
+
 		periodicalSerivce.savePeriodical(periodical);
 		postSavePeriodical();
 	}
 
 	private void postSavePeriodical() {
-		messageBoxPeriodical.setText("Periodical successfully added to system.");
-		messageBoxPeriodical.setVisible(true);
+		fxUtil.showSuccessMessage(messageBoxPublication, "Periodical successfully added to system.");
 		fxUtil.clearTextFields(periodicalGridPane);
-		fadeOutAddPeriodicalMessage.play();
 	}
 
 	@FXML
@@ -201,8 +189,6 @@ public class PublicationController implements ControlledScreen {
 	public void initialize() {
 		initializeTextLimiter();
 		initalizeNumericLimiter();
-		fadeOutAddBookMessage = fxUtil.createFadeOutEffect(messageBoxBook, 5000);
-		fadeOutAddPeriodicalMessage = fxUtil.createFadeOutEffect(messageBoxPeriodical, 5000);
 	}
 
 	private void initalizeNumericLimiter() {
@@ -223,18 +209,18 @@ public class PublicationController implements ControlledScreen {
 	private boolean validateBook() {
 		if (FormValidation.isEmpty(bookISBNNumber) || FormValidation.isEmpty(bookAuthor)
 				|| FormValidation.isEmpty(bookTitle) || FormValidation.isEmpty(bookMaxCheckoutCount)) {
-			ValidationDialog.showWarning("All fields are mandatory!");
+			fxUtil.showErrorMessage(messageBoxPublication, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
-			ValidationDialog.showWarning("Books cannot be checked out for more than " + 21 + " days.");
+			fxUtil.showErrorMessage(messageBoxPublication, "Books cannot be checked out for more than " + 21 + " days.");
 			bookMaxCheckoutCount.requestFocus();
 			return false;
 		}
 
 		if (FormValidation.isNumberAndExactLength(bookISBNNumber, 14)) {
-			ValidationDialog.showWarning("Book ISBN should be length of 13 digits");
+			fxUtil.showErrorMessage(messageBoxPublication, "Book ISBN should be length of 13 digits");
 			bookISBNNumber.requestFocus();
 			return false;
 		}
@@ -245,12 +231,12 @@ public class PublicationController implements ControlledScreen {
 	private boolean validatePeriodical() {
 		if (FormValidation.isEmpty(periodicalIssueNumber) || FormValidation.isEmpty(periodicalTitle)
 				|| FormValidation.isEmpty(periodicalMaxCheckoutCount)) {
-			ValidationDialog.showWarning("All fields are mandatory!");
+			fxUtil.showErrorMessage(messageBoxPublication, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalMaxCheckoutCount, 7)) {
-			ValidationDialog.showWarning("Periodicals cannot be checkedout more than " + 7 + " days.");
+			fxUtil.showErrorMessage(messageBoxPublication, "Periodicals cannot be checkedout more than " + 7 + " days.");
 			periodicalMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -265,15 +251,21 @@ public class PublicationController implements ControlledScreen {
 
 	@Override
 	public void repaint() {
-
+		
 	}
 
 	@FXML
 	public void returnHome() {
+		fxUtil.clearTextFields(bookGridPane);
+		fxUtil.clearTextFields(periodicalGridPane);
+		messageBoxPublication.setText("");
+		messageBoxPublication.setVisible(false);
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
-	@FXML public void renderAddPublication() {}
+	@FXML
+	public void renderAddPublication() {
+	}
 
 }
