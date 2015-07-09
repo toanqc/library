@@ -3,7 +3,6 @@ package mpp.library.controller;
 import java.util.Iterator;
 import java.util.List;
 
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -72,16 +71,10 @@ public class PublicationCopyController implements ControlledScreen {
 	TextField periodicalCopyNumber;
 
 	@FXML
-	Text messageBoxBook;
+	Text messageBoxCopyPublication;
 	
-	@FXML
-	Text messageBoxPeriodical;
-
 	ScreenController myController;
 	
-	private FadeTransition fadeOutAddBookMessage;
-	private FadeTransition fadeOutAddPeriodicalMessage;
-
 	public PublicationCopyController() {
 		fxUtil = new FXUtil();
 		bookService = new BookServiceImpl();
@@ -185,10 +178,8 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 	
 	private void postSaveBook() {
-		messageBoxBook.setText("Book Copy successfully added to system");
-		messageBoxBook.setVisible(true);
+		fxUtil.showSuccessMessage(messageBoxCopyPublication, "Book Copy successfully added to system");
 		fxUtil.clearTextFields(bookCopyGridPane);
-		fadeOutAddBookMessage.play();
 	}
 
 	@FXML
@@ -209,17 +200,13 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 	
 	private void postSavePeriodical() {
-		messageBoxPeriodical.setText("Periodical successfully added to system.");
-		messageBoxPeriodical.setVisible(true);
+		fxUtil.showSuccessMessage(messageBoxCopyPublication, "Periodical successfully added to system.");
 		fxUtil.clearTextFields(periodicalCopyGridPane);
-		fadeOutAddPeriodicalMessage.play();
 	}
 
 	public void initialize() {
 		initializeTextLimiter();
 		initalizeNumericLimiter();
-		fadeOutAddBookMessage = fxUtil.createFadeOutEffect(messageBoxBook, 5000);
-		fadeOutAddPeriodicalMessage = fxUtil.createFadeOutEffect(messageBoxPeriodical, 5000);
 	}
 
 	private void initalizeNumericLimiter() {
@@ -241,12 +228,12 @@ public class PublicationCopyController implements ControlledScreen {
 		if (FormValidation.isEmpty(bookCopyMaxCheckoutCount) || FormValidation.isEmpty(bookCopyNumber)
 				|| FormValidation.isEmpty(bookCopyISBNNumber) || FormValidation.isEmpty(bookCopyAuthor)
 				|| FormValidation.isEmpty(bookCopyTitle)) {
-			ValidationDialog.showWarning("All fields are mandatory!");
+			fxUtil.showErrorMessage(messageBoxCopyPublication, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(bookCopyMaxCheckoutCount, 21)) {
-			ValidationDialog.showWarning("Books cannot be checked out for more than " + 21 + " days.");
+			fxUtil.showErrorMessage(messageBoxCopyPublication, "Books cannot be checked out for more than " + 21 + " days.");
 			bookCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -257,12 +244,12 @@ public class PublicationCopyController implements ControlledScreen {
 	private boolean validatePeriodicalCopy() {
 		if (FormValidation.isEmpty(periodicalCopyMaxCheckoutCount) || FormValidation.isEmpty(periodicalCopyNumber)
 				|| FormValidation.isEmpty(periodicalCopyIssueNumber) || FormValidation.isEmpty(periodicalCopyTitle)) {
-			ValidationDialog.showWarning("All fields are mandatory!");
+			fxUtil.showErrorMessage(messageBoxCopyPublication, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalCopyMaxCheckoutCount, 7)) {
-			ValidationDialog.showWarning("Periodicals cannot be checked out for more than " + 7 + " days.");
+			fxUtil.showErrorMessage(messageBoxCopyPublication,"Periodicals cannot be checked out for more than " + 7 + " days.");
 			periodicalCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -282,6 +269,10 @@ public class PublicationCopyController implements ControlledScreen {
 
 	@FXML
 	public void returnHome() {
+		fxUtil.clearTextFields(bookCopyGridPane);
+		fxUtil.clearTextFields(periodicalCopyGridPane);
+		messageBoxCopyPublication.setText("");
+		messageBoxCopyPublication.setVisible(false);
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}

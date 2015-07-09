@@ -34,3 +34,16 @@
 .text-field.disable {  
 	-fx-background-color: #C0C0C0;
 }
+
+
+.error {
+	-fx-fill: red; 
+    -fx-font-size: 15;
+	-fx-background-repeat: no-repeat;
+}
+
+.success {
+	-fx-fill: green; 
+    -fx-font-size: 15;
+	-fx-background-repeat: no-repeat;
+}

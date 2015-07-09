@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import mpp.library.controller.ValidationDialog;
 
@@ -45,6 +46,41 @@ public class FXUtil {
 		fadeTransition.setNode(node);
 		fadeTransition.setFromValue(1.0);
 		fadeTransition.setToValue(0.0);
+		return fadeTransition;
+	}
+
+	public void showErrorMessage(Text messageBox, String message) {
+		messageBox.setText(message);
+		messageBox.getStyleClass().remove(LibraryConstant.SUCCESS_CLASS);
+		if (!messageBox.getStyleClass().contains(LibraryConstant.ERROR_CLASS)) {
+			messageBox.getStyleClass().add(LibraryConstant.ERROR_CLASS);
+		}
+		messageBox.setVisible(true);
+	}
+
+	public void showSuccessMessage(Text messageBox, String message) {
+		messageBox.setText(message);
+		messageBox.getStyleClass().remove(LibraryConstant.ERROR_CLASS);
+		if (!messageBox.getStyleClass().contains(LibraryConstant.SUCCESS_CLASS)) {
+			messageBox.getStyleClass().add(LibraryConstant.SUCCESS_CLASS);
+		}
+		messageBox.setVisible(true);
+	}
+	
+	/**
+	 * Creates fadein effect on node.
+	 * 
+	 * @param node
+	 *            {@link Node} to be fadeout
+	 * @param time
+	 *            time in milli seconds
+	 * @return {@link FadeTransition}
+	 */
+	public FadeTransition createFadeInEffect(Node node, int time) {
+		FadeTransition fadeTransition = new FadeTransition(Duration.millis(time));
+		fadeTransition.setNode(node);
+		fadeTransition.setFromValue(0.0);
+		fadeTransition.setToValue(1.0);
 		return fadeTransition;
 	}
 
