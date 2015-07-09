@@ -51,7 +51,7 @@
               </TableView>
             </content>
           </ScrollPane>
-            <Label fx:id="lblStatus" alignment="CENTER" styleClass="red" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label fx:id="lblMessage" alignment="CENTER" styleClass="red" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
