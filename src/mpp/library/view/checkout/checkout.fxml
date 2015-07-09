@@ -42,7 +42,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-        <Button alignment="CENTER" cancelButton="true" font="$x3" mnemonicParsing="false" onMouseClicked="#handleCancel" prefHeight="26.0" prefWidth="85.0" text="Cancel" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="LEFT">
+        <Button alignment="CENTER" cancelButton="true" font="$x3" mnemonicParsing="false" onMouseClicked="#handleClear" prefHeight="26.0" prefWidth="85.0" text="Clear" textAlignment="CENTER" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="LEFT">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>

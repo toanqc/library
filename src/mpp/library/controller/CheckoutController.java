@@ -1,7 +1,6 @@
 package mpp.library.controller;
 
 import java.net.URL;
-
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -16,6 +15,7 @@ import mpp.library.model.Book;
 import mpp.library.model.Periodical;
 import mpp.library.model.service.impl.CheckoutBookServiceImpl;
 import mpp.library.model.service.impl.CheckoutPeriodicalServiceImpl;
+import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -78,11 +78,9 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			String ISBN = txtISBN.getText().trim();
 			try {
 				chkoutBookService.checkout(memberId, new Book(ISBN));
-				lblMessage.setText("Check out successfully");
-				lblMessage.setVisible(true);
+				FXUtil.showSuccessMessage(lblMessage, "Check out successfully");
 			} catch (Exception e) {
-				lblMessage.setText(e.getMessage());
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
 
 		} else if (rdPeriodical.isSelected() && validateData()) {
@@ -93,17 +91,15 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			String issueNo = txtIssueNumber.getText().trim();
 			try {
 				chkoutPeriodicalService.checkout(memberId, new Periodical(title, issueNo));
-				lblMessage.setText("Check out successfully");
-				lblMessage.setVisible(true);
+				FXUtil.showSuccessMessage(lblMessage, "Check out successfully");
 			} catch (Exception e) {
-				lblMessage.setText(e.getMessage());
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
 		}
 	}
 
 	@FXML
-	protected void handleCancel(MouseEvent event) {
+	protected void handleClear(MouseEvent event) {
 		lblMessage.setVisible(false);
 		clear();
 	}
@@ -154,37 +150,31 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	private boolean validateData() {
 		if (rdBook.isSelected()) {
 			if (FormValidation.isEmpty(txtMemberID)) {
-				lblMessage.setText("Member ID must not non-empty");
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, "Member ID must not non-empty");
 				return false;
 			} else if (!FormValidation.isNumber(txtMemberID)) {
-				lblMessage.setText("Member ID is not numeric. Try again");
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, "Member ID is not numeric. Try again!");
 				return false;
 			}
 		}
 		else {
 			if (FormValidation.isEmpty(txtMemberID1)) {
-				lblMessage.setText("Member ID must not non-empty");
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, "Member ID must not non-empty");
 				return false;
 			} else if (!FormValidation.isNumber(txtMemberID1)) {
-				lblMessage.setText("Member ID is not numeric. Try again");
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, "Member ID is not numeric. Try again!");
 				return false;
 			}
 		}
 		if (rdBook.isSelected()) {
 			if (!txtISBN.getText().trim().matches("^[0-9]{13}$")) {
-				lblMessage.setText("ISBN must be 13 digits long");
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, "ISBN must be 13 digits long");
 				return false;
 			}
 		}
 		if (rdPeriodical.isSelected()) {
 			if ((FormValidation.isEmpty(txtTitle) || FormValidation.isEmpty(txtIssueNumber))) {
-				lblMessage.setText("Title and Issue Number must not non-empty");
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, "Title and Issue Number must not non-empty");
 				return false;
 			}
 		}
