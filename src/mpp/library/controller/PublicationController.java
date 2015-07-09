@@ -258,8 +258,8 @@ public class PublicationController implements ControlledScreen {
 	public void returnHome() {
 		fxUtil.clearTextFields(bookGridPane);
 		fxUtil.clearTextFields(periodicalGridPane);
-		messageBoxPublication.setText("");
-		messageBoxPublication.setVisible(false);
+		//messageBoxPublication.setText("");
+		//messageBoxPublication.setVisible(false);
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}

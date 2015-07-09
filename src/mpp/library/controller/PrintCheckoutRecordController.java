@@ -49,6 +49,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	private boolean fromLibraryList = false;
 	@FXML ImageView iconSearch;
 	@FXML ImageView iconPrint;
+	@FXML Label lblStatus;
 
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {

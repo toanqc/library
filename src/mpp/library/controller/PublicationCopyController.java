@@ -21,6 +21,7 @@ import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
+import javafx.scene.control.Label;
 
 /**
  * @author Anil
@@ -74,6 +75,8 @@ public class PublicationCopyController implements ControlledScreen {
 	Text messageBoxCopyPublication;
 	
 	ScreenController myController;
+
+	@FXML Label lblStatus;
 	
 	public PublicationCopyController() {
 		fxUtil = new FXUtil();

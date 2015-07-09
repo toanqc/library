@@ -16,22 +16,43 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="520.0" minHeight="0.0" prefHeight="493.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
-            <Button fx:id="btnHome" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#returnHome" prefWidth="120.0" styleClass="lion" stylesheets="@../css/common.css" text="Home" GridPane.halignment="LEFT">
+            <Button fx:id="btnHome" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#returnHome" prefHeight="26.0" prefWidth="120.0" styleClass="lion" stylesheets="@../css/common.css" text="Home" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets />
-               </GridPane.margin></Button>
-            <Label styleClass="title" text="Library Member" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button fx:id="btnAdd" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#addMember" prefWidth="110.0" styleClass="lion" text="Add" GridPane.columnIndex="2" GridPane.halignment="RIGHT" />
+               </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Label fx:id="lblStatus" styleClass="title" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Button fx:id="btnAdd" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addMember" prefHeight="26.0" prefWidth="110.0" styleClass="lion" text="Add" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/add.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <TextField fx:id="txtSearch" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Button fx:id="btnSearch" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#searchMember" prefWidth="110.0" styleClass="lion" text="Find" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <Button fx:id="btnSearch" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#searchMember" prefHeight="26.0" prefWidth="110.0" styleClass="lion" text="Find" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <TableView fx:id="memberTable" GridPane.columnSpan="3" GridPane.rowIndex="2">
               <columns>
                 <TableColumn fx:id="memberId" prefWidth="90.0" text="Member ID" />
@@ -45,30 +66,6 @@
                   <TableColumn fx:id="checkoutRecord" maxWidth="130.0" prefWidth="130.0" sortable="false" text="Checkout Record" />
               </columns>
             </TableView>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icon/home.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
-               <image>
-                  <Image url="@../icon/add.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../icon/search.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </ImageView>
          </children>
       </GridPane>
    </children>

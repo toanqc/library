@@ -13,11 +13,32 @@
   <children>
     <GridPane hgap="15.0" prefHeight="580.0" prefWidth="800.0" vgap="15.0">
       <children>
-        <TextField fx:id="txtMemberID" onAction="#onEnter" prefHeight="30.0" prefWidth="579.0" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Button fx:id="btnSearch" alignment="CENTER_RIGHT" blendMode="SRC_OVER" mnemonicParsing="false" onMouseClicked="#search" prefHeight="27.0" prefWidth="100.0" text="Search" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="btnHome" alignment="CENTER_RIGHT" mnemonicParsing="false" onMouseClicked="#gotoMainScreen" prefHeight="27.0" prefWidth="85.0" text="Home" />
-        <Button fx:id="btnCheckout" alignment="CENTER_RIGHT" defaultButton="true" mnemonicParsing="false" onMouseClicked="#printCheckoutRecord" prefHeight="25.0" prefWidth="180.0" text="Print Checkout Record" GridPane.columnIndex="1" />
-          <ScrollPane hbarPolicy="NEVER" GridPane.columnSpan="2" GridPane.rowIndex="2">
+        <TextField fx:id="txtMemberID" onAction="#onEnter" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+        <Button fx:id="btnSearch" alignment="CENTER" blendMode="SRC_OVER" mnemonicParsing="false" onMouseClicked="#search" prefHeight="26.0" prefWidth="100.0" text="Search" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <graphic>
+                  <ImageView fx:id="iconSearch" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnHome" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#gotoMainScreen" prefHeight="26.0" prefWidth="85.0" text="Home">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+        <Button fx:id="btnCheckout" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onMouseClicked="#printCheckoutRecord" prefHeight="26.0" prefWidth="180.0" text="Print Checkout Record" GridPane.columnIndex="2">
+               <graphic>
+                  <ImageView fx:id="iconPrint" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/print.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+          <ScrollPane hbarPolicy="NEVER" GridPane.columnSpan="3" GridPane.rowIndex="2">
             <content>
               <TableView fx:id="tableView" prefHeight="450.0" prefWidth="780.0">
                 <columns>
@@ -30,41 +51,19 @@
               </TableView>
             </content>
           </ScrollPane>
-            <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icon/home.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fx:id="iconSearch" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <image>
-                  <Image url="@../icon/search.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </ImageView>
-            <ImageView fx:id="iconPrint" fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../icon/print.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="15.0" />
-               </GridPane.margin>
-            </ImageView>
+            <Label fx:id="lblStatus" alignment="CENTER" styleClass="red" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="487.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
       </columnConstraints>
       <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </padding>
       <rowConstraints>
-            <RowConstraints minHeight="0.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="1.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="485.0" vgrow="SOMETIMES" />
       </rowConstraints>
     </GridPane>

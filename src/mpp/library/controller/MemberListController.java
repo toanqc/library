@@ -22,6 +22,7 @@ import mpp.library.model.service.impl.MemberServiceImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
+import javafx.scene.control.Label;
 
 public class MemberListController implements ControlledScreen {
 
@@ -241,6 +242,8 @@ public class MemberListController implements ControlledScreen {
 	}
 
 	ScreenController myController;
+
+	@FXML Label lblStatus;
 
 	@Override
 	public void setScreenParent(ScreenController screenParent) {
