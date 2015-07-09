@@ -17,7 +17,7 @@ import mpp.library.controller.ValidationDialog;
  */
 public class FXUtil {
 
-	public void clearTextFields(Pane pane) {
+	public static void clearTextFields(Pane pane) {
 		ObservableList<Node> nodes = pane.getChildren();
 		for (Node node : nodes) {
 			if (node instanceof TextField) {
@@ -49,7 +49,7 @@ public class FXUtil {
 		return fadeTransition;
 	}
 
-	public void showErrorMessage(Label messageBox, String message) {
+	public static void showErrorMessage(Label messageBox, String message) {
 		messageBox.setText(message);
 		messageBox.getStyleClass().remove(LibraryConstant.SUCCESS_CLASS);
 		if (!messageBox.getStyleClass().contains(LibraryConstant.ERROR_CLASS)) {
@@ -58,7 +58,7 @@ public class FXUtil {
 		messageBox.setVisible(true);
 	}
 
-	public void showSuccessMessage(Label messageBox, String message) {
+	public static void showSuccessMessage(Label messageBox, String message) {
 		messageBox.setText(message);
 		messageBox.getStyleClass().remove(LibraryConstant.ERROR_CLASS);
 		if (!messageBox.getStyleClass().contains(LibraryConstant.SUCCESS_CLASS)) {

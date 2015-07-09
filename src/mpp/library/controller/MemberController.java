@@ -8,6 +8,7 @@ import mpp.library.model.Address;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.service.MemberService;
 import mpp.library.model.service.impl.MemberServiceImpl;
+import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -92,7 +93,7 @@ public class MemberController implements ControlledScreen {
 		FormValidation.addLengthLimiter(txtLastName, 20);
 		FormValidation.addLengthLimiter(txtStreet, 50);
 		FormValidation.addLengthLimiter(txtCity, 20);
-		FormValidation.addLengthLimiter(txtState, 20);
+		FormValidation.addLengthLimiter(txtState, 2);
 		FormValidation.addLengthLimiter(txtZip, 5);
 		FormValidation.addLengthLimiter(txtPhone, 10);
 	}
@@ -116,10 +117,12 @@ public class MemberController implements ControlledScreen {
 		txtState.setText(libraryMember.getAddress().getState());
 		txtZip.setText(String.valueOf(libraryMember.getAddress().getZip()));
 		txtPhone.setText(libraryMember.getPhone());
+		lblStatus.setText("");
 	}
 
 	@FXML
 	public void returnHome() {
+		clearTextField();
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
@@ -136,18 +139,13 @@ public class MemberController implements ControlledScreen {
 
 		if (FunctionType.ADD.equals(functionType)) {
 			memberService.saveMember(member);
-			InformationDialog.showInformation("Member Manamgement",
-					"Library member was created, your id is: " + member.getMemberId());
+			FXUtil.showSuccessMessage(lblStatus, "Library member was created, your id is: " + member.getMemberId());
+			clearTextField();
+			txtMemberId.setText(String.valueOf(memberService.generateId()));
 		} else if (FunctionType.UPDATE.equals(functionType)) {
 			memberService.updateMember(member);
-			InformationDialog.showInformation("Member Manamgement",
-					"Member id " + member.getMemberId() + " was updated successfully");
+			FXUtil.showSuccessMessage(lblStatus, "Member id " + member.getMemberId() + " was updated successfully");
 		}
-		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
-				.get(Screen.MEMBER_LIST);
-		myController.setScreen(Screen.MEMBER_LIST);
-		myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
-		memberListController.repaint();
 	}
 
 	public FunctionType getFunctionType() {
@@ -171,19 +169,25 @@ public class MemberController implements ControlledScreen {
 				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtCity)
 				|| FormValidation.isEmpty(txtState) || FormValidation.isEmpty(txtZip)
 				|| FormValidation.isEmpty(txtPhone)) {
-			ValidationDialog.showWarning("All fields are mandatory!");
+			FXUtil.showErrorMessage(lblStatus, "All fields are mandatory!");
+			return false;
+		}
+
+		if (!FormValidation.isCharacter(txtState, 2)) {
+			FXUtil.showErrorMessage(lblStatus, "State must have exaclty two characters in the range A-Z!");
+			txtState.requestFocus();
 			return false;
 		}
 
 		if (!FormValidation.isNumberAndExactLength(txtZip, 5)) {
-			ValidationDialog.showWarning("Zip code must be numeric with exactly 5 digits!");
+			FXUtil.showErrorMessage(lblStatus, "Zip code must be numeric with exactly 5 digits!");
 			txtZip.requestFocus();
 			return false;
 		}
 
 		if (!FormValidation.isNumberAndExactLength(txtPhone, 10)) {
-			ValidationDialog.showWarning("Phone number must be numeric with exactly 10 digits!");
-			txtZip.requestFocus();
+			FXUtil.showErrorMessage(lblStatus, "Phone number must be numeric with exactly 10 digits!");
+			txtPhone.requestFocus();
 			return false;
 		}
 

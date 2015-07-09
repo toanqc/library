@@ -42,6 +42,15 @@ public class FormValidation {
 		return false;
 	}
 
+	public static boolean isCharacter(TextField textField, int length) {
+		if (textField.getText().matches("^[A-Z]{" + length + "}$")) {
+			return true;
+		}
+
+		return false;
+	}
+	
+	
 	public static void addLengthLimiter(TextField textField, int maxLength) {
 		textField.textProperty().addListener(new ChangeListener<String>() {
 			@Override

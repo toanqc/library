@@ -28,8 +28,6 @@ import mpp.library.view.ScreenController;
  */
 public class PublicationCopyController implements ControlledScreen {
 
-	private FXUtil fxUtil;
-
 	private BookService bookService;
 
 	private PeriodicalService periodicalService;
@@ -77,7 +75,6 @@ public class PublicationCopyController implements ControlledScreen {
 
 	
 	public PublicationCopyController() {
-		fxUtil = new FXUtil();
 		bookService = new BookServiceImpl();
 		periodicalService = new PeriodicalServiceImpl();
 	}
@@ -85,7 +82,7 @@ public class PublicationCopyController implements ControlledScreen {
 	@FXML
 	protected void showAddBookScreen(ActionEvent event) {
 		periodicalCopyGridPane.setVisible(false);
-		fxUtil.clearTextFields(periodicalCopyGridPane);
+		FXUtil.clearTextFields(periodicalCopyGridPane);
 		bookCopyGridPane.setVisible(true);
 
 	}
@@ -93,7 +90,7 @@ public class PublicationCopyController implements ControlledScreen {
 	@FXML
 	protected void showAddPeriodicalScreen(ActionEvent event) {
 		periodicalCopyGridPane.setVisible(true);
-		fxUtil.clearTextFields(bookCopyGridPane);
+		FXUtil.clearTextFields(bookCopyGridPane);
 		bookCopyGridPane.setVisible(false);
 	}
 
@@ -105,8 +102,8 @@ public class PublicationCopyController implements ControlledScreen {
 		myController.setScreen(Screen.PUBLICATION);
 		myController.setSize(Screen.PUBLICATION.getWidth(), Screen.PUBLICATION.getHeight());
 		
-		fxUtil.clearTextFields(periodicalCopyGridPane);
-		fxUtil.clearTextFields(bookCopyGridPane);
+		FXUtil.clearTextFields(periodicalCopyGridPane);
+		FXUtil.clearTextFields(bookCopyGridPane);
 	}
 
 	@FXML
@@ -179,8 +176,8 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 	
 	private void postSaveBook() {
-		fxUtil.showSuccessMessage(lblStatus, "Book Copy successfully added to system");
-		fxUtil.clearTextFields(bookCopyGridPane);
+		FXUtil.showSuccessMessage(lblStatus, "Book Copy successfully added to system");
+		FXUtil.clearTextFields(bookCopyGridPane);
 	}
 
 	@FXML
@@ -201,8 +198,8 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 	
 	private void postSavePeriodical() {
-		fxUtil.showSuccessMessage(lblStatus, "Periodical successfully added to system.");
-		fxUtil.clearTextFields(periodicalCopyGridPane);
+		FXUtil.showSuccessMessage(lblStatus, "Periodical successfully added to system.");
+		FXUtil.clearTextFields(periodicalCopyGridPane);
 	}
 
 	public void initialize() {
@@ -229,12 +226,12 @@ public class PublicationCopyController implements ControlledScreen {
 		if (FormValidation.isEmpty(bookCopyMaxCheckoutCount) || FormValidation.isEmpty(bookCopyNumber)
 				|| FormValidation.isEmpty(bookCopyISBNNumber) || FormValidation.isEmpty(bookCopyAuthor)
 				|| FormValidation.isEmpty(bookCopyTitle)) {
-			fxUtil.showErrorMessage(lblStatus, "Please complete the fields");
+			FXUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(bookCopyMaxCheckoutCount, 21)) {
-			fxUtil.showErrorMessage(lblStatus, "Books cannot be checked out for more than " + 21 + " days.");
+			FXUtil.showErrorMessage(lblStatus, "Books cannot be checked out for more than " + 21 + " days.");
 			bookCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -245,12 +242,12 @@ public class PublicationCopyController implements ControlledScreen {
 	private boolean validatePeriodicalCopy() {
 		if (FormValidation.isEmpty(periodicalCopyMaxCheckoutCount) || FormValidation.isEmpty(periodicalCopyNumber)
 				|| FormValidation.isEmpty(periodicalCopyIssueNumber) || FormValidation.isEmpty(periodicalCopyTitle)) {
-			fxUtil.showErrorMessage(lblStatus, "Please complete the fields");
+			FXUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalCopyMaxCheckoutCount, 7)) {
-			fxUtil.showErrorMessage(lblStatus,"Periodicals cannot be checked out for more than " + 7 + " days.");
+			FXUtil.showErrorMessage(lblStatus,"Periodicals cannot be checked out for more than " + 7 + " days.");
 			periodicalCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -270,8 +267,8 @@ public class PublicationCopyController implements ControlledScreen {
 
 	@FXML
 	public void returnHome() {
-		fxUtil.clearTextFields(bookCopyGridPane);
-		fxUtil.clearTextFields(periodicalCopyGridPane);
+		FXUtil.clearTextFields(bookCopyGridPane);
+		FXUtil.clearTextFields(periodicalCopyGridPane);
 		lblStatus.setText("");
 		lblStatus.setVisible(false);
 		myController.setScreen(Screen.HOME);
@@ -281,13 +278,13 @@ public class PublicationCopyController implements ControlledScreen {
 	@FXML
 	protected void cancelCopyBook(ActionEvent event) {
 		System.out.println("Cancel Book Copy");
-		fxUtil.clearTextFields(bookCopyGridPane);
+		FXUtil.clearTextFields(bookCopyGridPane);
 	}
 
 	@FXML
 	protected void cancelCopyPeriodical(ActionEvent event) {
 		System.out.println("Cancel Periodical Copy");
-		fxUtil.clearTextFields(periodicalCopyGridPane);
+		FXUtil.clearTextFields(periodicalCopyGridPane);
 	}
 
 }

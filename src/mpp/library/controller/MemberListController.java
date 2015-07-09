@@ -17,6 +17,7 @@ import javafx.util.Callback;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.service.MemberService;
 import mpp.library.model.service.impl.MemberServiceImpl;
+import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
@@ -167,6 +168,7 @@ public class MemberListController implements ControlledScreen {
 	 * Repaint the layout
 	 */
 	public void repaint() {
+		lblStatus.setText("");
 		txtSearch.clear();
 		buildData();
 	}
@@ -199,12 +201,17 @@ public class MemberListController implements ControlledScreen {
 
 	@FXML
 	public void searchMember() {
-		if ("".equals(txtSearch.getText().trim())) {
+		String searchText = txtSearch.getText();
+		if ("".equals(searchText.trim())) {
 			buildData();
 		} else {
 			libraryMemberList.clear();
-			LibraryMember libraryMember = memberService.get(txtSearch.getText());
-			if (libraryMember != null) {
+			LibraryMember libraryMember = memberService.get(searchText);
+			if (libraryMember == null) {
+				FXUtil.showErrorMessage(lblStatus, "No record found with member id: " + txtSearch.getText());
+				txtSearch.requestFocus();
+			} else {
+				lblStatus.setText("");
 				libraryMemberList.add(libraryMember);
 			}
 			memberTable.setItems(libraryMemberList);

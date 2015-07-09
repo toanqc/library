@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecord;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
@@ -14,7 +13,6 @@ import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
-import mpp.library.model.service.BookService;
 import mpp.library.model.service.CheckoutService;
 import mpp.library.model.service.CopyService;
 import mpp.library.model.service.MemberService;
