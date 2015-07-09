@@ -41,6 +41,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	@FXML
 	private TextField txtMemberID;
+	
 	@FXML
 	private TextField txtISBN;
 	@FXML

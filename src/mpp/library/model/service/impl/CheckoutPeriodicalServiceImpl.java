@@ -14,21 +14,30 @@ import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
+import mpp.library.model.service.BookService;
 import mpp.library.model.service.CheckoutService;
+import mpp.library.model.service.CopyService;
+import mpp.library.model.service.MemberService;
+import mpp.library.model.service.PeriodicalService;
 
 public class CheckoutPeriodicalServiceImpl implements CheckoutService {
 
 	private CheckoutDAOFacade checkoutDAO;
 	private CheckoutRecordDAOFacade chkoutRecordDAOFacade;
 	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade;
-	private BookServiceImpl bookService;
+	private PeriodicalService periodicalService;
+	private CopyService copyService;
+	private MemberService memberService;
 
 	public CheckoutPeriodicalServiceImpl() {
 		// TODO Auto-generated constructor stub
 		checkoutDAO = new CheckoutDAOFacade();
 		chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
 		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
-		bookService = new BookServiceImpl();
+		periodicalService = new PeriodicalServiceImpl();
+		memberService = new MemberServiceImpl();
+		copyService = new CopyServiceImpl();
+		
 	}
 
 	@Override
@@ -61,7 +70,9 @@ public class CheckoutPeriodicalServiceImpl implements CheckoutService {
 							currentRecord.addCheckoutEntry(ckRecordEntry);
 							chkoutRecordDAOFacade.update(currentRecord);
 							chkoutRecordEntryDAOFacade.update(ckRecordEntry);
-							bookService.updateBookCopy((Book)publication, copy);
+							periodicalService.updatePeriodicalCopy((Periodical)publication, copy);
+							memberService.updateMember(member);
+							copyService.updateCopy(copy);
 						} else {
 							throw new IllegalArgumentException("The copy of the periodical is not available");
 						}

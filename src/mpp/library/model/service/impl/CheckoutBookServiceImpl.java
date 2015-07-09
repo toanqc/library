@@ -13,14 +13,19 @@ import mpp.library.model.Publication;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
+import mpp.library.model.service.BookService;
 import mpp.library.model.service.CheckoutService;
+import mpp.library.model.service.CopyService;
+import mpp.library.model.service.MemberService;
 
 public class CheckoutBookServiceImpl implements CheckoutService {
 	
 	private CheckoutDAOFacade checkoutDAO;
 	private CheckoutRecordDAOFacade chkoutRecordDAOFacade;
 	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade;
-	private BookServiceImpl bookService;
+	private BookService bookService;
+	private CopyService copyService;
+	private MemberService memberService;
 
 	public CheckoutBookServiceImpl() {
 		// TODO Auto-generated constructor stub
@@ -28,6 +33,8 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 		chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
 		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
 		bookService = new BookServiceImpl();
+		memberService = new MemberServiceImpl();
+		copyService = new CopyServiceImpl();
 	}
 
 	@Override
@@ -62,6 +69,8 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 							chkoutRecordDAOFacade.update(currentRecord);
 							chkoutRecordEntryDAOFacade.update(ckRecordEntry);
 							bookService.updateBookCopy((Book)publication, copy);
+							copyService.updateCopy(copy);
+							memberService.updateMember(member);
 							
 						} else {
 							throw new IllegalArgumentException("The copy of the book is not available");
