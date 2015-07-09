@@ -5,10 +5,10 @@ import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
@@ -21,7 +21,6 @@ import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
-import javafx.scene.control.Label;
 
 /**
  * @author Anil
@@ -72,11 +71,10 @@ public class PublicationCopyController implements ControlledScreen {
 	TextField periodicalCopyNumber;
 
 	@FXML
-	Text messageBoxCopyPublication;
+	Label lblStatus;
 	
 	ScreenController myController;
 
-	@FXML Label lblStatus;
 	
 	public PublicationCopyController() {
 		fxUtil = new FXUtil();
@@ -181,7 +179,7 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 	
 	private void postSaveBook() {
-		fxUtil.showSuccessMessage(messageBoxCopyPublication, "Book Copy successfully added to system");
+		fxUtil.showSuccessMessage(lblStatus, "Book Copy successfully added to system");
 		fxUtil.clearTextFields(bookCopyGridPane);
 	}
 
@@ -203,7 +201,7 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 	
 	private void postSavePeriodical() {
-		fxUtil.showSuccessMessage(messageBoxCopyPublication, "Periodical successfully added to system.");
+		fxUtil.showSuccessMessage(lblStatus, "Periodical successfully added to system.");
 		fxUtil.clearTextFields(periodicalCopyGridPane);
 	}
 
@@ -231,12 +229,12 @@ public class PublicationCopyController implements ControlledScreen {
 		if (FormValidation.isEmpty(bookCopyMaxCheckoutCount) || FormValidation.isEmpty(bookCopyNumber)
 				|| FormValidation.isEmpty(bookCopyISBNNumber) || FormValidation.isEmpty(bookCopyAuthor)
 				|| FormValidation.isEmpty(bookCopyTitle)) {
-			fxUtil.showErrorMessage(messageBoxCopyPublication, "Please complete the fields");
+			fxUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(bookCopyMaxCheckoutCount, 21)) {
-			fxUtil.showErrorMessage(messageBoxCopyPublication, "Books cannot be checked out for more than " + 21 + " days.");
+			fxUtil.showErrorMessage(lblStatus, "Books cannot be checked out for more than " + 21 + " days.");
 			bookCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -247,12 +245,12 @@ public class PublicationCopyController implements ControlledScreen {
 	private boolean validatePeriodicalCopy() {
 		if (FormValidation.isEmpty(periodicalCopyMaxCheckoutCount) || FormValidation.isEmpty(periodicalCopyNumber)
 				|| FormValidation.isEmpty(periodicalCopyIssueNumber) || FormValidation.isEmpty(periodicalCopyTitle)) {
-			fxUtil.showErrorMessage(messageBoxCopyPublication, "Please complete the fields");
+			fxUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalCopyMaxCheckoutCount, 7)) {
-			fxUtil.showErrorMessage(messageBoxCopyPublication,"Periodicals cannot be checked out for more than " + 7 + " days.");
+			fxUtil.showErrorMessage(lblStatus,"Periodicals cannot be checked out for more than " + 7 + " days.");
 			periodicalCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
@@ -274,8 +272,8 @@ public class PublicationCopyController implements ControlledScreen {
 	public void returnHome() {
 		fxUtil.clearTextFields(bookCopyGridPane);
 		fxUtil.clearTextFields(periodicalCopyGridPane);
-		messageBoxCopyPublication.setText("");
-		messageBoxCopyPublication.setVisible(false);
+		lblStatus.setText("");
+		lblStatus.setVisible(false);
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}

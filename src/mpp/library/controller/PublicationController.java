@@ -6,11 +6,11 @@ import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
@@ -67,7 +67,7 @@ public class PublicationController implements ControlledScreen {
 	TextField periodicalMaxCheckoutCount;
 
 	@FXML
-	Text messageBoxPublication;
+	Label lblStatus;
 
 	ScreenController myController;
 
@@ -102,7 +102,7 @@ public class PublicationController implements ControlledScreen {
 
 		Book book = bookService.getBook(bookISBNNumber.getText());
 		if (book != null) {
-			fxUtil.showErrorMessage(messageBoxPublication, "The entered book with provided ISBN already exists in the system.");
+			fxUtil.showErrorMessage(lblStatus, "Book with provided ISBN already exists.");
 			return;
 		}
 
@@ -129,7 +129,7 @@ public class PublicationController implements ControlledScreen {
 	}
 
 	private void postSaveBook() {
-		fxUtil.showSuccessMessage(messageBoxPublication, "Book successfully added to system.");
+		fxUtil.showSuccessMessage(lblStatus, "Book successfully added to system.");
 		fxUtil.clearTextFields(bookGridPane);
 	}
 
@@ -144,8 +144,8 @@ public class PublicationController implements ControlledScreen {
 		Periodical periodical = periodicalSerivce.getPeriodical(periodicalTitle.getText(),
 				periodicalIssueNumber.getText());
 		if (periodical != null) {
-			fxUtil.showErrorMessage(messageBoxPublication,
-					"The entered periodical with provided title and issue number already exists in the system.");
+			fxUtil.showErrorMessage(lblStatus,
+					"Periodical with provided title and issue number already exists.");
 			return;
 		}
 
@@ -157,7 +157,7 @@ public class PublicationController implements ControlledScreen {
 	}
 
 	private void postSavePeriodical() {
-		fxUtil.showSuccessMessage(messageBoxPublication, "Periodical successfully added to system.");
+		fxUtil.showSuccessMessage(lblStatus, "Periodical successfully added to system.");
 		fxUtil.clearTextFields(periodicalGridPane);
 	}
 
@@ -209,18 +209,18 @@ public class PublicationController implements ControlledScreen {
 	private boolean validateBook() {
 		if (FormValidation.isEmpty(bookISBNNumber) || FormValidation.isEmpty(bookAuthor)
 				|| FormValidation.isEmpty(bookTitle) || FormValidation.isEmpty(bookMaxCheckoutCount)) {
-			fxUtil.showErrorMessage(messageBoxPublication, "Please complete the fields");
+			fxUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
-			fxUtil.showErrorMessage(messageBoxPublication, "Books cannot be checked out for more than " + 21 + " days.");
+			fxUtil.showErrorMessage(lblStatus, "Books cannot be checked out for more than " + 21 + " days.");
 			bookMaxCheckoutCount.requestFocus();
 			return false;
 		}
 
 		if (FormValidation.isNumberAndExactLength(bookISBNNumber, 14)) {
-			fxUtil.showErrorMessage(messageBoxPublication, "Book ISBN should be length of 13 digits");
+			fxUtil.showErrorMessage(lblStatus, "Book ISBN should be length of 13 digits");
 			bookISBNNumber.requestFocus();
 			return false;
 		}
@@ -231,12 +231,12 @@ public class PublicationController implements ControlledScreen {
 	private boolean validatePeriodical() {
 		if (FormValidation.isEmpty(periodicalIssueNumber) || FormValidation.isEmpty(periodicalTitle)
 				|| FormValidation.isEmpty(periodicalMaxCheckoutCount)) {
-			fxUtil.showErrorMessage(messageBoxPublication, "Please complete the fields");
+			fxUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalMaxCheckoutCount, 7)) {
-			fxUtil.showErrorMessage(messageBoxPublication, "Periodicals cannot be checkedout more than " + 7 + " days.");
+			fxUtil.showErrorMessage(lblStatus, "Periodicals cannot be checkedout more than " + 7 + " days.");
 			periodicalMaxCheckoutCount.requestFocus();
 			return false;
 		}

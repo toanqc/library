@@ -19,8 +19,8 @@ import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.PublicationOverdueRecord;
 import mpp.library.model.PublicationType;
-import mpp.library.model.dao.MemberDAO;
-import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.model.service.MemberService;
+import mpp.library.model.service.impl.MemberServiceImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
@@ -53,22 +53,21 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	@FXML
 	private TableColumn<PublicationOverdueRecord, String> duedateColumn;
 
-	private MemberDAO memberDao;
+	private MemberService memberService;
 
 	private ScreenController myController;
 
 	public PublicationOverdueController() {
-		memberDao = new MemberDAOImpl();
+		memberService = new MemberServiceImpl();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<LibraryMember> libraryMembers = memberDao.getList();
+		List<LibraryMember> libraryMembers = memberService.getList();
 		List<PublicationOverdueRecord> publicationOverdueRecords = new ArrayList<>();
 		PublicationOverdueRecord publicationOverdueRecord = null;
 
 		for (LibraryMember libraryMember : libraryMembers) {
-
 			for (CheckoutRecordEntry crEntry : libraryMember.getCheckoutRecord().getOverdueCheckoutRecordEntries()) {
 				publicationOverdueRecord = new PublicationOverdueRecord();
 				Publication publication = crEntry.getCopy().getPublication();
@@ -82,7 +81,7 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 				}
 
 				publicationOverdueRecord.setChkoutDate(crEntry.getCheckoutDate());
-				publicationOverdueRecord.setDueDate(crEntry.getCheckoutDate());
+				publicationOverdueRecord.setDueDate(crEntry.getDueDate());
 				publicationOverdueRecord.setMember(libraryMember.getFirstName() + " " + libraryMember.getLastName());
 				publicationOverdueRecords.add(publicationOverdueRecord);
 			}

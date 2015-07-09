@@ -36,14 +36,17 @@
 }
 
 
-.error {
-	-fx-fill: red; 
-    -fx-font-size: 15;
-	-fx-background-repeat: no-repeat;
+
+.label.error {
+	-fx-font-family: Helvetica;
+	-fx-text-fill: red;
+	-fx-font-weight: bold;
+	-fx-font-size: 15.0px;
 }
 
-.success {
-	-fx-fill: green; 
-    -fx-font-size: 15;
-	-fx-background-repeat: no-repeat;
+.label.success {
+	-fx-font-family: Helvetica;
+	-fx-text-fill: green;
+	-fx-font-weight: bold;
+	-fx-font-size: 15.0px;
 }

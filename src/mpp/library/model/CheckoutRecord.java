@@ -32,8 +32,7 @@ public class CheckoutRecord implements Serializable {
 		return checkoutRecordEntries;
 	}
 
-	public void setCheckoutRecordEntries(
-			ObservableList<CheckoutRecordEntry> checkoutRecordEntries) {
+	public void setCheckoutRecordEntries(ObservableList<CheckoutRecordEntry> checkoutRecordEntries) {
 		this.checkoutRecordEntries = checkoutRecordEntries;
 	}
 
@@ -43,10 +42,11 @@ public class CheckoutRecord implements Serializable {
 
 	public List<CheckoutRecordEntry> getOverdueCheckoutRecordEntries() {
 		List<CheckoutRecordEntry> crEntries = new ArrayList<>();
-
+		System.out.println(checkoutRecordEntries.size());
 		if (checkoutRecordEntries != null && !checkoutRecordEntries.isEmpty()) {
 
 			for (CheckoutRecordEntry checkoutRecordEntry : checkoutRecordEntries) {
+				System.out.println(checkoutRecordEntry.getDueDate());
 				if (checkoutRecordEntry.getDueDate().compareTo(LocalDate.now()) < 1) {
 					crEntries.add(checkoutRecordEntry);
 				}

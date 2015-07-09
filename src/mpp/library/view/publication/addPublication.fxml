@@ -24,7 +24,11 @@
                </graphic></Button>
             <Button id="renderAddPublication" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#renderAddPublication" prefWidth="130.0" text="Add Publication" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#renderAddCopyPublication" prefHeight="26.0" prefWidth="180.0" text="Add copy of Publication" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <Label id="messageFormBox" fx:id="lblStatus" styleClass="red" stylesheets="@../css/common.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label id="messageFormBox" fx:id="lblStatus" prefHeight="21.0" prefWidth="513.0" stylesheets="@../css/common.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="success" />
+                  <String fx:value="error" />
+               </styleClass></Label>
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="247.0" />

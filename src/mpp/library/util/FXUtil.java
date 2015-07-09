@@ -3,9 +3,9 @@ package mpp.library.util;
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 import mpp.library.controller.ValidationDialog;
 
@@ -49,7 +49,7 @@ public class FXUtil {
 		return fadeTransition;
 	}
 
-	public void showErrorMessage(Text messageBox, String message) {
+	public void showErrorMessage(Label messageBox, String message) {
 		messageBox.setText(message);
 		messageBox.getStyleClass().remove(LibraryConstant.SUCCESS_CLASS);
 		if (!messageBox.getStyleClass().contains(LibraryConstant.ERROR_CLASS)) {
@@ -58,7 +58,7 @@ public class FXUtil {
 		messageBox.setVisible(true);
 	}
 
-	public void showSuccessMessage(Text messageBox, String message) {
+	public void showSuccessMessage(Label messageBox, String message) {
 		messageBox.setText(message);
 		messageBox.getStyleClass().remove(LibraryConstant.ERROR_CLASS);
 		if (!messageBox.getStyleClass().contains(LibraryConstant.SUCCESS_CLASS)) {
