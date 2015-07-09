@@ -41,7 +41,10 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	@FXML
 	private TextField txtMemberID;
-	
+
+	@FXML
+	private TextField txtMemberID1;
+
 	@FXML
 	private TextField txtISBN;
 	@FXML
@@ -75,6 +78,8 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			String ISBN = txtISBN.getText().trim();
 			try {
 				chkoutBookService.checkout(memberId, new Book(ISBN));
+				lblMessage.setText("Check out successfully");
+				lblMessage.setVisible(true);
 			} catch (Exception e) {
 				lblMessage.setText(e.getMessage());
 				lblMessage.setVisible(true);
@@ -83,11 +88,13 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		} else if (rdPeriodical.isSelected() && validateData()) {
 			lblMessage.setVisible(false);
 			lblMessage.setText("");
-			String memberId = txtMemberID.getText().trim();
+			String memberId = txtMemberID1.getText().trim();
 			String title = txtTitle.getText().trim();
 			String issueNo = txtIssueNumber.getText().trim();
 			try {
 				chkoutPeriodicalService.checkout(memberId, new Periodical(title, issueNo));
+				lblMessage.setText("Check out successfully");
+				lblMessage.setVisible(true);
 			} catch (Exception e) {
 				lblMessage.setText(e.getMessage());
 				lblMessage.setVisible(true);
@@ -124,6 +131,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	private void clear() {
 		txtMemberID.clear();
+		txtMemberID1.clear();
 		txtISBN.clear();
 		txtIssueNumber.clear();
 		txtTitle.clear();
@@ -144,14 +152,27 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	}
 
 	private boolean validateData() {
-		if (FormValidation.isEmpty(txtMemberID)) {
-			lblMessage.setText("Member ID must not non-empty");
-			lblMessage.setVisible(true);
-			return false;
-		} else if (!FormValidation.isNumber(txtMemberID)) {
-			lblMessage.setText("Member ID is not numeric. Try again");
-			lblMessage.setVisible(true);
-			return false;
+		if (rdBook.isSelected()) {
+			if (FormValidation.isEmpty(txtMemberID)) {
+				lblMessage.setText("Member ID must not non-empty");
+				lblMessage.setVisible(true);
+				return false;
+			} else if (!FormValidation.isNumber(txtMemberID)) {
+				lblMessage.setText("Member ID is not numeric. Try again");
+				lblMessage.setVisible(true);
+				return false;
+			}
+		}
+		else {
+			if (FormValidation.isEmpty(txtMemberID1)) {
+				lblMessage.setText("Member ID must not non-empty");
+				lblMessage.setVisible(true);
+				return false;
+			} else if (!FormValidation.isNumber(txtMemberID1)) {
+				lblMessage.setText("Member ID is not numeric. Try again");
+				lblMessage.setVisible(true);
+				return false;
+			}
 		}
 		if (rdBook.isSelected()) {
 			if (!txtISBN.getText().trim().matches("^[0-9]{13}$")) {
