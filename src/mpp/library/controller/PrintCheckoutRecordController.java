@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.service.impl.PrintCheckoutServiceImpl;
+import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -83,8 +84,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				search(txtMemberID.getText().trim());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				lblMessage.setText(e.getMessage());
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
 		}
 	}
@@ -112,8 +112,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			try {
 				search(txtMemberID.getText().trim());
 			} catch (Exception e) {
-				lblMessage.setText(e.getMessage());
-				lblMessage.setVisible(true);
+				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
 		}
 	}
@@ -158,13 +157,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	
 	private boolean validateData() {
 		if (FormValidation.isEmpty(txtMemberID)) {
-			lblMessage.setText("Member ID must not be non-empty");
-			lblMessage.setVisible(true);
+			FXUtil.showErrorMessage(lblMessage, "Member ID must not be non-empty");
 			return false;
 		}
 		else if (!FormValidation.isNumber(txtMemberID)) {
-			lblMessage.setText("Member ID must be numeric");
-			lblMessage.setVisible(true);
+			FXUtil.showErrorMessage(lblMessage, "Member ID must be numeric");
 			return false;
 		}
 		return true;
