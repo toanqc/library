@@ -4,17 +4,15 @@ import java.util.List;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.service.MemberService;
@@ -22,7 +20,6 @@ import mpp.library.model.service.impl.MemberServiceImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
-import javafx.scene.control.Label;
 
 public class MemberListController implements ControlledScreen {
 
@@ -113,6 +110,7 @@ public class MemberListController implements ControlledScreen {
 					@SuppressWarnings("unchecked")
 					@Override
 					public TableCell<LibraryMember, String> call(TableColumn<LibraryMember, String> param) {
+
 						TableCell<LibraryMember, String> cell = new TableCell<LibraryMember, String>() {
 							@Override
 							protected void updateItem(String item, boolean empty) {
@@ -121,6 +119,7 @@ public class MemberListController implements ControlledScreen {
 								setGraphic(null);
 							}
 						};
+
 						cell.setOnMouseClicked(event -> {
 							if (event.getClickCount() == 2) {
 								LibraryMember member = (LibraryMember) memberTable.getItems()
@@ -132,7 +131,8 @@ public class MemberListController implements ControlledScreen {
 								printCheckoutRecordController
 										.loadCheckoutRecordForMember(String.valueOf(member.getMemberId()), true);
 								myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
-								myController.setSize(Screen.PRINT_CHECKOUT_RECORD.getWidth(), Screen.PRINT_CHECKOUT_RECORD.getHeight());
+								myController.setSize(Screen.PRINT_CHECKOUT_RECORD.getWidth(),
+										Screen.PRINT_CHECKOUT_RECORD.getHeight());
 							}
 						});
 
@@ -152,45 +152,15 @@ public class MemberListController implements ControlledScreen {
 	}
 
 	private void bindProperties() {
-		memberId.setCellValueFactory(new PropertyValueFactory<LibraryMember, Integer>("memberId"));
-		firstName.setCellValueFactory(new PropertyValueFactory<LibraryMember, String>("firstName"));
-		lastName.setCellValueFactory(new PropertyValueFactory<LibraryMember, String>("lastName"));
-
-		street.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<LibraryMember, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<LibraryMember, String> param) {
-						return new SimpleObjectProperty<String>(param.getValue().getAddress().getStreet());
-					}
-				});
-
-		city.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<LibraryMember, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<LibraryMember, String> param) {
-						return new SimpleObjectProperty<String>(param.getValue().getAddress().getCity());
-					}
-				});
-
-		zip.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<LibraryMember, Integer>, ObservableValue<Integer>>() {
-					@Override
-					public ObservableValue<Integer> call(CellDataFeatures<LibraryMember, Integer> param) {
-						return new SimpleObjectProperty<Integer>(param.getValue().getAddress().getZip());
-					}
-				});
-
-		state.setCellValueFactory(
-				new Callback<TableColumn.CellDataFeatures<LibraryMember, String>, ObservableValue<String>>() {
-					@Override
-					public ObservableValue<String> call(CellDataFeatures<LibraryMember, String> param) {
-						return new SimpleObjectProperty<String>(param.getValue().getAddress().getState());
-					}
-				});
-
-		phone.setCellValueFactory(new PropertyValueFactory<LibraryMember, String>("phone"));
-
-		checkoutRecord.setCellValueFactory(cellData -> new ReadOnlyStringWrapper("..."));
+		memberId.setCellValueFactory(cell -> new SimpleObjectProperty<Integer>(cell.getValue().getMemberId()));
+		firstName.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getFirstName()));
+		lastName.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getLastName()));
+		street.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getAddress().getStreet()));
+		city.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getAddress().getCity()));
+		zip.setCellValueFactory(cell -> new SimpleObjectProperty<Integer>(cell.getValue().getAddress().getZip()));
+		state.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getAddress().getState()));
+		phone.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getPhone()));
+		checkoutRecord.setCellValueFactory(cell -> new ReadOnlyStringWrapper("..."));
 	}
 
 	/**
@@ -243,7 +213,8 @@ public class MemberListController implements ControlledScreen {
 
 	ScreenController myController;
 
-	@FXML Label lblStatus;
+	@FXML
+	Label lblStatus;
 
 	@Override
 	public void setScreenParent(ScreenController screenParent) {
