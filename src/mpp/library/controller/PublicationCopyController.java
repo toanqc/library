@@ -134,8 +134,6 @@ public class PublicationCopyController implements ControlledScreen {
 				}
 
 				bookCopyAuthor.setText(String.join(",", builder.toString()));
-				bookCopyNumber.setText(String.valueOf(book.getCopies().size() + 1));
-				bookCopyNumber.setEditable(false);
 			}
 		}
 	}
@@ -153,8 +151,6 @@ public class PublicationCopyController implements ControlledScreen {
 				System.out.println("Got it");
 				periodicalCopyMaxCheckoutCount.setText(String.valueOf(periodical.getMaxCheckoutLength()));
 				periodicalCopyTitle.setText(periodical.getTitle());
-				periodicalCopyNumber.setText(String.valueOf(periodical.getCopies().size() + 1));
-				periodicalCopyNumber.setEditable(false);
 			}
 		}
 	}
@@ -215,11 +211,15 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 
 	private void initializeTextLimiter() {
-		FormValidation.addLengthLimiter(bookCopyISBNNumber, 20);
+		FormValidation.addLengthLimiter(bookCopyISBNNumber, 13);
 		FormValidation.addLengthLimiter(bookCopyAuthor, 100);
 		FormValidation.addLengthLimiter(bookCopyTitle, 50);
-		FormValidation.addLengthLimiter(periodicalCopyIssueNumber, 21);
-		FormValidation.addLengthLimiter(periodicalCopyTitle, 20);
+		FormValidation.addLengthLimiter(periodicalCopyIssueNumber, 10);
+		FormValidation.addLengthLimiter(periodicalCopyTitle, 50);
+		FormValidation.addLengthLimiter(bookCopyMaxCheckoutCount, 2);
+		FormValidation.addLengthLimiter(periodicalCopyMaxCheckoutCount, 2);
+		FormValidation.addLengthLimiter(bookCopyNumber, 2);
+		FormValidation.addLengthLimiter(periodicalCopyNumber, 2);
 	}
 
 	private boolean validateBookCopy() {
@@ -233,6 +233,12 @@ public class PublicationCopyController implements ControlledScreen {
 		if (FormValidation.isEnteredNumberGreaterThan(bookCopyMaxCheckoutCount, 21)) {
 			FXUtil.showErrorMessage(lblStatus, "Books cannot be checked out for more than " + 21 + " days.");
 			bookCopyMaxCheckoutCount.requestFocus();
+			return false;
+		}
+		
+		if (!FormValidation.isEnteredNumberGreaterThan(bookCopyNumber, 0)) {
+			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
+			bookCopyNumber.requestFocus();
 			return false;
 		}
 
@@ -249,6 +255,12 @@ public class PublicationCopyController implements ControlledScreen {
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalCopyMaxCheckoutCount, 7)) {
 			FXUtil.showErrorMessage(lblStatus,"Periodicals cannot be checked out for more than " + 7 + " days.");
 			periodicalCopyMaxCheckoutCount.requestFocus();
+			return false;
+		}
+		
+		if (!FormValidation.isEnteredNumberGreaterThan(periodicalCopyNumber, 0)) {
+			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
+			periodicalCopyNumber.requestFocus();
 			return false;
 		}
 

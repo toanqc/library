@@ -22,8 +22,10 @@ public interface BookService {
 	 * Saves Book in the DB.
 	 * 
 	 * @param book
+	 * @param copiesNum
+	 *            number of copies
 	 */
-	void saveBook(Book book);
+	void saveBook(Book book, int copiesNum);
 
 	/**
 	 * Adds {@link Copy} of the provided {@link Book} with provided copyNumber.

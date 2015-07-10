@@ -85,7 +85,7 @@ public class FormValidation {
 
 	public static boolean isEnteredNumberGreaterThan(TextField textField,
 			int number) {
-		if (textField.getText().matches("^[0-9]{2}$")
+		if (textField.getText().matches("^[0-9]$")
 				&& Integer.valueOf(textField.getText().trim()).intValue() > number) {
 			return true;
 		}

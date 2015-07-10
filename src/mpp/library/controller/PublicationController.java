@@ -67,6 +67,12 @@ public class PublicationController implements ControlledScreen {
 	@FXML
 	Label lblStatus;
 
+	@FXML
+	TextField bookCopiesNum;
+
+	@FXML
+	TextField periodicalCopiesNum;
+
 	ScreenController myController;
 
 	public PublicationController() {
@@ -121,7 +127,7 @@ public class PublicationController implements ControlledScreen {
 		}
 		book.setAuthorList(authors);
 
-		bookService.saveBook(book);
+		bookService.saveBook(book, Integer.parseInt(bookCopiesNum.getText()));
 		postSaveBook();
 	}
 
@@ -141,15 +147,14 @@ public class PublicationController implements ControlledScreen {
 		Periodical periodical = periodicalSerivce.getPeriodical(periodicalTitle.getText(),
 				periodicalIssueNumber.getText());
 		if (periodical != null) {
-			FXUtil.showErrorMessage(lblStatus,
-					"Periodical with provided title and issue number already exists.");
+			FXUtil.showErrorMessage(lblStatus, "Periodical with provided title and issue number already exists.");
 			return;
 		}
 
 		periodical = new Periodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		periodical.setMaxCheckoutLength(Integer.valueOf(periodicalMaxCheckoutCount.getText()));
 
-		periodicalSerivce.savePeriodical(periodical);
+		periodicalSerivce.savePeriodical(periodical,Integer.parseInt(periodicalCopiesNum.getText()));
 		postSavePeriodical();
 	}
 
@@ -191,21 +196,26 @@ public class PublicationController implements ControlledScreen {
 	private void initalizeNumericLimiter() {
 		FormValidation.addNumbericLimiter(bookMaxCheckoutCount);
 		FormValidation.addNumbericLimiter(periodicalMaxCheckoutCount);
+		FormValidation.addNumbericLimiter(bookCopiesNum);
+		FormValidation.addNumbericLimiter(periodicalCopiesNum);
 	}
 
 	private void initializeTextLimiter() {
 		FormValidation.addLengthLimiter(bookISBNNumber, 13);
 		FormValidation.addLengthLimiter(bookAuthor, 100);
 		FormValidation.addLengthLimiter(bookTitle, 50);
-		FormValidation.addLengthLimiter(bookMaxCheckoutCount, 21);
-		FormValidation.addLengthLimiter(periodicalIssueNumber, 20);
-		FormValidation.addLengthLimiter(periodicalTitle, 5);
-		FormValidation.addLengthLimiter(periodicalMaxCheckoutCount, 7);
+		FormValidation.addLengthLimiter(bookMaxCheckoutCount, 2);
+		FormValidation.addLengthLimiter(periodicalIssueNumber, 10);
+		FormValidation.addLengthLimiter(periodicalTitle, 50);
+		FormValidation.addLengthLimiter(periodicalMaxCheckoutCount, 2);
+		FormValidation.addLengthLimiter(bookCopiesNum, 2);
+		FormValidation.addLengthLimiter(periodicalCopiesNum, 2);
 	}
 
 	private boolean validateBook() {
 		if (FormValidation.isEmpty(bookISBNNumber) || FormValidation.isEmpty(bookAuthor)
-				|| FormValidation.isEmpty(bookTitle) || FormValidation.isEmpty(bookMaxCheckoutCount)) {
+				|| FormValidation.isEmpty(bookTitle) || FormValidation.isEmpty(bookMaxCheckoutCount)
+				|| FormValidation.isEmpty(bookCopiesNum)) {
 			FXUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
@@ -213,6 +223,12 @@ public class PublicationController implements ControlledScreen {
 		if (FormValidation.isEnteredNumberGreaterThan(bookMaxCheckoutCount, 21)) {
 			FXUtil.showErrorMessage(lblStatus, "Books cannot be checked out for more than " + 21 + " days.");
 			bookMaxCheckoutCount.requestFocus();
+			return false;
+		}
+
+		if (!FormValidation.isEnteredNumberGreaterThan(bookCopiesNum, 0)) {
+			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
+			bookCopiesNum.requestFocus();
 			return false;
 		}
 
@@ -227,8 +243,14 @@ public class PublicationController implements ControlledScreen {
 
 	private boolean validatePeriodical() {
 		if (FormValidation.isEmpty(periodicalIssueNumber) || FormValidation.isEmpty(periodicalTitle)
-				|| FormValidation.isEmpty(periodicalMaxCheckoutCount)) {
+				|| FormValidation.isEmpty(periodicalMaxCheckoutCount) || FormValidation.isEmpty(periodicalCopiesNum)) {
 			FXUtil.showErrorMessage(lblStatus, "Please complete the fields");
+			return false;
+		}
+
+		if (!FormValidation.isEnteredNumberGreaterThan(periodicalCopiesNum, 0)) {
+			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
+			bookCopiesNum.requestFocus();
 			return false;
 		}
 
@@ -248,7 +270,7 @@ public class PublicationController implements ControlledScreen {
 
 	@Override
 	public void repaint() {
-		
+
 	}
 
 	@FXML

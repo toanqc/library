@@ -26,13 +26,16 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 	}
 
 	@Override
-	public void savePeriodical(Periodical periodical) {
-		Copy copy = new Copy(periodical, 1);
-		copy.setAvailable(true);
-		copyService.saveCopy(copy);
+	public void savePeriodical(Periodical periodical, int copiesNum) {
 
 		List<Copy> copies = new ArrayList<>();
-		copies.add(copy);
+		for (int i = 0; i < copiesNum; i++) {
+			Copy copy = new Copy(periodical, 1, true);
+			copy.setAvailable(true);
+			copyService.saveCopy(copy);
+			copies.add(copy);
+		}
+
 		periodical.setCopies(copies);
 		periodicalDao.save(periodical);
 
@@ -40,13 +43,15 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
 	@Override
 	public void addCopy(Periodical periodical, int copyNumber) {
-		Copy copy = new Copy(periodical, copyNumber);
-		copy.setAvailable(true);
-		copyService.saveCopy(copy);
+		
+		for (int i = 0; i < copyNumber; i++) {
+			Copy copy = new Copy(periodical, 1, true);
+			copy.setAvailable(true);
+			copyService.saveCopy(copy);
+			periodical.getCopies().add(copy);
+		}
 
-		periodical.getCopies().add(copy);
 		this.updatePeriodical(periodical);
-
 	}
 
 	@Override
@@ -62,10 +67,10 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
 			if (periodical.getIssueNumber().equals(pc.getIssueNumber())
 					&& periodical.getTitle().equals(pc.getTitle())) {
-				
+
 				List<Copy> copies = periodical.getCopies();
 				for (int i = 0; i < copies.size(); i++) {
-					
+
 					if (copies.get(i).getCopyNumber() == copy.getCopyNumber()) {
 						copies.set(i, copy);
 						updatePeriodical(pc);
