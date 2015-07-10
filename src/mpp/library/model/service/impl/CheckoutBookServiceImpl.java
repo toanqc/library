@@ -11,6 +11,9 @@ import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.Publication;
+import mpp.library.model.dao.CheckoutRecordEntryDAO;
+import mpp.library.model.dao.db.impl.CheckoutDAODBFacade;
+import mpp.library.model.dao.db.impl.CheckoutRecordEntryDAODBFacade;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordEntryDAOFacade;
@@ -20,22 +23,24 @@ import mpp.library.model.service.CopyService;
 import mpp.library.model.service.MemberService;
 
 public class CheckoutBookServiceImpl implements CheckoutService {
-	
+
 	private CheckoutDAOFacade checkoutDAO;
 	private CheckoutRecordDAOFacade chkoutRecordDAOFacade;
-	private CheckoutRecordEntryDAOFacade chkoutRecordEntryDAOFacade;
+	private CheckoutRecordEntryDAODBFacade chkoutRecordEntryDAOFacade;
 	private BookService bookService;
 	private CopyService copyService;
 	private MemberService memberService;
+	private CheckoutDAODBFacade checkoutDAODBFacade;
 
 	public CheckoutBookServiceImpl() {
 		// TODO Auto-generated constructor stub
 		checkoutDAO = new CheckoutDAOFacade();
 		chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
-		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
+		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAODBFacade();
 		bookService = new BookServiceImpl();
 		memberService = new MemberServiceImpl();
 		copyService = new CopyServiceImpl();
+		checkoutDAODBFacade = new CheckoutDAODBFacade();
 	}
 
 	@Override
@@ -49,33 +54,23 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 
 			} else {
 				// check if ISBN exist and copy is available
-				Publication publication = checkoutDAO.getPublication(pub);
-				if (publication != null) {
-					List<Copy> listCopies = publication.getCopies();
-					if (listCopies != null) {
-						Optional<Copy> optionalCopy = listCopies.stream().filter(s -> s.getAvailable()).findFirst();
-						Copy copy = optionalCopy.get();
-						if (copy != null) {
-							CheckoutRecord currentRecord = member.getCheckoutRecord();
-							LocalDate chkoutDate = LocalDate.now();
-							LocalDate dueDate = chkoutDate.plus(publication.getMaxCheckoutLength(), ChronoUnit.DAYS);
-							CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(chkoutDate, dueDate, copy);
-							copy.setAvailable(false);
-							currentRecord.addCheckoutEntry(ckRecordEntry);
-							chkoutRecordDAOFacade.update(currentRecord);
-							chkoutRecordEntryDAOFacade.update(ckRecordEntry);
-							bookService.updateBookCopy((Book)publication, copy);
-							copyService.updateCopy(copy);
-							memberService.updateMember(member);
-							
-						} else {
-							throw new IllegalArgumentException("The copy of the book is not available");
-						}
-					}
+				Copy copy = checkoutDAODBFacade.getAvailableCopy(pub);
+				if (copy != null) {
+					CheckoutRecord currentRecord = member.getCheckoutRecord();
+					LocalDate chkoutDate = LocalDate.now();
+					LocalDate dueDate = chkoutDate.plus(copy.getPublication()
+							.getMaxCheckoutLength(), ChronoUnit.DAYS);
+					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(
+							chkoutDate, dueDate, copy);
+					copy.setAvailable(false);
+					chkoutRecordEntryDAOFacade.save(ckRecordEntry);
+					copyService.updateCopy(copy);
 
 				} else {
-					throw new IllegalArgumentException("The book is not available");
+					throw new IllegalArgumentException(
+							"The copy of the book is not available");
 				}
+
 			}
 		}
 	}

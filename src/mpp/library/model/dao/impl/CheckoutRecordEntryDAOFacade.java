@@ -1,23 +1,35 @@
 package mpp.library.model.dao.impl;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.dao.CheckoutRecordEntryDAO;
+import mpp.library.model.dao.db.connection.ConnectionManager;
 
-public class CheckoutRecordEntryDAOFacade extends AbstractSerializationDAO<CheckoutRecordEntry>
-		implements CheckoutRecordEntryDAO {
+public class CheckoutRecordEntryDAOFacade extends
+		AbstractSerializationDAO<CheckoutRecordEntry> implements
+		CheckoutRecordEntryDAO {
 
-	public void saveCheckoutRecordEntry(List<CheckoutRecordEntry> listChkoutRecordEntry) {
-		this.writeObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(), listChkoutRecordEntry);
+	public void saveCheckoutRecordEntry(
+			List<CheckoutRecordEntry> listChkoutRecordEntry) {
+		this.writeObjectList(
+				SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(),
+				listChkoutRecordEntry);
 	}
 
 	@Override
 	public CheckoutRecordEntry get(String copyNumber) {
-		List<CheckoutRecordEntry> entryList = this.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue());
+		List<CheckoutRecordEntry> entryList = this
+				.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY
+						.getValue());
 		for (CheckoutRecordEntry entry : entryList) {
-			if (String.valueOf(entry.getCopy().getCopyNumber()).equals(copyNumber)) {
+			if (String.valueOf(entry.getCopy().getCopyNumber()).equals(
+					copyNumber)) {
 				return entry;
 			}
 		}
@@ -27,28 +39,37 @@ public class CheckoutRecordEntryDAOFacade extends AbstractSerializationDAO<Check
 
 	@Override
 	public boolean update(CheckoutRecordEntry record) {
-		List<CheckoutRecordEntry> recordList = this.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue());
+		List<CheckoutRecordEntry> recordList = this
+				.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY
+						.getValue());
 		if (recordList != null) {
 			boolean existingRecord = false;
 			for (int i = 0; i < recordList.size(); i++) {
 				CheckoutRecordEntry cre = recordList.get(i);
-				if (record.getCopy().getCopyNumber() == cre.getCopy().getCopyNumber()) {
+				if (record.getCopy().getCopyNumber() == cre.getCopy()
+						.getCopyNumber()) {
 					existingRecord = true;
 					recordList.set(i, record);
-					this.writeObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(), recordList);
+					this.writeObjectList(
+							SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(),
+							recordList);
 					return true;
 				}
 			}
 			if (!existingRecord) {
 				// record does not exist, add new record into the file
 				recordList.add(record);
-				this.writeObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(), recordList);
+				this.writeObjectList(
+						SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(),
+						recordList);
 				return true;
 			}
 		} else {
 			recordList = new ArrayList<CheckoutRecordEntry>();
 			recordList.add(record);
-			this.writeObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(), recordList);
+			this.writeObjectList(
+					SerializationFile.CHECKOUT_RECORD_ENTRY.getValue(),
+					recordList);
 			return true;
 		}
 		return false;
@@ -56,6 +77,25 @@ public class CheckoutRecordEntryDAOFacade extends AbstractSerializationDAO<Check
 
 	@Override
 	public void save(CheckoutRecordEntry checkoutRecordEntry) {
-		throw new UnsupportedOperationException("Method save of Checkout Record Entry not support at this moment");
+		try {
+			// TODO Auto-generated method stub
+			Connection conn = ConnectionManager.getInstance().getConnection();
+
+			String sql = "INSERT INTO CHECKOUTRECORDENTRY (memberid, copyid, checkoutdate, duedate) VALUES (?, ?, ?, ?)";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, checkoutRecordEntry.getMemberId());
+			stmt.setInt(2, checkoutRecordEntry.getCopy().getCopyNumber());
+			LocalDate ckoutDate = checkoutRecordEntry.getCheckoutDate();
+			stmt.setDate(3, Date.valueOf(ckoutDate));
+
+			// Perform SELECT
+			stmt.executeUpdate();
+			// close Statement object; do not re-use
+			stmt.close();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
