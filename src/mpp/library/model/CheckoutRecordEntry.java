@@ -10,6 +10,8 @@ public class CheckoutRecordEntry implements Serializable {
 	private LocalDate checkoutDate;
 	private LocalDate dueDate;
 	private Copy copy;
+	private int id;
+	private int memberId;
 
 	public CheckoutRecordEntry(LocalDate checkoutDate, LocalDate dueDate,
 			Copy copy) {
@@ -40,5 +42,21 @@ public class CheckoutRecordEntry implements Serializable {
 
 	public void setCopy(Copy copy) {
 		this.copy = copy;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return this.id;
+	}
+	
+	public void setMemberID(int memberId) {
+		this.memberId = memberId;
+	}
+	
+	public int getMemberId() {
+		return this.memberId;
 	}
 }

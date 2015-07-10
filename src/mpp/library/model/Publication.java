@@ -10,6 +10,7 @@ public class Publication implements Serializable {
 	protected String title;
 	protected int maxCheckoutLength;
 	protected List<Copy> copies;
+	protected int id;
 
 	public String getTitle() {
 		return title;
@@ -33,6 +34,14 @@ public class Publication implements Serializable {
 
 	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
+	}
+	
+	public void setID(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 }

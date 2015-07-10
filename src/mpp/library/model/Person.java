@@ -10,6 +10,7 @@ public class Person implements Serializable {
 	private String lastName;
 	private String phone;
 	private Address address;
+	
 
 	public Person() {
 		// default constructor, this must have because of Author class
