@@ -36,7 +36,7 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 			Statement stmt = conn.createStatement();
 			String sql = "INSERT INTO LIBRARYMEMBER(memberid, firstname, lastname, phone, addressid) VALUES ("
 					+ member.getMemberId() + ", " + member.getFirstName() + ", " + member.getLastName() + ", "
-					+ member.getPhone() + ", " + member.getAddress().getID() + ")";
+					+ member.getPhone() + ", " + member.getAddress().getId() + ")";
 			stmt.executeQuery(sql);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -55,12 +55,11 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 			// TODO Auto-generated method stub
 			Connection conn = ConnectionManager.getInstance().getConnection();
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM PUBLICATION WHERE pubtype = "; 
+			String sql = "SELECT * FROM PUBLICATION WHERE pubtype = ";
 			if (pub instanceof Book) {
-				sql += PublicationType.BOOK + " AND isbn_issueno = " + ((Book)pub).getISBN() ;
-			}
-			else {
-				sql += PublicationType.PERIODICAL + " AND isbn_issueno = " + ((Periodical)pub).getIssueNumber() ;
+				sql += PublicationType.BOOK + " AND isbn_issueno = " + ((Book) pub).getISBN();
+			} else {
+				sql += PublicationType.PERIODICAL + " AND isbn_issueno = " + ((Periodical) pub).getIssueNumber();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

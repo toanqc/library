@@ -2,8 +2,6 @@ package mpp.library.model;
 
 import java.io.Serializable;
 
-import javafx.beans.NamedArg;
-
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = -3719734384138316102L;
@@ -14,7 +12,7 @@ public class Address implements Serializable {
 	private String state;
 	private int zip;
 
-	public Address(@NamedArg("street") String street, String city, String state, int zip) {
+	public Address(String street, String city, String state, int zip) {
 		this.street = street;
 		this.city = city;
 		this.state = state;
@@ -52,13 +50,12 @@ public class Address implements Serializable {
 	public void setZip(int zip) {
 		this.zip = zip;
 	}
-	
-	public void setID(int Id) {
+
+	public void setId(int Id) {
 		this.id = Id;
 	}
-	
-	public int getID() {
+
+	public int getId() {
 		return this.id;
 	}
-
 }
