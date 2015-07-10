@@ -18,5 +18,12 @@ public class Periodical extends Publication {
 	public void setIssueNumber(String issueNumber) {
 		this.issueNumber = issueNumber;
 	}
+	
+	public Periodical(int id, String issueNo, String title, int maxChkout) {
+		this.id = id;
+		this.issueNumber = issueNo;
+		this.title = title;
+		this.maxCheckoutLength = maxChkout;
+	}
 
 }

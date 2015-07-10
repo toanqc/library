@@ -28,5 +28,12 @@ public class Book extends Publication{
 	public void setAuthorList(List<Author> authorList) {
 		this.authorList = authorList;
 	}
+	
+	public Book(int id, String isbn, String title, int maxCheckoutLength) {
+		this.id = id;
+		this.ISBN = isbn;
+		this.title = title;
+		this.maxCheckoutLength = maxCheckoutLength;
+	}
 
 }

@@ -4,10 +4,13 @@
 package mpp.library.model.dao.db.impl;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import mpp.library.model.Book;
+import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Periodical;
@@ -55,12 +58,41 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 			// TODO Auto-generated method stub
 			Connection conn = ConnectionManager.getInstance().getConnection();
 			Statement stmt = conn.createStatement();
-			String sql = "SELECT * FROM PUBLICATION WHERE pubtype = ";
+			String sql = "SELECT p.id PUBID, p.pubtype, p.title, p.isbn_issueno, p.maxcheckoutlength, c.copyNo, c.isavailable FROM PUBLICATION "
+					+ " INNER JOIN COPY c WHERE c.pubid = p.id AND c.isavailable = true AND p.pubtype = ";
 			if (pub instanceof Book) {
 				sql += PublicationType.BOOK + " AND isbn_issueno = " + ((Book) pub).getISBN();
 			} else {
 				sql += PublicationType.PERIODICAL + " AND isbn_issueno = " + ((Periodical) pub).getIssueNumber();
 			}
+			// Perform SELECT
+			ResultSet rs = stmt.executeQuery(sql);
+			int currentPubId = 0;
+			Publication result = null;
+			List<Publication> listPub = new ArrayList<Publication>();
+			List<Copy> listCopies = null;
+			while (rs.next()) {
+				int id = rs.getInt("PUBID");
+				String pubtype = rs.getString("pubtype").trim();
+				String title = rs.getString("title").trim();
+				String isbn_issueno = rs.getString("isbn_issueno").trim();
+				int maxChkout = rs.getInt("maxcheckoutlength");
+				int copyNo = rs.getInt("COPYNO");
+				boolean isAvailable = rs.getBoolean("ISAVAILABLE");
+				if (currentPubId != id) {
+					currentPubId = id;
+					result = pubtype.equals(PublicationType.BOOK) ? new Book(id, isbn_issueno, title, maxChkout) : new Periodical(id, isbn_issueno, title, maxChkout);
+					listCopies = new ArrayList<Copy>();
+					listPub.add(result);
+					if (listPub.size() > 1) {
+						return listPub.get(0);
+					}
+				}
+				Copy copy = new Copy(result, copyNo, isAvailable);
+				listCopies.add(copy);
+			}
+			// close Statement object; do not re-use
+			stmt.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
