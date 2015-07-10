@@ -7,14 +7,14 @@ INSERT INTO ADDRESS (street, city, state, zip) VALUES ('101 S. Main', 'Fairfield
 				('42 Dogwood Dr.', 'Fairfield', 'IA', '52556'),
 				('501 Central', 'Mountain View', 'CA', '94707');
 
-INSERT INTO AUTHOR (firstname, lastname, phone, addressId, bio) VALUES
+INSERT INTO AUTHOR (firstname, lastname, telephone, addressId, bio) VALUES
 				('Joe', 'Thomas', '641-445-2123', 1001, 'A happy man is he'),
 				('Sandra', 'Thomas', '641-445-2123', 1001, 'A happy wife is she'),
 				('Nirmal', 'Pugh', '641-919-3223',1002, 'Thinker of thoughts'),
 				('Andrew', 'Cleveland', '976-445-2232', 1003, 'Author of childrens books'),
 				('Sarah', 'Connor', '123-422-2663',1004, 'Known for her clever style');
 
-INSERT INTO PUBLICATION (isbn_issueno, title,  maxcheckoutlength, pubtype) VALUES
+INSERT INTO PUBLICATION (isbn_issuenum, title,  maxcheckoutlength, pubtype) VALUES
 ('1', 'Journal of Skydiving', 3,'periodical'),
 ('4', 'Life Magazine', 7,'periodical'),
 ('100', 'Journal of Symbolic Logic', 3,'periodical'),
@@ -24,13 +24,13 @@ INSERT INTO PUBLICATION (isbn_issueno, title,  maxcheckoutlength, pubtype) VALUE
 ('48-56882', 'Jimmys First Day of School', 7, 'book');
 
 
-INSERT INTO PUBLICATIONAUTHOR(authorid, pubid) VALUES
+INSERT INTO PUBLICATIONAUTHOR (authorid, pubid) VALUES
 			(1001,1004),(1002,1004),
 			(1003,1005),
 			(1004,1006),
 			(1005,1007);
 
-INSERT INTO COPY(pubid, copyno, isavailable) VALUES
+INSERT INTO PUBCOPY(pubId, copynumber, status) VALUES
 		(1001,1,false),(1001,2,true),(1001,3,false),
 		(1002,1,false),(1002,2,true),(1002,3,true),
 		(1003,1,false),(1003,2,true),(1003,2,true),(1003,4,true),
@@ -41,7 +41,7 @@ INSERT INTO COPY(pubid, copyno, isavailable) VALUES
 
 
 
-INSERT INTO LIBRARYMEMBER(memberid, firstname, lastname, phone, addressid) VALUES
+INSERT INTO LIBRARYMEMBER(memberid, firstname, lastname, telephone, addressid ) VALUES
 			('1001', 'Andy', 'Rogers', '641-223-2211',1005),
 			('1002', 'Drew', 'Stevens', '702-998-2414',1006),
 			('1003', 'Sarah', 'Eagleton', '451-234-8811', 1007),
@@ -49,7 +49,7 @@ INSERT INTO LIBRARYMEMBER(memberid, firstname, lastname, phone, addressid) VALUE
 
 
 
-INSERT INTO CHECKOUTRECORDENTRY(memberid,copyid,checkoutdate,duedate) VALUES
+INSERT INTO CHECKOUTRECORD (idmem,copyid,checkoutdate,duedate) VALUES
 				(1001,1011,'2011-12-1','2011-12-22'),
 				(1001,1012,'2015-6-22','2015-7-13'),
 				(1002,1014,'2015-6-27','2015-7-18'),
@@ -65,9 +65,9 @@ INSERT INTO CHECKOUTRECORDENTRY(memberid,copyid,checkoutdate,duedate) VALUES
 SELECT *  FROM ADDRESS;
 SELECT *  FROM AUTHOR;
 SELECT *  FROM PUBLICATION;
-SELECT *  FROM COPY;
+SELECT *  FROM PUBCOPY;
 SELECT *  FROM LIBRARYMEMBER;
-SELECT *  FROM CHECkOUTRECORDENTRY;
+SELECT *  FROM CHECkOUTRECORD;
 
 
 --Testing Joins
@@ -78,8 +78,8 @@ FROM PUBLICATION P INNER JOIN PUBLICATIONAUTHOR PA ON P.id = PA.pubid
 INNER JOIN AUTHOR A ON A.id = PA.authorid;
 
 SELECT M.firstname, M.lastname, P.title, C.checkoutdate, C.duedate
-FROM CHECKOUTRECORDENTRY
-C INNER JOIN LIBRARYMEMBER M ON M.id = C.memberid
-INNER JOIN COPY PC ON PC.id = C.copyid
+FROM CHECKOUTRECORD
+C INNER JOIN LIBRARYMEMBER M ON M.id = C.idmem
+INNER JOIN PUBCOPY PC ON PC.id = C.copyid
 INNER JOIN PUBLICATION P ON PC.pubId = P.id WHERE M.id = 1004;
 
