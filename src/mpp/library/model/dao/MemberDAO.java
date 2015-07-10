@@ -22,4 +22,19 @@ public interface MemberDAO extends BaseDAO<LibraryMember> {
 	 * @return boolean
 	 */
 	boolean update(LibraryMember member);
+
+	/**
+	 * Get the library member information by member id
+	 * 
+	 * @param memberId
+	 *            the member id to be found
+	 * @return the found library member information
+	 */
+	LibraryMember getByMemberId(String memberId);
+
+	/**
+	 * Generate the new member id
+	 * @return the new member id
+	 */
+	String geneateMemberId();
 }

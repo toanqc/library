@@ -45,7 +45,7 @@ public class MemberController implements ControlledScreen {
 
 	private FunctionType functionType;
 
-	private int memberId;
+	private String memberId;
 
 	private MemberService memberService;
 
@@ -99,17 +99,17 @@ public class MemberController implements ControlledScreen {
 	}
 
 	private void setGenerateMemberId() {
-		memberId = memberService.generateId();
-		txtMemberId.setText(String.valueOf(memberId));
+		memberId = memberService.generateMemberId();
+		txtMemberId.setText(memberId);
 	}
 
 	private void loadData() {
-		LibraryMember libraryMember = memberService.get(String.valueOf(memberId));
+		LibraryMember libraryMember = memberService.getByMemberId(memberId);
 		bindData(libraryMember);
 	}
 
 	private void bindData(LibraryMember libraryMember) {
-		txtMemberId.setText(String.valueOf(libraryMember.getMemberId()));
+		txtMemberId.setText(libraryMember.getMemberId());
 		txtFirstName.setText(libraryMember.getFirstName());
 		txtLastName.setText(libraryMember.getLastName());
 		txtStreet.setText(libraryMember.getAddress().getStreet());
@@ -141,7 +141,7 @@ public class MemberController implements ControlledScreen {
 			memberService.saveMember(member);
 			FXUtil.showSuccessMessage(lblStatus, "Library member was created, your id is: " + member.getMemberId());
 			clearTextField();
-			txtMemberId.setText(String.valueOf(memberService.generateId()));
+			txtMemberId.setText(memberService.generateMemberId());
 		} else if (FunctionType.UPDATE.equals(functionType)) {
 			memberService.updateMember(member);
 			FXUtil.showSuccessMessage(lblStatus, "Member id " + member.getMemberId() + " was updated successfully");
@@ -156,11 +156,11 @@ public class MemberController implements ControlledScreen {
 		this.functionType = functionType;
 	}
 
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberId(int memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 

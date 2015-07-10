@@ -1,18 +1,17 @@
 package mpp.library.model.dao;
 
-
 public interface BaseDAO<T> {
 
 	/**
-	 * 
-	 * @param member
+	 * Save method in the information of an object t
+	 * @param t return the saved object
 	 */
-	void save(T member);
+	T save(T t);
 
 	/**
-	 * 
-	 * @param id
-	 * @return
+	 * Get the t information object with id
+	 * @param id the id to search
+	 * @return return the found object
 	 */
-	T get(String id);
+	T get(int id);
 }

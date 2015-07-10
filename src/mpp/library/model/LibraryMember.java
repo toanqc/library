@@ -9,21 +9,21 @@ public class LibraryMember extends Person {
 
 	private static final long serialVersionUID = 1373745594447872262L;
 
-	private int memberId;
+	private int id;
+	private String memberId;
 	private CheckoutRecord checkoutRecord;
 
-	public LibraryMember(int memberId, String firstName, String lastName, String phone,
-			Address address) {
+	public LibraryMember(String memberId, String firstName, String lastName, String phone, Address address) {
 		super(firstName, lastName, phone, address);
 		this.memberId = memberId;
 		this.checkoutRecord = new CheckoutRecord(this);
 	}
 
-	public int getMemberId() {
+	public String getMemberId() {
 		return memberId;
 	}
 
-	public void setMemberId(int memberId) {
+	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
 
@@ -37,5 +37,13 @@ public class LibraryMember extends Person {
 
 	public String getFullName() {
 		return this.getFirstName() + " " + this.getLastName();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

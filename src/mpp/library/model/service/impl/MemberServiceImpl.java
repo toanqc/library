@@ -32,16 +32,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public LibraryMember get(String id) {
+	public LibraryMember get(int id) {
 		return memberDAO.get(id);
 	}
 
 	@Override
-	public int generateId() {
-		List<LibraryMember> memberList = this.getList();
-		if (memberList != null && !memberList.isEmpty()) {
-			return memberList.size() + 1;
-		}
-		return 1;
+	public String generateMemberId() {
+		return memberDAO.geneateMemberId();
+	}
+
+	@Override
+	public LibraryMember getByMemberId(String memberId) {
+		return memberDAO.getByMemberId(memberId);
 	}
 }

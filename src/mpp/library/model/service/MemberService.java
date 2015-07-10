@@ -35,15 +35,24 @@ public interface MemberService {
 	 * Return the {@link LibraryMember} with matching id
 	 * 
 	 * @param id
+	 *            the id in table
+	 * @return {@link LibraryMember}
+	 */
+	LibraryMember get(int id);
+
+	/**
+	 * Return the {@link LibraryMember} with matching member idid
+	 * 
+	 * @param id
 	 *            the library member id
 	 * @return {@link LibraryMember}
 	 */
-	LibraryMember get(String id);
-
+	LibraryMember getByMemberId(String memberId);
+	
 	/**
 	 * Generate new member id for new library member
 	 * 
 	 * @return the unique library member id
 	 */
-	int generateId();
+	String generateMemberId();
 }

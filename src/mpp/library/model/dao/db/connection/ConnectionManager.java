@@ -2,9 +2,7 @@ package mpp.library.model.dao.db.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 
 import mpp.library.util.LibraryConstant;
@@ -55,67 +53,5 @@ public class ConnectionManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Execute an insert statement then return true if the execution is
-	 * successfully
-	 * 
-	 * @param conn
-	 *            Connection
-	 * @param sql
-	 *            the SQL statement
-	 * @return true if the execution is successfully
-	 */
-	public int executeSave(Connection conn, String sql) {
-		try {
-			Statement statement = conn.createStatement();
-			statement.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-			ResultSet resultSet = statement.getResultSet();
-			if (resultSet.next()) {
-				return resultSet.getInt(0);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return 0;
-	}
-
-	public boolean executeUpdate(Connection conn, String sql) {
-		try {
-			Statement statement = conn.createStatement();
-			int result = statement.executeUpdate(sql);
-			if (result == 1) {
-				return true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return false;
-	}
-
-	/**
-	 * Execute a select statement then return the result set
-	 * 
-	 * @param conn
-	 *            Connection
-	 * @param sql
-	 *            the select SQL statement
-	 * @return the result set
-	 */
-	public ResultSet executeQuery(Connection conn, String sql) {
-		try {
-			Statement statement = conn.createStatement();
-			ResultSet resultSet = statement.executeQuery(sql);
-			if (resultSet != null) {
-				return resultSet;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 }

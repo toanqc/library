@@ -40,7 +40,7 @@ public class MemberListController implements ControlledScreen {
 	TableView<LibraryMember> memberTable;
 
 	@FXML
-	TableColumn<LibraryMember, Integer> memberId;
+	TableColumn<LibraryMember, String> memberId;
 
 	@FXML
 	TableColumn<LibraryMember, String> firstName;
@@ -82,13 +82,13 @@ public class MemberListController implements ControlledScreen {
 	}
 
 	private void handleSelectedRow() {
-		memberId.setCellFactory(new Callback<TableColumn<LibraryMember, Integer>, TableCell<LibraryMember, Integer>>() {
+		memberId.setCellFactory(new Callback<TableColumn<LibraryMember, String>, TableCell<LibraryMember, String>>() {
 			@SuppressWarnings("unchecked")
 			@Override
-			public TableCell<LibraryMember, Integer> call(TableColumn<LibraryMember, Integer> param) {
-				TableCell<LibraryMember, Integer> cell = new TableCell<LibraryMember, Integer>() {
+			public TableCell<LibraryMember, String> call(TableColumn<LibraryMember, String> param) {
+				TableCell<LibraryMember, String> cell = new TableCell<LibraryMember, String>() {
 					@Override
-					protected void updateItem(Integer item, boolean empty) {
+					protected void updateItem(String item, boolean empty) {
 						super.updateItem(item, empty);
 						setText((item == null || empty) ? null : item.toString());
 						setGraphic(null);
@@ -142,7 +142,7 @@ public class MemberListController implements ControlledScreen {
 				});
 	}
 
-	private void openDetailMemberStage(int memberId) {
+	private void openDetailMemberStage(String memberId) {
 		myController.loadScreen(Screen.MEMBER, Screen.MEMBER.getValue());
 		MemberController memberController = (MemberController) ControlledScreen.controllerList.get(Screen.MEMBER);
 		memberController.setFunctionType(FunctionType.UPDATE);
@@ -153,7 +153,7 @@ public class MemberListController implements ControlledScreen {
 	}
 
 	private void bindProperties() {
-		memberId.setCellValueFactory(cell -> new SimpleObjectProperty<Integer>(cell.getValue().getMemberId()));
+		memberId.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getMemberId()));
 		firstName.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getFirstName()));
 		lastName.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getLastName()));
 		street.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getAddress().getStreet()));
@@ -201,12 +201,12 @@ public class MemberListController implements ControlledScreen {
 
 	@FXML
 	public void searchMember() {
-		String searchText = txtSearch.getText();
-		if ("".equals(searchText.trim())) {
+		String searchMemberId = txtSearch.getText();
+		if ("".equals(searchMemberId.trim())) {
 			buildData();
 		} else {
 			libraryMemberList.clear();
-			LibraryMember libraryMember = memberService.get(searchText);
+			LibraryMember libraryMember = memberService.getByMemberId(searchMemberId);
 			if (libraryMember == null) {
 				FXUtil.showErrorMessage(lblStatus, "No record found with member id: " + txtSearch.getText());
 				txtSearch.requestFocus();

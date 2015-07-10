@@ -12,8 +12,6 @@ public interface PeriodicalDAO extends BaseDAO<Periodical> {
 
 	Periodical get(String issueNumber, String title);
 
-	void save(Periodical periodical);
-
 	List<Periodical> getPeriodicalList();
 
 	boolean isAvailable();
