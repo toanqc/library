@@ -6,6 +6,6 @@ import mpp.library.model.MemberCheckoutRecord;
 
 public interface PrintCheckoutService {
 	
-	List<MemberCheckoutRecord> search(String memberId) throws Exception;
+	List<MemberCheckoutRecord> search(int memberId) throws Exception;
 
 }

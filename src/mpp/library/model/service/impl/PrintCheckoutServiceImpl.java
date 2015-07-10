@@ -16,7 +16,7 @@ public class PrintCheckoutServiceImpl implements PrintCheckoutService {
 	}
 
 	@Override
-	public List<MemberCheckoutRecord> search(String memberId) throws Exception {
+	public List<MemberCheckoutRecord> search(int memberId) throws Exception {
 		// TODO Auto-generated method stub
 		return checkoutDAO.printCheckoutRecord(memberId);
 	}

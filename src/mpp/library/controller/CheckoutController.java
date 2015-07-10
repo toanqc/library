@@ -13,8 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
-import mpp.library.model.service.impl.CheckoutBookServiceImpl;
-import mpp.library.model.service.impl.CheckoutPeriodicalServiceImpl;
+import mpp.library.model.service.impl.CheckoutServiceImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
@@ -56,8 +55,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	@FXML
 	private Button btnCheckout;
 
-	private CheckoutBookServiceImpl chkoutBookService = new CheckoutBookServiceImpl();
-	private CheckoutPeriodicalServiceImpl chkoutPeriodicalService = new CheckoutPeriodicalServiceImpl();
+	private CheckoutServiceImpl chkoutBookService = new CheckoutServiceImpl();
 
 	public static final int ISBN_MAX_LENTH = 13;
 
@@ -90,7 +88,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			String title = txtTitle.getText().trim();
 			String issueNo = txtIssueNumber.getText().trim();
 			try {
-				chkoutPeriodicalService.checkout(memberId, new Periodical(title, issueNo));
+				chkoutBookService.checkout(memberId, new Periodical(title, issueNo));
 				FXUtil.showSuccessMessage(lblMessage, "Check out successfully");
 			} catch (Exception e) {
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());

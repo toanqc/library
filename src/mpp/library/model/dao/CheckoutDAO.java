@@ -17,9 +17,7 @@ public interface CheckoutDAO extends BaseDAO<LibraryMember> {
 
 	Copy getAvailableCopy(Publication pub);
 
-	LibraryMember get(String memberId);
-
-	List<MemberCheckoutRecord> printCheckoutRecord(String memberId);
+	List<MemberCheckoutRecord> printCheckoutRecord(int memberId);
 	
 	Publication getPublication(Publication pub);
 }

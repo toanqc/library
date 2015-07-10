@@ -59,7 +59,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 
 
 	@Override
-	public List<MemberCheckoutRecord> printCheckoutRecord(String memberId) {
+	public List<MemberCheckoutRecord> printCheckoutRecord(int memberId) {
 		// TODO Auto-generated method stub
 		List<MemberCheckoutRecord> listCheckoutRecord = new ArrayList<MemberCheckoutRecord>();
 		LibraryMember member = get(memberId);

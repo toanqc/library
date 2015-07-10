@@ -9,6 +9,14 @@ public class Copy implements Serializable {
 	private int copyNumber;
 	private boolean isAvailable;
 	private Publication publication;
+	private int id;
+
+	public Copy(int id, Publication pub, int copyNumber, boolean isAvailable) {
+		this.id = id;
+		this.publication = pub;
+		this.copyNumber = copyNumber;
+		this.isAvailable = isAvailable;
+	}
 
 	public Copy(Publication pub, int copyNumber, boolean isAvailable) {
 		this.publication = pub;
@@ -16,6 +24,7 @@ public class Copy implements Serializable {
 		this.isAvailable = isAvailable;
 	}
 
+	
 	public int getCopyNumber() {
 		return copyNumber;
 	}
@@ -38,6 +47,14 @@ public class Copy implements Serializable {
 
 	public void setPublication(Publication pub) {
 		this.publication = pub;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 }

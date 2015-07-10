@@ -13,11 +13,17 @@ public class CheckoutRecordEntry implements Serializable {
 	private int id;
 	private int memberId;
 
-	public CheckoutRecordEntry(LocalDate checkoutDate, LocalDate dueDate,
-			Copy copy) {
+	public CheckoutRecordEntry(LocalDate checkoutDate, LocalDate dueDate, Copy copy) {
 		this.checkoutDate = checkoutDate;
 		this.dueDate = dueDate;
 		this.copy = copy;
+	}
+	
+	public CheckoutRecordEntry(int memberId, Copy copy, LocalDate chkoutDate, LocalDate dueDate) {
+		this.memberId = memberId;
+		this.copy = copy;
+		this.checkoutDate = chkoutDate;
+		this.dueDate = dueDate;
 	}
 
 	public LocalDate getCheckoutDate() {
