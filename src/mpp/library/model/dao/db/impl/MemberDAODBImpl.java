@@ -13,6 +13,7 @@ import mpp.library.model.dao.db.connection.ConnectionManager;
 
 public class MemberDAODBImpl implements MemberDAO {
 
+	private static final String UPDATE_STATEMENT = "UPDATE FROM ";
 	public static final String INSERT_STATEMENT = "INSERT INTO ";
 	public static final String SELECT_STATEMENT = "SELECT * FROM ";
 
@@ -112,6 +113,7 @@ public class MemberDAODBImpl implements MemberDAO {
 				LibraryMember member = buildLibraryMember(rs);
 				memberList.add(member);
 			}
+			cm.closeConnection(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -121,7 +123,44 @@ public class MemberDAODBImpl implements MemberDAO {
 
 	@Override
 	public boolean update(LibraryMember member) {
-		// TODO Auto-generated method stub
+		Connection conn = cm.getConnection();
+		String memberUpdateSql = buildUpdateMemberSql(member);
+		boolean memberResult = cm.executeUpdate(conn, memberUpdateSql);
+
+		String addressUpdateSql = builderUpdateAddressSql(member.getAddress());
+		boolean addressResult = cm.executeUpdate(conn, addressUpdateSql);
+
+		cm.closeConnection(conn);
+		if (memberResult && addressResult) {
+			return true;
+		}
+
 		return false;
+	}
+
+	private String builderUpdateAddressSql(Address address) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(UPDATE_STATEMENT);
+		sql.append(EntityType.MEMBER.getValue());
+		sql.append(" SET ");
+		sql.append("street=").append("'").append(address.getStreet()).append("' ,");
+		sql.append("city=").append("'").append(address.getCity()).append("' ,");
+		sql.append("state=").append("'").append(address.getState()).append("' ,");
+		sql.append("zip=").append("'").append(address.getZip()).append("' ,");
+
+		return sql.toString();
+	}
+
+	private String buildUpdateMemberSql(LibraryMember member) {
+		StringBuilder sql = new StringBuilder();
+		sql.append(UPDATE_STATEMENT);
+		sql.append(EntityType.MEMBER.getValue());
+		sql.append(" SET ");
+		sql.append("firstName=").append("'").append(member.getFirstName()).append("' ,");
+		sql.append("lastName=").append("'").append(member.getLastName()).append("' ,");
+		sql.append("phone=").append("'").append(member.getPhone()).append("' ,");
+		sql.append(" WHERE memberId=").append(member.getMemberId());
+
+		return sql.toString();
 	}
 }
