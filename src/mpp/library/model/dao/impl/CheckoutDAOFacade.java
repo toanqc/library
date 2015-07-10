@@ -23,10 +23,6 @@ import mpp.library.model.dao.CheckoutDAO;
  */
 public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>implements CheckoutDAO {
 
-	public static final String OUTPUT_DIR = System.getProperty("user.dir") + "\\storage";
-	public static final String DATE_PATTERN = "MM/dd/yyyy";
-	public static final String CHECKOUT_RECORD_ENTRY = "CheckoutRecord";
-
 	private CheckoutRecordEntryDAOFacade checkoutRecordEntryDAO = new CheckoutRecordEntryDAOFacade();
 	
 	@Override
@@ -57,13 +53,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	public LibraryMember get(String memberId) {
 		// TODO Auto-generated method stub
 		List<LibraryMember> memberList = this.getObjectList(SerializationFile.MEMBER.getValue());
-		for (LibraryMember libraryMember : memberList) {
-			if (memberId.equals(String.valueOf(libraryMember.getMemberId()))) {
-				return libraryMember;
-			}
-		}
-
-		return null;
+		return memberList.stream().filter(s -> memberId.equals(String.valueOf(s.getMemberId()))).findFirst().get();
 	}
 
 
@@ -77,8 +67,7 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 			CheckoutRecord chkOutRecord = member.getCheckoutRecord();
 			if (chkOutRecord != null) {
 				List<CheckoutRecordEntry> listChkoutRecordEntries = checkoutRecordEntryDAO.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue());
-				for (int i = 0; i < listChkoutRecordEntries.size(); i++) {
-					CheckoutRecordEntry entry = listChkoutRecordEntries.get(i);
+				for (CheckoutRecordEntry entry : listChkoutRecordEntries) {
 					Copy copy = entry.getCopy();
 					LocalDate chkoutDate = entry.getCheckoutDate();
 					LocalDate dueDate = entry.getDueDate();

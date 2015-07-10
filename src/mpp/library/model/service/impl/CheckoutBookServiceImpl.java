@@ -3,6 +3,7 @@ package mpp.library.model.service.impl;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecord;
@@ -52,13 +53,8 @@ public class CheckoutBookServiceImpl implements CheckoutService {
 				if (publication != null) {
 					List<Copy> listCopies = publication.getCopies();
 					if (listCopies != null) {
-						Copy copy = null;
-						for (int i = 0; i < listCopies.size(); i++) {
-							if (listCopies.get(i).getAvailable()) {
-								copy = listCopies.get(i);
-								i = listCopies.size();
-							}
-						}
+						Optional<Copy> optionalCopy = listCopies.stream().filter(s -> s.getAvailable()).findFirst();
+						Copy copy = optionalCopy.get();
 						if (copy != null) {
 							CheckoutRecord currentRecord = member.getCheckoutRecord();
 							LocalDate chkoutDate = LocalDate.now();

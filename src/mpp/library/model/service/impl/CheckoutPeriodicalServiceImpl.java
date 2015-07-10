@@ -52,13 +52,7 @@ public class CheckoutPeriodicalServiceImpl implements CheckoutService {
 				if (publication != null) {
 					List<Copy> listCopies = publication.getCopies();
 					if (listCopies != null) {
-						Copy copy = null;
-						for (int i = 0; i < listCopies.size(); i++) {
-							if (listCopies.get(i).getAvailable()) {
-								copy = listCopies.get(i);
-								i = listCopies.size();
-							}
-						}
+						Copy copy = listCopies.stream().filter(s -> s.getAvailable()).findFirst().get();
 						if (copy != null) {
 							CheckoutRecord currentRecord = member.getCheckoutRecord();
 							LocalDate chkoutDate = LocalDate.now();

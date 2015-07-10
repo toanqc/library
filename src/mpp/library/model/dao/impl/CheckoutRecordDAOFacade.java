@@ -18,14 +18,7 @@ public class CheckoutRecordDAOFacade extends
 	public CheckoutRecord get(String memberId) {
 		List<CheckoutRecord> memberList = this
 				.getObjectList(SerializationFile.CHECKOUT_RECORD.getValue());
-		for (CheckoutRecord chkRecord : memberList) {
-			if (String.valueOf(chkRecord.getLibraryMember().getMemberId())
-					.equals(memberId)) {
-				return chkRecord;
-			}
-		}
-
-		return null;
+		return memberList.stream().filter(s -> memberId.equals(String.valueOf(s.getLibraryMember().getMemberId()))).findFirst().get();
 	}
 
 	@Override
