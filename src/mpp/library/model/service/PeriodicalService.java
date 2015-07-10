@@ -22,8 +22,9 @@ public interface PeriodicalService {
 	 * Saves Periodical to DB.
 	 * 
 	 * @param periodical
+	 * @param copiesNum
 	 */
-	void savePeriodical(Periodical periodical);
+	void savePeriodical(Periodical periodical, int copiesNum);
 
 	/**
 	 * Adds {@link Periodical} Copy to DB.
@@ -34,16 +35,16 @@ public interface PeriodicalService {
 	void addCopy(Periodical periodical, int copyNumber);
 
 	/**
-	 * Simply updates {@link Periodical}. Does nothing to Models related to {@link Periodical}.
+	 * Simply updates {@link Periodical}. Does nothing to Models related to
+	 * {@link Periodical}.
 	 * 
 	 * @param periodical
 	 */
 	void updatePeriodical(Periodical periodical);
-	
-	
 
 	/**
-	 * Updates the {@link Copy} of the provided {@link Periodical} with provided {@link Copy}.
+	 * Updates the {@link Copy} of the provided {@link Periodical} with provided
+	 * {@link Copy}.
 	 * 
 	 * @param periodical
 	 * @param copy

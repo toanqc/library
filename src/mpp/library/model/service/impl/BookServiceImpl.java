@@ -21,14 +21,15 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void saveBook(Book book) {
-
-		Copy copy = new Copy(book, 1);
-		copy.setAvailable(true);
-		copyService.saveCopy(copy);
+	public void saveBook(Book book, int copiesNum) {
 
 		List<Copy> copyList = new ArrayList<>();
-		copyList.add(copy);
+		for (int i = 0; i < copiesNum; i++) {
+			Copy copy = new Copy(book, i, true);
+			copyService.saveCopy(copy);
+			copyList.add(copy);
+		}
+
 		book.setCopies(copyList);
 		bookDao.save(book);
 	}
@@ -41,11 +42,12 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void addCopy(Book book, int copyNumber) {
 
-		Copy copy = new Copy(book, copyNumber);
-		copy.setAvailable(true);
-		copyService.saveCopy(copy);
+		for (int i = 0; i < copyNumber; i++) {
+			Copy copy = new Copy(book, i, true);
+			copyService.saveCopy(copy);
+			book.getCopies().add(copy);
+		}
 
-		book.getCopies().add(copy);
 		this.updateBook(book);
 
 	}
@@ -62,20 +64,20 @@ public class BookServiceImpl implements BookService {
 		for (Book bk : books) {
 
 			if (bk.getISBN().equals(book.getISBN())) {
-				
+
 				List<Copy> copies = book.getCopies();
 				for (int i = 0; i < copies.size(); i++) {
-					
+
 					if (copies.get(i).getCopyNumber() == copy.getCopyNumber()) {
-						
+
 						copies.set(i, copy);
 						bk.setCopies(copies);
 						updateBook(bk);
 						break;
-						
+
 					}
 				}
-				
+
 				break;
 			}
 		}

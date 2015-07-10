@@ -10,9 +10,10 @@ public class Copy implements Serializable {
 	private boolean isAvailable;
 	private Publication publication;
 
-	public Copy(Publication pub, int copyNumber) {
+	public Copy(Publication pub, int copyNumber, boolean isAvailable) {
 		this.publication = pub;
 		this.copyNumber = copyNumber;
+		this.isAvailable = isAvailable;
 	}
 
 	public int getCopyNumber() {

@@ -49,8 +49,8 @@ public class Main extends Application {
 		book.setMaxCheckoutLength(21);
 		Periodical periodical = new Periodical("New York times", "PERIOD01");
 		periodical.setMaxCheckoutLength(7);
-		Copy copy1 = new Copy(book, 1);
-		Copy copy2 = new Copy(book, 2);
+		Copy copy1 = new Copy(book, 1, true);
+		Copy copy2 = new Copy(book, 2, true);
 		
 		
 		List<Copy> listCopyBook = new ArrayList<Copy>();
@@ -59,8 +59,8 @@ public class Main extends Application {
 		
 		book.setCopies(listCopyBook);
 		
-		Copy copy3 = new Copy(periodical, 3);
-		Copy copy4 = new Copy(periodical, 4);
+		Copy copy3 = new Copy(periodical, 3, true);
+		Copy copy4 = new Copy(periodical, 4, true);
 		
 		List<Copy> listCopyPeriod = new ArrayList<Copy>();
 		listCopyPeriod.add(copy3);
