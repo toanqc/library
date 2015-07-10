@@ -8,7 +8,7 @@ import mpp.library.model.dao.CheckoutRecordDAO;
 
 
 public class CheckoutRecordDAOFacade extends
-		AbstractSerializationDAO<CheckoutRecord> implements CheckoutRecordDAO<CheckoutRecord> {
+		AbstractSerializationDAO<CheckoutRecord> implements CheckoutRecordDAO {
 
 	public void saveCheckoutRecord(CheckoutRecord ckRecord) {
 		this.writeObject(SerializationFile.CHECKOUT_RECORD.getValue(), ckRecord);
@@ -57,5 +57,10 @@ public class CheckoutRecordDAOFacade extends
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void save(CheckoutRecord member) {
+		throw new UnsupportedOperationException("Method save of Checkout Record not support at this moment");
 	}
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import mpp.library.model.LibraryMember;
 import mpp.library.model.dao.MemberDAO;
-import mpp.library.model.dao.impl.MemberDAOImpl;
+import mpp.library.model.dao.db.connection.DataAccessFactory;
 import mpp.library.model.service.MemberService;
 
 public class MemberServiceImpl implements MemberService {
@@ -12,7 +12,7 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDAO memberDAO;
 
 	public MemberServiceImpl() {
-		memberDAO = new MemberDAOImpl();
+		memberDAO = (MemberDAO) DataAccessFactory.getDAOImpl(MemberDAO.class);
 	}
 
 	@Override

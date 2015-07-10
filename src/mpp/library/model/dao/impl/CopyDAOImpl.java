@@ -50,4 +50,9 @@ public class CopyDAOImpl extends AbstractSerializationDAO<Copy>implements CopyDA
 
 	}
 
+	@Override
+	public Copy get(String id) {
+		throw new UnsupportedOperationException("Method get of Copy not support at this moment");
+	}
+
 }

@@ -3,13 +3,15 @@
  */
 package mpp.library.model.dao;
 
+import mpp.library.model.CheckoutRecord;
+
 /**
  * @author bpham4
  *
  */
-public interface CheckoutRecordDAO<T>{
+public interface CheckoutRecordDAO extends BaseDAO<CheckoutRecord> {
 
-	T get(String memberId) ;
-	
-	boolean update(T record);
+	CheckoutRecord get(String memberId);
+
+	boolean update(CheckoutRecord record);
 }

@@ -12,11 +12,11 @@ import mpp.library.model.Publication;
  *
  */
 
-public interface CheckoutDAO extends  BaseDAO<LibraryMember>{
+public interface CheckoutDAO extends BaseDAO<LibraryMember> {
 
 	public Publication getPublication(Publication pub);
-	
-	LibraryMember get(String memberId) ;
+
+	LibraryMember get(String memberId);
 
 	public List<MemberCheckoutRecord> printCheckoutRecord(String memberId);
 }

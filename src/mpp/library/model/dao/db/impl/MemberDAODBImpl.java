@@ -84,18 +84,18 @@ public class MemberDAODBImpl implements MemberDAO {
 	private LibraryMember buildLibraryMember(ResultSet rs) throws SQLException {
 		Address address = new Address(rs.getString("street"), rs.getString("city"), rs.getString("state"),
 				rs.getInt("zip"));
-		LibraryMember member = new LibraryMember(rs.getInt("memberId"), rs.getString("firstName"),
-				rs.getString("lastNameName"), rs.getString("phone"), address);
+		LibraryMember member = new LibraryMember(rs.getInt("memberid"), rs.getString("firstname"),
+				rs.getString("lastname"), rs.getString("phone"), address);
 		return member;
 	}
 
 	private String buildSelectMemberSql(String id) {
 		StringBuilder sql = new StringBuilder();
 		sql.append(
-				"SELECT m.memberId, m.firstName, m.lastName, m.phone, a.street, a.city, a.state, a.zip FROM LibraryMember m, Address a");
-		sql.append(" WHERE AND m.addressId = a.addressId");
+				"SELECT m.memberid, m.firstname, m.lastname, m.phone, a.street, a.city, a.state, a.zip FROM LibraryMember m, Address a");
+		sql.append(" WHERE AND m.addressid = a.id");
 		if (id != null && !"".equals(id)) {
-			sql.append(" memberId=");
+			sql.append(" memberid=");
 			sql.append(id);
 		}
 
@@ -147,6 +147,8 @@ public class MemberDAODBImpl implements MemberDAO {
 		sql.append("city=").append("'").append(address.getCity()).append("' ,");
 		sql.append("state=").append("'").append(address.getState()).append("' ,");
 		sql.append("zip=").append("'").append(address.getZip()).append("' ,");
+		// TODO: address id here
+		sql.append(" WHERE id=").append(address.getZip());
 
 		return sql.toString();
 	}
@@ -156,10 +158,10 @@ public class MemberDAODBImpl implements MemberDAO {
 		sql.append(UPDATE_STATEMENT);
 		sql.append(EntityType.MEMBER.getValue());
 		sql.append(" SET ");
-		sql.append("firstName=").append("'").append(member.getFirstName()).append("' ,");
-		sql.append("lastName=").append("'").append(member.getLastName()).append("' ,");
+		sql.append("firstname=").append("'").append(member.getFirstName()).append("' ,");
+		sql.append("lastname=").append("'").append(member.getLastName()).append("' ,");
 		sql.append("phone=").append("'").append(member.getPhone()).append("' ,");
-		sql.append(" WHERE memberId=").append(member.getMemberId());
+		sql.append(" WHERE memberid=").append(member.getMemberId());
 
 		return sql.toString();
 	}

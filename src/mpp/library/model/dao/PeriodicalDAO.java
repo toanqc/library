@@ -8,7 +8,7 @@ import mpp.library.model.Periodical;
  * @author Anil
  *
  */
-public interface PeriodicalDAO {
+public interface PeriodicalDAO extends BaseDAO<Periodical> {
 
 	Periodical get(String issueNumber, String title);
 

@@ -46,4 +46,9 @@ public class PeriodicalDAOImpl extends AbstractSerializationDAO<Periodical>imple
 		writeObjectList(SerializationFile.PERIODICAL.getValue(), periodicals);
 	}
 
+	@Override
+	public Periodical get(String id) {
+		throw new UnsupportedOperationException("Method get of Periodical not support at this moment");
+	}
+
 }
