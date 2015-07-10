@@ -13,4 +13,6 @@ public class LibraryConstant {
 
 	public static final String SUCCESS_CLASS = "success";
 	public static final String ERROR_CLASS = "error";
+
+	public static final String CONFIG_FILE = "config.properties";
 }
