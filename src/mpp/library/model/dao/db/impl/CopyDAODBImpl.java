@@ -22,7 +22,7 @@ public class CopyDAODBImpl implements CopyDAO {
 	private ConnectionManager cm;
 
 	private static final String INSERT_PUBLICATION_COPY = "INSERT INTO PUBCOPY (PUBID,COPYNUMBER,STATUS) values(?,?,?)";
-	private static final String UPDATE_PUBLICATION_COPY = "UPDATE PUBCOPY SET PUBID=?,COPYNUMBER=?,STATUS=?";
+	private static final String UPDATE_PUBLICATION_COPY = "UPDATE PUBCOPY SET PUBID=?,COPYNUMBER=?,STATUS=? WHERE ID =?";
 	private static final String SELECT_PUBLICATION_COPY = "SELECT * FROM PUBCOPY WHERE ID=?";
 	private static final String SELECT_PUBLICATION_COPIES_BY_PUBID = "SELECT * FROM PUBCOPY WHERE PUBID=?";
 
@@ -68,6 +68,7 @@ public class CopyDAODBImpl implements CopyDAO {
 			statement.setInt(1, copy.getPublication().getId());
 			statement.setInt(2, copy.getCopyNumber());
 			statement.setBoolean(3, copy.getAvailable());
+			statement.setInt(4, copy.getId());
 			statement.executeUpdate();
 
 		} catch (SQLException e) {

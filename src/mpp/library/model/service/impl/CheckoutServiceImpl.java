@@ -28,10 +28,10 @@ public class CheckoutServiceImpl implements CheckoutService {
 	}
 
 	@Override
-	public void checkout(int memberId, Publication pub) throws Exception {
+	public void checkout(String memberId, Publication pub) throws Exception {
 		// TODO Auto-generated method stub
 		// check if memberID exist
-		LibraryMember member = memberService.get(memberId);
+		LibraryMember member = memberService.getByMemberId(memberId);
 		if (member == null) {
 			throw new IllegalArgumentException("Member ID not found");
 

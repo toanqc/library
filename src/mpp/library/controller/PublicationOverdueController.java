@@ -1,6 +1,7 @@
 package mpp.library.controller;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,6 +20,7 @@ import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.PublicationOverdueRecord;
 import mpp.library.model.PublicationType;
+import mpp.library.model.dao.db.impl.CheckoutRecordEntryDAODBFacade;
 import mpp.library.model.service.MemberService;
 import mpp.library.model.service.impl.MemberServiceImpl;
 import mpp.library.view.ControlledScreen;
@@ -54,11 +56,14 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	private TableColumn<PublicationOverdueRecord, String> duedateColumn;
 
 	private MemberService memberService;
+	private CheckoutRecordEntryDAODBFacade recordEntryDAODBFacade;
 
 	private ScreenController myController;
 
 	public PublicationOverdueController() {
 		memberService = new MemberServiceImpl();
+		recordEntryDAODBFacade = new CheckoutRecordEntryDAODBFacade();
+
 	}
 
 	@Override
@@ -68,21 +73,28 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 		PublicationOverdueRecord publicationOverdueRecord = null;
 
 		for (LibraryMember libraryMember : libraryMembers) {
-			for (CheckoutRecordEntry crEntry : libraryMember.getCheckoutRecord().getOverdueCheckoutRecordEntries()) {
-				publicationOverdueRecord = new PublicationOverdueRecord();
-				Publication publication = crEntry.getCopy().getPublication();
+			List<CheckoutRecordEntry> checkoutRecordEntries = recordEntryDAODBFacade
+					.getCheckoutEnteriesOfMemeber(libraryMember.getId());
 
-				if (publication instanceof Book) {
-					publicationOverdueRecord.setIssueNo(((Book) publication).getISBN());
-					publicationOverdueRecord.setType(PublicationType.BOOK.getValue());
-				} else {
-					publicationOverdueRecord.setIssueNo(((Periodical) publication).getIssueNumber());
-					publicationOverdueRecord.setType(PublicationType.PERIODICAL.getValue());
+			for (CheckoutRecordEntry crEntry : checkoutRecordEntries) {
+
+				if (crEntry.getDueDate().compareTo(LocalDate.now()) < 0) {
+					publicationOverdueRecord = new PublicationOverdueRecord();
+					Publication publication = crEntry.getCopy().getPublication();
+
+					if (publication instanceof Book) {
+						publicationOverdueRecord.setIssueNo(((Book) publication).getISBN());
+						publicationOverdueRecord.setType(PublicationType.BOOK.getValue());
+					} else {
+						publicationOverdueRecord.setIssueNo(((Periodical) publication).getIssueNumber());
+						publicationOverdueRecord.setType(PublicationType.PERIODICAL.getValue());
+					}
+
+					publicationOverdueRecord.setChkoutDate(crEntry.getCheckoutDate());
+					publicationOverdueRecord.setDueDate(crEntry.getDueDate());
+					publicationOverdueRecord
+							.setMember(libraryMember.getFirstName() + " " + libraryMember.getLastName());
 				}
-
-				publicationOverdueRecord.setChkoutDate(crEntry.getCheckoutDate());
-				publicationOverdueRecord.setDueDate(crEntry.getDueDate());
-				publicationOverdueRecord.setMember(libraryMember.getFirstName() + " " + libraryMember.getLastName());
 				publicationOverdueRecords.add(publicationOverdueRecord);
 			}
 

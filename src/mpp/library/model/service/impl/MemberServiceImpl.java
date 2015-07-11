@@ -45,4 +45,5 @@ public class MemberServiceImpl implements MemberService {
 	public LibraryMember getByMemberId(String memberId) {
 		return memberDAO.getByMemberId(memberId);
 	}
+
 }

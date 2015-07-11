@@ -4,12 +4,20 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import mpp.library.model.dao.AddressDAO;
+import mpp.library.model.dao.AuthorDAO;
 import mpp.library.model.dao.BaseDAO;
 import mpp.library.model.dao.CheckoutDAO;
 import mpp.library.model.dao.CheckoutRecordDAO;
+import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.MemberDAO;
+import mpp.library.model.dao.db.PublicationDAO;
+//github.com/toanqc/library.git
 import mpp.library.model.dao.db.impl.AddressDAODBImpl;
+import mpp.library.model.dao.db.impl.AuthorDAODBImpl;
+import mpp.library.model.dao.db.impl.CopyDAODBImpl;
 import mpp.library.model.dao.db.impl.MemberDAODBImpl;
+import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
+//github.com/toanqc/library.git
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.MemberDAOImpl;
@@ -22,9 +30,9 @@ public class DataAccessFactory {
 
 	static {
 		mapFile.put(MemberDAO.class, new MemberDAOImpl());
-		//mapFile.put(BookDAO.class, new BookDAOImpl());
-		//mapFile.put(CopyDAO.class, new CopyDAOImpl());
-		//mapFile.put(PeriodicalDAO.class, new PeriodicalDAOImpl());
+		// mapFile.put(BookDAO.class, new BookDAOImpl());
+		// mapFile.put(CopyDAO.class, new CopyDAOImpl());
+		// mapFile.put(PeriodicalDAO.class, new PeriodicalDAOImpl());
 		mapFile.put(CheckoutDAO.class, new CheckoutDAOFacade());
 		mapFile.put(CheckoutRecordDAO.class, new CheckoutRecordDAOFacade());
 	}
@@ -32,6 +40,9 @@ public class DataAccessFactory {
 	static {
 		mapDB.put(MemberDAO.class, new MemberDAODBImpl());
 		mapDB.put(AddressDAO.class, new AddressDAODBImpl());
+		mapDB.put(CopyDAO.class, new CopyDAODBImpl());
+		mapDB.put(PublicationDAO.class, new PublicationDAODBImpl());
+		mapDB.put(AuthorDAO.class, new AuthorDAODBImpl());
 	}
 
 	public static BaseDAO<?> getDAOImpl(Class<? extends BaseDAO<?>> clazz) {

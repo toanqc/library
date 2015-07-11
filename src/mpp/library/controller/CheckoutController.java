@@ -71,7 +71,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		if (rdBook.isSelected() && validateData()) {
 			lblMessage.setVisible(false);
 			lblMessage.setText("");
-			int memberId = Integer.parseInt(txtMemberID.getText().trim());
+			String memberId = txtMemberID.getText().trim();
 			String ISBN = txtISBN.getText().trim();
 			try {
 				chkoutBookService.checkout(memberId, new Book(ISBN));
@@ -83,7 +83,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		} else if (rdPeriodical.isSelected() && validateData()) {
 			lblMessage.setVisible(false);
 			lblMessage.setText("");
-			int memberId = Integer.parseInt(txtMemberID1.getText().trim());
+			String memberId = txtMemberID1.getText().trim();
 			String title = txtTitle.getText().trim();
 			String issueNo = txtIssueNumber.getText().trim();
 			try {

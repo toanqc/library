@@ -55,7 +55,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
 		try {
-			int memID = Integer.parseInt(txtMemberID.getText().trim());
+			String memID = txtMemberID.getText().trim();
 			listCheckoutRecord = printCheckoutService.search(memID);
 			if (listCheckoutRecord != null) {
 				StringBuilder sb = new StringBuilder();
@@ -118,8 +118,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	
 	private void search(String memberId) throws Exception {
 		// display in table view
-		int memId = Integer.parseInt(memberId);
-		ObservableList<MemberCheckoutRecord> listData = FXCollections.observableArrayList(printCheckoutService.search(memId));
+		ObservableList<MemberCheckoutRecord> listData = FXCollections.observableArrayList(printCheckoutService.search(memberId));
 		tableView.setItems(listData);
 	}
 	
