@@ -1,14 +1,14 @@
-package mpp.library.model.dao.impl;
+/*package mpp.library.model.dao.impl;
 
 import java.util.List;
 
 import mpp.library.model.Book;
 import mpp.library.model.dao.BookDAO;
 
-/**
+*//**
  * @author Anil
  *
- */
+ *//*
 public class BookDAOImpl extends AbstractSerializationDAO<Book>implements BookDAO {
 
 	@Override
@@ -58,3 +58,4 @@ public class BookDAOImpl extends AbstractSerializationDAO<Book>implements BookDA
 	}
 
 }
+*/

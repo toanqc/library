@@ -1,4 +1,4 @@
-package mpp.library.model.dao.impl;
+/*package mpp.library.model.dao.impl;
 
 import java.util.List;
 
@@ -56,3 +56,4 @@ public class CopyDAOImpl extends AbstractSerializationDAO<Copy>implements CopyDA
 	}
 
 }
+*/

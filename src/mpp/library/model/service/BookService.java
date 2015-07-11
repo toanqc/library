@@ -1,7 +1,6 @@
 package mpp.library.model.service;
 
 import mpp.library.model.Book;
-import mpp.library.model.Copy;
 
 /**
  * 
@@ -27,27 +26,6 @@ public interface BookService {
 	 */
 	void saveBook(Book book, int copiesNum);
 
-	/**
-	 * Adds {@link Copy} of the provided {@link Book} with provided copyNumber.
-	 * 
-	 * @param book
-	 * @param copyNumber
-	 */
 	void addCopy(Book book, int copyNumber);
 
-	/**
-	 * Simply updates {@link Book} in the DB. Does nothing related to
-	 * {@link Copy}.
-	 * 
-	 * @param book
-	 */
-	void updateBook(Book book);
-
-	/**
-	 * Updates {@link Copy} inside the {@link Book}.
-	 * 
-	 * @param book
-	 * @param copy
-	 */
-	void updateBookCopy(Book book, Copy copy);
 }

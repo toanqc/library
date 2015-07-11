@@ -6,7 +6,14 @@ import mpp.library.model.Copy;
 
 public interface CopyDAO extends BaseDAO<Copy> {
 
-	void update(Copy copy);
+	Copy update(Copy copy);
 
-	List<Copy> getCopyList();
+	/**
+	 * Get Copies related to provided publication id.
+	 * 
+	 * @param pubId
+	 * @return {@link List} of Copies
+	 */
+	List<Copy> getByPubId(int pubId);
+
 }

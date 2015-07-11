@@ -2,7 +2,7 @@ package mpp.library.model;
 
 import java.util.List;
 
-public class Book extends Publication{
+public class Book extends Publication {
 
 	private static final long serialVersionUID = -6787991247823942688L;
 
@@ -12,8 +12,8 @@ public class Book extends Publication{
 	public Book(String ISBN) {
 		this.ISBN = ISBN;
 	}
-	
-		public String getISBN() {
+
+	public String getISBN() {
 		return ISBN;
 	}
 
@@ -34,6 +34,12 @@ public class Book extends Publication{
 		this.ISBN = isbn;
 		this.title = title;
 		this.maxCheckoutLength = maxCheckoutLength;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [ISBN=" + ISBN + ", authorList=" + authorList + ", title=" + title + ", maxCheckoutLength="
+				+ maxCheckoutLength + ", copies=" + copies + ", id=" + id + "]";
 	}
 
 }

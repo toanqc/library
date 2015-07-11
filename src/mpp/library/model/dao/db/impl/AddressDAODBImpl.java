@@ -38,7 +38,7 @@ public class AddressDAODBImpl implements AddressDAO {
 	}
 
 	private PreparedStatement buildInsertAddressSql(Connection conn, Address address) throws SQLException {
-		String sql = "INSERT INTO Address VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO Address(street,city,state,zip) VALUES(?, ?, ?, ?)";
 		PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, address.getStreet());
 		statement.setString(2, address.getCity());
@@ -50,7 +50,23 @@ public class AddressDAODBImpl implements AddressDAO {
 
 	@Override
 	public Address get(int id) {
-		throw new UnsupportedOperationException("Method get of Address DAO do not supported right now!");
+		String sql = "SELECT street,city,state,zip,id FROM ADDRESS WHERE id =?";
+		Address address = null;
+		try (Connection conn = cm.getConnection()) {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+
+			preparedStatement.executeQuery();
+			ResultSet result = preparedStatement.getResultSet();
+			if (result.next()) {
+				address = new Address(result.getString("street").trim(), result.getString("city").trim(),
+						result.getString("state").trim(), result.getInt("zip"));
+				address.setId(result.getInt("id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return address;
 	}
 
 	@Override

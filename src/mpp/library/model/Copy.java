@@ -49,12 +49,17 @@ public class Copy implements Serializable {
 		this.publication = pub;
 	}
 	
+	public int getId() {
+		return id;
+	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public int getId() {
-		return this.id;
+
+	@Override
+	public String toString() {
+		return "Copy [copyNumber=" + copyNumber + ", isAvailable=" + isAvailable + ", id=" + id + "]";
 	}
 
 }

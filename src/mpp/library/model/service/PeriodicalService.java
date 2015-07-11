@@ -1,6 +1,5 @@
 package mpp.library.model.service;
 
-import mpp.library.model.Copy;
 import mpp.library.model.Periodical;
 
 /**
@@ -34,20 +33,4 @@ public interface PeriodicalService {
 	 */
 	void addCopy(Periodical periodical, int copyNumber);
 
-	/**
-	 * Simply updates {@link Periodical}. Does nothing to Models related to
-	 * {@link Periodical}.
-	 * 
-	 * @param periodical
-	 */
-	void updatePeriodical(Periodical periodical);
-
-	/**
-	 * Updates the {@link Copy} of the provided {@link Periodical} with provided
-	 * {@link Copy}.
-	 * 
-	 * @param periodical
-	 * @param copy
-	 */
-	void updatePeriodicalCopy(Periodical periodical, Copy copy);
 }

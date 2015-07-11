@@ -35,13 +35,19 @@ public class Publication implements Serializable {
 	public void setCopies(List<Copy> copies) {
 		this.copies = copies;
 	}
-	
-	public void setID(int id) {
+
+	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public int getId() {
 		return this.id;
+	}
+
+	@Override
+	public String toString() {
+		return "Publication [title=" + title + ", maxCheckoutLength=" + maxCheckoutLength + ", copies=" + copies
+				+ ", id=" + id + "]";
 	}
 
 }

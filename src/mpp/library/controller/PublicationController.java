@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import mpp.library.model.Address;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
@@ -123,6 +124,14 @@ public class PublicationController implements ControlledScreen {
 			author.setFirstName(authorNames[0]);
 			String lastName = authorNames.length > 0 ? authorNames[authorNames.length - 1] : "";
 			author.setLastName(lastName);
+
+			// FIXME Just to fullfill DB requirement. Remove this once Author UI
+			// is
+			// done.
+			Address address = new Address("Dummy Street", "Dummy City", "State", 52557);
+			author.setAddress(address);
+			author.setBio("Dummy BIO to reach 10 char long");
+
 			authors.add(author);
 		}
 		book.setAuthorList(authors);
@@ -144,8 +153,8 @@ public class PublicationController implements ControlledScreen {
 			return;
 		}
 
-		Periodical periodical = periodicalSerivce.getPeriodical(periodicalTitle.getText(),
-				periodicalIssueNumber.getText());
+		Periodical periodical = periodicalSerivce.getPeriodical(periodicalIssueNumber.getText().trim(),
+				periodicalTitle.getText().trim());
 		if (periodical != null) {
 			FXUtil.showErrorMessage(lblStatus, "Periodical with provided title and issue number already exists.");
 			return;
@@ -154,7 +163,7 @@ public class PublicationController implements ControlledScreen {
 		periodical = new Periodical(periodicalTitle.getText(), periodicalIssueNumber.getText());
 		periodical.setMaxCheckoutLength(Integer.valueOf(periodicalMaxCheckoutCount.getText()));
 
-		periodicalSerivce.savePeriodical(periodical,Integer.parseInt(periodicalCopiesNum.getText()));
+		periodicalSerivce.savePeriodical(periodical, Integer.parseInt(periodicalCopiesNum.getText()));
 		postSavePeriodical();
 	}
 

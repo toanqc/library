@@ -9,8 +9,9 @@ public class Periodical extends Publication {
 	public Periodical(String title, String issueNumber) {
 		this.title = title;
 		this.issueNumber = issueNumber;
-		
+
 	}
+
 	public String getIssueNumber() {
 		return issueNumber;
 	}
@@ -24,6 +25,12 @@ public class Periodical extends Publication {
 		this.issueNumber = issueNo;
 		this.title = title;
 		this.maxCheckoutLength = maxChkout;
+	}
+
+	@Override
+	public String toString() {
+		return "Periodical [issueNumber=" + issueNumber + ", title=" + title + ", maxCheckoutLength="
+				+ maxCheckoutLength + ", copies=" + copies + ", id=" + id + "]";
 	}
 
 }
