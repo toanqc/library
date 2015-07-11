@@ -185,6 +185,10 @@ public class MemberDAODBImpl implements MemberDAO {
 			e.printStackTrace();
 		}
 
+		if (maxId < 0) {
+			return "1001";
+		}
+
 		maxId++;
 		return String.valueOf(maxId);
 	}
