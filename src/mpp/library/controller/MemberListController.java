@@ -132,8 +132,6 @@ public class MemberListController implements ControlledScreen {
 								printCheckoutRecordController
 										.loadCheckoutRecordForMember(String.valueOf(member.getMemberId()), true);
 								myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
-								myController.setSize(Screen.PRINT_CHECKOUT_RECORD.getWidth(),
-										Screen.PRINT_CHECKOUT_RECORD.getHeight());
 							}
 						});
 
@@ -148,7 +146,6 @@ public class MemberListController implements ControlledScreen {
 		memberController.setFunctionType(FunctionType.UPDATE);
 		memberController.setMemberId(memberId);
 		myController.setScreen(Screen.MEMBER);
-		myController.setSize(Screen.MEMBER.getWidth(), Screen.MEMBER.getHeight());
 		memberController.repaint();
 	}
 
@@ -186,7 +183,6 @@ public class MemberListController implements ControlledScreen {
 	@FXML
 	public void returnHome() {
 		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 	@FXML
@@ -195,7 +191,6 @@ public class MemberListController implements ControlledScreen {
 		MemberController memberController = (MemberController) ControlledScreen.controllerList.get(Screen.MEMBER);
 		memberController.setFunctionType(FunctionType.ADD);
 		myController.setScreen(Screen.MEMBER);
-		myController.setSize(Screen.MEMBER.getWidth(), Screen.MEMBER.getHeight());
 		memberController.repaint();
 	}
 

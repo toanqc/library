@@ -123,7 +123,6 @@ public class MemberController implements ControlledScreen {
 	public void returnHome() {
 		clearTextField();
 		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
 				.get(Screen.MEMBER_LIST);
 		memberListController.repaint();
@@ -199,7 +198,6 @@ public class MemberController implements ControlledScreen {
 	@FXML
 	public void handleCancel() {
 		myController.setScreen(Screen.MEMBER_LIST);
-		myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
 		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
 				.get(Screen.MEMBER_LIST);
 		memberListController.repaint();

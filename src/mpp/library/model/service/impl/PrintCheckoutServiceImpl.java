@@ -4,7 +4,6 @@ import java.util.List;
 
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.dao.db.impl.CheckoutDAODBFacade;
-import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.service.PrintCheckoutService;
 
 public class PrintCheckoutServiceImpl implements PrintCheckoutService {

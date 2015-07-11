@@ -94,13 +94,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	protected void gotoMainScreen(MouseEvent event) {
 		if (!fromLibraryList) {
 			myController.setScreen(Screen.HOME);
-			myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 			repaint();
 		}
 		// return to the Member List screen
 		else {
 			myController.setScreen(Screen.MEMBER_LIST);
-			myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
 			repaint();
 		}
 	}

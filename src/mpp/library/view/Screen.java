@@ -28,12 +28,4 @@ public enum Screen {
 	public String getValue() {
 		return this.fxmlFile;
 	}
-
-	public int getWidth() {
-		return this.width;
-	}
-
-	public int getHeight() {
-		return this.height;
-	}
 }

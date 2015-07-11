@@ -5,20 +5,14 @@ import java.util.Properties;
 
 import mpp.library.model.dao.AddressDAO;
 import mpp.library.model.dao.BaseDAO;
-import mpp.library.model.dao.BookDAO;
 import mpp.library.model.dao.CheckoutDAO;
 import mpp.library.model.dao.CheckoutRecordDAO;
-import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.MemberDAO;
-import mpp.library.model.dao.PeriodicalDAO;
 import mpp.library.model.dao.db.impl.AddressDAODBImpl;
 import mpp.library.model.dao.db.impl.MemberDAODBImpl;
-import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
-import mpp.library.model.dao.impl.CopyDAOImpl;
 import mpp.library.model.dao.impl.MemberDAOImpl;
-import mpp.library.model.dao.impl.PeriodicalDAOImpl;
 import mpp.library.util.LibraryConstant;
 import mpp.library.util.PropertiesUtil;
 
@@ -28,9 +22,9 @@ public class DataAccessFactory {
 
 	static {
 		mapFile.put(MemberDAO.class, new MemberDAOImpl());
-		mapFile.put(BookDAO.class, new BookDAOImpl());
-		mapFile.put(CopyDAO.class, new CopyDAOImpl());
-		mapFile.put(PeriodicalDAO.class, new PeriodicalDAOImpl());
+		//mapFile.put(BookDAO.class, new BookDAOImpl());
+		//mapFile.put(CopyDAO.class, new CopyDAOImpl());
+		//mapFile.put(PeriodicalDAO.class, new PeriodicalDAOImpl());
 		mapFile.put(CheckoutDAO.class, new CheckoutDAOFacade());
 		mapFile.put(CheckoutRecordDAO.class, new CheckoutRecordDAOFacade());
 	}

@@ -50,16 +50,12 @@ public class HomeController implements ControlledScreen {
 		myController.loadScreen(Screen.MEMBER_LIST,
 				Screen.MEMBER_LIST.getValue());
 		myController.setScreen(Screen.MEMBER_LIST);
-		myController.setSize(Screen.MEMBER_LIST.getWidth(),
-				Screen.MEMBER_LIST.getHeight());
 	}
 
 	@FXML
 	public void gotoCheckout(MouseEvent event) {
 		myController.loadScreen(Screen.CHECKOUT, Screen.CHECKOUT.getValue());
 		myController.setScreen(Screen.CHECKOUT);
-		myController.setSize(Screen.CHECKOUT.getWidth(),
-				Screen.CHECKOUT.getHeight());
 	}
 
 	@FXML
@@ -67,8 +63,6 @@ public class HomeController implements ControlledScreen {
 		myController.loadScreen(Screen.PRINT_CHECKOUT_RECORD,
 				Screen.PRINT_CHECKOUT_RECORD.getValue());
 		myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
-		myController.setSize(Screen.PRINT_CHECKOUT_RECORD.getWidth(),
-				Screen.PRINT_CHECKOUT_RECORD.getHeight());
 	}
 
 	@FXML
@@ -76,8 +70,6 @@ public class HomeController implements ControlledScreen {
 		myController.loadScreen(Screen.PUBLICATION,
 				Screen.PUBLICATION.getValue());
 		myController.setScreen(Screen.PUBLICATION);
-		myController.setSize(Screen.PUBLICATION.getWidth(),
-				Screen.PUBLICATION.getHeight());
 	}
 
 	@FXML
@@ -85,8 +77,6 @@ public class HomeController implements ControlledScreen {
 		myController.loadScreen(Screen.PUBLICATION_OVERDUE,
 				Screen.PUBLICATION_OVERDUE.getValue());
 		myController.setScreen(Screen.PUBLICATION_OVERDUE);
-		myController.setSize(Screen.PUBLICATION_OVERDUE.getWidth(),
-				Screen.PUBLICATION_OVERDUE.getHeight());
 	}
 
 	@Override
