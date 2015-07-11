@@ -66,7 +66,7 @@ public class AddressDAODBImpl implements AddressDAO {
 	}
 
 	private PreparedStatement builderUpdateAddressSql(Connection conn, Address address) throws SQLException {
-		String sql = "UPDATE FROM LibraryMember SET street=?, city=?, state=?, zip=? WHERE id=?";
+		String sql = "UPDATE Address SET street=?, city=?, state=?, zip=? WHERE id=?";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, address.getStreet());
 		statement.setString(2, address.getCity());

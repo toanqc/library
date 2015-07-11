@@ -85,7 +85,6 @@ public class MemberController implements ControlledScreen {
 
 	private void initalizeNumericLimiter() {
 		FormValidation.addNumbericLimiter(txtZip);
-		FormValidation.addNumbericLimiter(txtPhone);
 	}
 
 	private void initializeTextLimiter() {
@@ -95,7 +94,7 @@ public class MemberController implements ControlledScreen {
 		FormValidation.addLengthLimiter(txtCity, 20);
 		FormValidation.addLengthLimiter(txtState, 2);
 		FormValidation.addLengthLimiter(txtZip, 5);
-		FormValidation.addLengthLimiter(txtPhone, 10);
+		FormValidation.addLengthLimiter(txtPhone, 14);
 	}
 
 	private void setGenerateMemberId() {
@@ -125,6 +124,9 @@ public class MemberController implements ControlledScreen {
 		clearTextField();
 		myController.setScreen(Screen.HOME);
 		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
+		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
+				.get(Screen.MEMBER_LIST);
+		memberListController.repaint();
 	}
 
 	@FXML
@@ -185,8 +187,8 @@ public class MemberController implements ControlledScreen {
 			return false;
 		}
 
-		if (!FormValidation.isNumberAndExactLength(txtPhone, 10)) {
-			FXUtil.showErrorMessage(lblStatus, "Phone number must be numeric with exactly 10 digits!");
+		if (!FormValidation.isCorrectPhone(txtPhone)) {
+			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, ie. 000-000-0000!");
 			txtPhone.requestFocus();
 			return false;
 		}
@@ -198,6 +200,9 @@ public class MemberController implements ControlledScreen {
 	public void handleCancel() {
 		myController.setScreen(Screen.MEMBER_LIST);
 		myController.setSize(Screen.MEMBER_LIST.getWidth(), Screen.MEMBER_LIST.getHeight());
+		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
+				.get(Screen.MEMBER_LIST);
+		memberListController.repaint();
 	}
 
 	@FXML

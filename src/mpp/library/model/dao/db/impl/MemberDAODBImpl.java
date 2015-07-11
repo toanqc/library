@@ -137,11 +137,12 @@ public class MemberDAODBImpl implements MemberDAO {
 	}
 
 	private PreparedStatement buildUpdateMember(Connection conn, LibraryMember member) throws SQLException {
-		String sql = "UPDATE LibraryMember SET firstname=?, lastname=?, phone=? WHERE memberid=?";
+		String sql = "UPDATE LibraryMember SET firstname=?, lastname=?, telephone=? WHERE memberid=?";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, member.getFirstName());
 		statement.setString(2, member.getLastName());
 		statement.setString(3, member.getPhone());
+		statement.setString(4, member.getMemberId());
 
 		return statement;
 	}
