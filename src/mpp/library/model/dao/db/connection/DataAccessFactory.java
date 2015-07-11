@@ -24,6 +24,9 @@ import mpp.library.model.dao.impl.MemberDAOImpl;
 import mpp.library.util.LibraryConstant;
 import mpp.library.util.PropertiesUtil;
 
+/**
+ * @author Toan Quach
+ */
 public class DataAccessFactory {
 	static HashMap<Class<? extends BaseDAO<?>>, BaseDAO<?>> mapDB = new HashMap<>();
 	static HashMap<Class<? extends BaseDAO<?>>, BaseDAO<?>> mapFile = new HashMap<>();

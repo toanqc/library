@@ -15,7 +15,7 @@ import mpp.library.util.LibraryConstant;
 /**
  * @author Toan Quach
  */
-public class ScreenFramework extends Application {
+public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {

@@ -10,6 +10,9 @@ import mpp.library.model.Address;
 import mpp.library.model.dao.AddressDAO;
 import mpp.library.model.dao.db.connection.ConnectionManager;
 
+/**
+ * @author Toan Quach
+ */
 public class AddressDAODBImpl implements AddressDAO {
 
 	private ConnectionManager cm;

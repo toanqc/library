@@ -1,19 +1,13 @@
 package mpp.library.model.dao.impl;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import mpp.library.model.Book;
-import mpp.library.model.CheckoutRecord;
-import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Publication;
-import mpp.library.model.PublicationType;
 import mpp.library.model.dao.CheckoutDAO;
-import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
 
 /**
  * 
@@ -23,7 +17,7 @@ import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
  */
 public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>implements CheckoutDAO {
 
-	private CheckoutRecordEntryDAOFacade checkoutRecordEntryDAO = new CheckoutRecordEntryDAOFacade();
+	// private CheckoutRecordEntryDAOFacade checkoutRecordEntryDAO = new CheckoutRecordEntryDAOFacade();
 	
 	@Override
 	public LibraryMember save(LibraryMember member) {

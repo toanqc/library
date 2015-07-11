@@ -8,6 +8,9 @@ import java.util.Properties;
 import mpp.library.util.LibraryConstant;
 import mpp.library.util.PropertiesUtil;
 
+/**
+ * @author Toan Quach
+ */
 public class ConnectionManager {
 
 	private static final String DATABASE = "ij.database";

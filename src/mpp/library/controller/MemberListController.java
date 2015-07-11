@@ -22,6 +22,9 @@ import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
+/**
+ * @author Toan Quach
+ */
 public class MemberListController implements ControlledScreen {
 
 	@FXML

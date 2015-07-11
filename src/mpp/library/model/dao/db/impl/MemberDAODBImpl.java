@@ -14,6 +14,9 @@ import mpp.library.model.dao.AddressDAO;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.db.connection.ConnectionManager;
 
+/**
+ * @author Toan Quach
+ */
 public class MemberDAODBImpl implements MemberDAO {
 
 	public static final String SELECT_STATEMENT = "SELECT m.id,m.memberid, m.firstname, m.lastname, m.telephone, "
