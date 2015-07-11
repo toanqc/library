@@ -16,7 +16,7 @@ import mpp.library.model.dao.db.connection.ConnectionManager;
 
 public class MemberDAODBImpl implements MemberDAO {
 
-	public static final String SELECT_STATEMENT = "SELECT m.memberid, m.firstname, m.lastname, m.telephone, "
+	public static final String SELECT_STATEMENT = "SELECT m.id,m.memberid, m.firstname, m.lastname, m.telephone, "
 			+ "a.street, a.city, a.state, a.zip " + "FROM LibraryMember m INNER JOIN Address a ON m.addressId = a.Id";
 
 	private ConnectionManager cm;
@@ -87,6 +87,7 @@ public class MemberDAODBImpl implements MemberDAO {
 				rs.getInt("zip"));
 		LibraryMember member = new LibraryMember(rs.getString("memberid"), rs.getString("firstname"),
 				rs.getString("lastname"), rs.getString("telephone"), address);
+		member.setId(rs.getInt("id"));
 		return member;
 	}
 

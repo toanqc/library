@@ -54,4 +54,11 @@ public class CheckoutRecord implements Serializable {
 		}
 		return crEntries;
 	}
+
+	@Override
+	public String toString() {
+		return "CheckoutRecord [checkoutRecordEntries=" + checkoutRecordEntries + ", libraryMember=" + libraryMember
+				+ "]";
+	}
+
 }

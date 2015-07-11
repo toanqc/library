@@ -4,9 +4,10 @@ import java.util.List;
 
 import mpp.library.model.Book;
 import mpp.library.model.Publication;
+import mpp.library.model.dao.BaseDAO;
 import mpp.library.util.PublicationType;
 
-public interface PublicationDAO {
+public interface PublicationDAO extends BaseDAO<Publication> {
 
 	Publication save(Publication publication);
 

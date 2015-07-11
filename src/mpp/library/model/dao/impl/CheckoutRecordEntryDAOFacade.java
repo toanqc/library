@@ -74,4 +74,10 @@ public class CheckoutRecordEntryDAOFacade extends
 	public CheckoutRecordEntry save(CheckoutRecordEntry checkoutRecordEntry) {
 		throw new UnsupportedOperationException("Method save of Checkout Record entry not support at this moment");
 	}
+
+	@Override
+	public List<CheckoutRecordEntry> getCheckoutEnteriesOfMemeber(int memId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
