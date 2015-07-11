@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.MemberListController">
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.MemberListController">
    <children>
       <GridPane hgap="15.0" prefHeight="580.0" prefWidth="800.0" vgap="15.0">
         <columnConstraints>
@@ -55,18 +56,22 @@
                </graphic></Button>
             <TableView fx:id="memberTable" GridPane.columnSpan="3" GridPane.rowIndex="2">
               <columns>
-                <TableColumn fx:id="memberId" prefWidth="90.0" text="Member ID" />
-                <TableColumn fx:id="firstName" prefWidth="94.0" text="First Name" />
-                  <TableColumn fx:id="lastName" prefWidth="89.0" text="Last Name" />
-                  <TableColumn fx:id="street" prefWidth="119.0" sortable="false" text="Street" />
-                  <TableColumn fx:id="city" prefWidth="62.0" text="City" />
-                  <TableColumn fx:id="state" prefWidth="46.0" text="State" />
-                  <TableColumn fx:id="zip" prefWidth="63.0" sortable="false" text="Zip" />
-                  <TableColumn fx:id="phone" minWidth="0.0" prefWidth="85.0" sortable="false" text="Phone" />
-                  <TableColumn fx:id="checkoutRecord" maxWidth="130.0" prefWidth="130.0" sortable="false" text="Checkout Record" />
+                <TableColumn fx:id="memberId" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" styleClass="column-link" text="ID" />
+                <TableColumn fx:id="firstName" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" text="First Name" />
+                  <TableColumn fx:id="lastName" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" text="Last Name" />
+                  <TableColumn fx:id="street" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" sortable="false" text="Street" />
+                  <TableColumn fx:id="city" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="City" />
+                  <TableColumn fx:id="state" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="State" />
+                  <TableColumn fx:id="zip" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" sortable="false" text="Zip" />
+                  <TableColumn fx:id="phone" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" sortable="false" text="Phone" />
+                  <TableColumn fx:id="checkoutRecord" maxWidth="78.0" minWidth="78.0" prefWidth="78.0" sortable="false" styleClass="column-link" text="CR" />
               </columns>
             </TableView>
          </children>
       </GridPane>
    </children>
+   <stylesheets>
+      <URL value="@../css/common.css" />
+      <URL value="@../css/member.css" />
+   </stylesheets>
 </AnchorPane>

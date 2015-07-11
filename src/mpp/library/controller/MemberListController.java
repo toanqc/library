@@ -161,7 +161,7 @@ public class MemberListController implements ControlledScreen {
 		zip.setCellValueFactory(cell -> new SimpleObjectProperty<Integer>(cell.getValue().getAddress().getZip()));
 		state.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getAddress().getState()));
 		phone.setCellValueFactory(cell -> new SimpleObjectProperty<String>(cell.getValue().getPhone()));
-		checkoutRecord.setCellValueFactory(cell -> new ReadOnlyStringWrapper("..."));
+		checkoutRecord.setCellValueFactory(cell -> new ReadOnlyStringWrapper("detail..."));
 	}
 
 	/**

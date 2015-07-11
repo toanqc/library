@@ -16,8 +16,8 @@ import mpp.library.model.dao.db.connection.ConnectionManager;
 
 public class MemberDAODBImpl implements MemberDAO {
 
-	public static final String SELECT_STATEMENT = "SELECT m.memberid, m.firstname, m.lastname, m.phone, a.street, a.city, a.state, a.zip "
-			+ "FROM LibraryMember m INNER JOIN Address a ON m.addressId = a.Id";
+	public static final String SELECT_STATEMENT = "SELECT m.memberid, m.firstname, m.lastname, m.telephone, "
+			+ "a.street, a.city, a.state, a.zip " + "FROM LibraryMember m INNER JOIN Address a ON m.addressId = a.Id";
 
 	private ConnectionManager cm;
 
@@ -55,7 +55,7 @@ public class MemberDAODBImpl implements MemberDAO {
 	}
 
 	private PreparedStatement buildInsertMember(Connection conn, LibraryMember member) throws SQLException {
-		String sql = "INSERT INTO LibraryMember VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO LibraryMember(memberid, addressid, firstname, lastname, telephone) VALUES(?, ?, ?, ?, ?)";
 		PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, member.getMemberId());
 		// the second argument will be set with the generated address id
@@ -86,12 +86,12 @@ public class MemberDAODBImpl implements MemberDAO {
 		Address address = new Address(rs.getString("street"), rs.getString("city"), rs.getString("state"),
 				rs.getInt("zip"));
 		LibraryMember member = new LibraryMember(rs.getString("memberid"), rs.getString("firstname"),
-				rs.getString("lastname"), rs.getString("phone"), address);
+				rs.getString("lastname"), rs.getString("telephone"), address);
 		return member;
 	}
 
 	private PreparedStatement buildSelectMemberById(Connection conn, int id) throws SQLException {
-		if (id == -1) {
+		if (id != -1) {
 			String sql = SELECT_STATEMENT + " WHERE id=?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
@@ -180,7 +180,8 @@ public class MemberDAODBImpl implements MemberDAO {
 			e.printStackTrace();
 		}
 
-		return String.valueOf(maxId++);
+		maxId++;
+		return String.valueOf(maxId);
 	}
 
 	private int getMaxId(Connection conn) throws SQLException {
