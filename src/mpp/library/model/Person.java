@@ -25,7 +25,7 @@ public class Person implements Serializable {
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return firstName.trim();
 	}
 
 	public void setFirstName(String firstName) {
@@ -33,7 +33,7 @@ public class Person implements Serializable {
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastName.trim();
 	}
 
 	public void setLastName(String lastName) {
@@ -41,7 +41,7 @@ public class Person implements Serializable {
 	}
 
 	public String getPhone() {
-		return phone;
+		return phone.trim();
 	}
 
 	public void setPhone(String phone) {

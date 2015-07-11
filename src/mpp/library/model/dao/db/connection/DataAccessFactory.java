@@ -3,6 +3,7 @@ package mpp.library.model.dao.db.connection;
 import java.util.HashMap;
 import java.util.Properties;
 
+import mpp.library.model.dao.AddressDAO;
 import mpp.library.model.dao.BaseDAO;
 import mpp.library.model.dao.BookDAO;
 import mpp.library.model.dao.CheckoutDAO;
@@ -10,6 +11,7 @@ import mpp.library.model.dao.CheckoutRecordDAO;
 import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.PeriodicalDAO;
+import mpp.library.model.dao.db.impl.AddressDAODBImpl;
 import mpp.library.model.dao.db.impl.MemberDAODBImpl;
 import mpp.library.model.dao.impl.BookDAOImpl;
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
@@ -35,6 +37,7 @@ public class DataAccessFactory {
 
 	static {
 		mapDB.put(MemberDAO.class, new MemberDAODBImpl());
+		mapDB.put(AddressDAO.class, new AddressDAODBImpl());
 	}
 
 	public static BaseDAO<?> getDAOImpl(Class<? extends BaseDAO<?>> clazz) {

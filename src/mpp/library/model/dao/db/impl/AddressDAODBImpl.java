@@ -38,7 +38,7 @@ public class AddressDAODBImpl implements AddressDAO {
 	}
 
 	private PreparedStatement buildInsertAddressSql(Connection conn, Address address) throws SQLException {
-		String sql = "INSERT INTO Address VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO Address(street, city, state, zip) VALUES(?, ?, ?, ?)";
 		PreparedStatement statement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 		statement.setString(1, address.getStreet());
 		statement.setString(2, address.getCity());
@@ -66,7 +66,7 @@ public class AddressDAODBImpl implements AddressDAO {
 	}
 
 	private PreparedStatement builderUpdateAddressSql(Connection conn, Address address) throws SQLException {
-		String sql = "UPDATE FROM LibraryMember SET street=?, city=?, state=?, zip=? WHERE id=?";
+		String sql = "UPDATE Address SET street=?, city=?, state=?, zip=? WHERE id=?";
 		PreparedStatement statement = conn.prepareStatement(sql);
 		statement.setString(1, address.getStreet());
 		statement.setString(2, address.getCity());
