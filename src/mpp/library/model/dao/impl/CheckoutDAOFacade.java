@@ -10,10 +10,10 @@ import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.MemberCheckoutRecord;
-import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.PublicationType;
 import mpp.library.model.dao.CheckoutDAO;
+import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
 
 /**
  * 
@@ -35,18 +35,18 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	@Override
 	public Publication getPublication(Publication pub) {
 		// TODO Auto-generated method stub
-		if (pub instanceof Book) {
-			String ISBN = ((Book) pub).getISBN();
-			BookDAOImpl bookDAO = new BookDAOImpl();
-			Book book = bookDAO.get(ISBN);
-			return book;
-		} else if (pub instanceof Periodical) {
-			String title = ((Periodical) pub).getTitle();
-			String issueNo = ((Periodical) pub).getIssueNumber();
-			PeriodicalDAOImpl PeriodicalDAO = new PeriodicalDAOImpl();
-			Periodical periodical = PeriodicalDAO.get(issueNo, title);
-			return periodical;
-		}
+//		if (pub instanceof Book) {
+//			String ISBN = ((Book) pub).getISBN();
+//			PublicationDAODBImpl bookDAO = new PublicationDAODBImpl();
+//			Book book = bookDAO.get(ISBN);
+//			return book;
+//		} else if (pub instanceof Periodical) {
+//			String title = ((Periodical) pub).getTitle();
+//			String issueNo = ((Periodical) pub).getIssueNumber();
+//			PeriodicalDAOImpl PeriodicalDAO = new PeriodicalDAOImpl();
+//			Periodical periodical = PeriodicalDAO.get(issueNo, title);
+//			return periodical;
+//		}
 		return null;
 	}
 
@@ -63,39 +63,39 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	public List<MemberCheckoutRecord> printCheckoutRecord(int memberId) {
 		// TODO Auto-generated method stub
 		List<MemberCheckoutRecord> listCheckoutRecord = new ArrayList<MemberCheckoutRecord>();
-		LibraryMember member = get(memberId);
-		if (member != null) {
-			CheckoutRecord chkOutRecord = member.getCheckoutRecord();
-			if (chkOutRecord != null) {
-				List<CheckoutRecordEntry> listChkoutRecordEntries = checkoutRecordEntryDAO.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue());
-				for (CheckoutRecordEntry entry : listChkoutRecordEntries) {
-					Copy copy = entry.getCopy();
-					LocalDate chkoutDate = entry.getCheckoutDate();
-					LocalDate dueDate = entry.getDueDate();
-					Publication pub = copy.getPublication();
-					String isbnOrIssueNo = "";
-					String publicationType = "";
-					String title = pub.getTitle();
-					if (pub instanceof Book) {
-						isbnOrIssueNo = ((Book) pub).getISBN();
-						publicationType = PublicationType.BOOK.getValue();
-					} else if (pub instanceof Periodical) {
-						isbnOrIssueNo = ((Periodical) pub).getIssueNumber();
-						publicationType = PublicationType.PERIODICAL.getValue();
-					}
-					MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbnOrIssueNo, title,
-							publicationType, chkoutDate, dueDate);
-					listCheckoutRecord.add(memberChkoutRecord);
-				}
-			}
-			else {
-				throw new IllegalArgumentException("Member has no checkout record");
-			}
-		}
-		else {
-			throw new IllegalArgumentException("Member Id not found");
-		}
-		
+//		LibraryMember member = get(memberId);
+//		if (member != null) {
+//			CheckoutRecord chkOutRecord = member.getCheckoutRecord();
+//			if (chkOutRecord != null) {
+//				List<CheckoutRecordEntry> listChkoutRecordEntries = checkoutRecordEntryDAO.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY.getValue());
+//				for (CheckoutRecordEntry entry : listChkoutRecordEntries) {
+//					Copy copy = entry.getCopy();
+//					LocalDate chkoutDate = entry.getCheckoutDate();
+//					LocalDate dueDate = entry.getDueDate();
+//					Publication pub = copy.getPublication();
+//					String isbnOrIssueNo = "";
+//					String publicationType = "";
+//					String title = pub.getTitle();
+//					if (pub instanceof Book) {
+//						isbnOrIssueNo = ((Book) pub).getISBN();
+//						publicationType = PublicationType.BOOK.getValue();
+//					} else if (pub instanceof Periodical) {
+//						isbnOrIssueNo = ((Periodical) pub).getIssueNumber();
+//						publicationType = PublicationType.PERIODICAL.getValue();
+//					}
+//					MemberCheckoutRecord memberChkoutRecord = new MemberCheckoutRecord(isbnOrIssueNo, title,
+//							publicationType, chkoutDate, dueDate);
+//					listCheckoutRecord.add(memberChkoutRecord);
+//				}
+//			}
+//			else {
+//				throw new IllegalArgumentException("Member has no checkout record");
+//			}
+//		}
+//		else {
+//			throw new IllegalArgumentException("Member Id not found");
+//		}
+//		
 		return listCheckoutRecord;
 	}
 
