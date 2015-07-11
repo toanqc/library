@@ -60,16 +60,16 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 
 			String sql = "SELECT p.ISBN_ISSUENO, p.TITLE, p.PUBTYPE, r.CHECKOUTDATE, r.DUEDATE FROM PUBLICATION p "
 					+ "INNER JOIN COPY c ON c.PUBID = p.ID "
-					+ "INNER JOIN CHECKOUTRECORDENTRY r ON c.ID = r.COPYID AND r.MEMBERID = ?;";
+					+ "INNER JOIN CHECKOUTRECORDENTRY r ON c.ID = r.COPYID AND r.MEMBERID = ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, memberId);
 			// Perform SELECT
 			ResultSet rs = stmt.executeQuery();
 			List<MemberCheckoutRecord> listChkRecord = new ArrayList<MemberCheckoutRecord>();
 			while (rs.next()) {
-				String isbn_issueNo = rs.getString("ISBN_ISSUENO");
-				String title = rs.getString("TITLE");
-				String pubType = rs.getString("PUBTYPE");
+				String isbn_issueNo = rs.getString("ISBN_ISSUENO").trim();
+				String title = rs.getString("TITLE").trim();
+				String pubType = rs.getString("PUBTYPE").trim();
 				LocalDate chkoutDate = rs.getDate("CHECKOUTDATE").toLocalDate();
 				LocalDate dueDate = rs.getDate("DUEDATE").toLocalDate();
 				MemberCheckoutRecord record = new MemberCheckoutRecord(isbn_issueNo, title, pubType, chkoutDate, dueDate);
