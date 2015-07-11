@@ -4,6 +4,6 @@ import mpp.library.model.Publication;
 
 public interface CheckoutService {
 
-	void checkout(String memberID, Publication pub) throws Exception;
+	void checkout(int memberID, Publication pub) throws Exception;
 	
 }

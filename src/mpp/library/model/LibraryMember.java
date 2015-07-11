@@ -20,7 +20,7 @@ public class LibraryMember extends Person {
 	}
 
 	public String getMemberId() {
-		return memberId;
+		return memberId.trim();
 	}
 
 	public void setMemberId(String memberId) {

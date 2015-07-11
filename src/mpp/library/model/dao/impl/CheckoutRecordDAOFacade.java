@@ -15,10 +15,10 @@ public class CheckoutRecordDAOFacade extends
 	}
 
 	@Override
-	public CheckoutRecord get(String memberId) {
+	public CheckoutRecord get(int memberId) {
 		List<CheckoutRecord> memberList = this
 				.getObjectList(SerializationFile.CHECKOUT_RECORD.getValue());
-		return memberList.stream().filter(s -> memberId.equals(String.valueOf(s.getLibraryMember().getMemberId()))).findFirst().get();
+		return memberList.stream().filter(s -> memberId == s.getLibraryMember().getId()).findFirst().get();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class CheckoutRecordDAOFacade extends
 	}
 
 	@Override
-	public void save(CheckoutRecord member) {
+	public CheckoutRecord save(CheckoutRecord member) {
 		throw new UnsupportedOperationException("Method save of Checkout Record not support at this moment");
 	}
 }

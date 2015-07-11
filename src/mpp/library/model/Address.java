@@ -20,7 +20,7 @@ public class Address implements Serializable {
 	}
 
 	public String getStreet() {
-		return street;
+		return street.trim();
 	}
 
 	public void setStreet(String street) {
@@ -28,7 +28,7 @@ public class Address implements Serializable {
 	}
 
 	public String getCity() {
-		return city;
+		return city.trim();
 	}
 
 	public void setCity(String city) {
@@ -36,7 +36,7 @@ public class Address implements Serializable {
 	}
 
 	public String getState() {
-		return state;
+		return state.trim();
 	}
 
 	public void setState(String state) {

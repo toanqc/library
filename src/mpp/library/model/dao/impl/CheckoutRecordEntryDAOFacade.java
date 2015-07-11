@@ -1,15 +1,10 @@
 package mpp.library.model.dao.impl;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.dao.CheckoutRecordEntryDAO;
-import mpp.library.model.dao.db.connection.ConnectionManager;
 
 public class CheckoutRecordEntryDAOFacade extends
 		AbstractSerializationDAO<CheckoutRecordEntry> implements
@@ -23,7 +18,7 @@ public class CheckoutRecordEntryDAOFacade extends
 	}
 
 	@Override
-	public CheckoutRecordEntry get(String copyNumber) {
+	public CheckoutRecordEntry get(int copyNumber) {
 		List<CheckoutRecordEntry> entryList = this
 				.getObjectList(SerializationFile.CHECKOUT_RECORD_ENTRY
 						.getValue());
@@ -76,26 +71,7 @@ public class CheckoutRecordEntryDAOFacade extends
 	}
 
 	@Override
-	public void save(CheckoutRecordEntry checkoutRecordEntry) {
-		try {
-			// TODO Auto-generated method stub
-			Connection conn = ConnectionManager.getInstance().getConnection();
-
-			String sql = "INSERT INTO CHECKOUTRECORDENTRY (memberid, copyid, checkoutdate, duedate) VALUES (?, ?, ?, ?)";
-
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, checkoutRecordEntry.getMemberId());
-			stmt.setInt(2, checkoutRecordEntry.getCopy().getCopyNumber());
-			LocalDate ckoutDate = checkoutRecordEntry.getCheckoutDate();
-			stmt.setDate(3, Date.valueOf(ckoutDate));
-
-			// Perform SELECT
-			stmt.executeUpdate();
-			// close Statement object; do not re-use
-			stmt.close();
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public CheckoutRecordEntry save(CheckoutRecordEntry checkoutRecordEntry) {
+		throw new UnsupportedOperationException("Method save of Checkout Record entry not support at this moment");
 	}
 }

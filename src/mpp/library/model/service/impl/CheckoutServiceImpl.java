@@ -2,8 +2,6 @@ package mpp.library.model.service.impl;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
-import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
@@ -30,32 +28,30 @@ public class CheckoutServiceImpl implements CheckoutService {
 	}
 
 	@Override
-	public void checkout(String memberId, Publication pub) throws Exception {
+	public void checkout(int memberId, Publication pub) throws Exception {
 		// TODO Auto-generated method stub
-		if (pub instanceof Book) {
-			// check if memberID exist
-			LibraryMember member = memberService.get(memberId);
-			if (member == null) {
-				throw new IllegalArgumentException("Member ID not found");
+		// check if memberID exist
+		LibraryMember member = memberService.get(memberId);
+		if (member == null) {
+			throw new IllegalArgumentException("Member ID not found");
+
+		} else {
+			// check if ISBN exist and copy is available
+			Copy copy = checkoutDAODBFacade.getAvailableCopy(pub);
+			if (copy != null) {
+				LocalDate chkoutDate = LocalDate.now();
+				LocalDate dueDate = chkoutDate.plus(copy.getPublication().getMaxCheckoutLength(), ChronoUnit.DAYS);
+				CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(member.getId(), copy, chkoutDate, dueDate);
+				copy.setAvailable(false);
+				chkoutRecordEntryDAOFacade.save(ckRecordEntry);
+				copyService.updateCopy(copy);
 
 			} else {
-				// check if ISBN exist and copy is available
-				Copy copy = checkoutDAODBFacade.getAvailableCopy(pub);
-				if (copy != null) {
-					LocalDate chkoutDate = LocalDate.now();
-					LocalDate dueDate = chkoutDate.plus(copy.getPublication().getMaxCheckoutLength(), ChronoUnit.DAYS);
-					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(member.getMemberId(), copy, chkoutDate,
-							dueDate);
-					copy.setAvailable(false);
-					chkoutRecordEntryDAOFacade.save(ckRecordEntry);
-					copyService.updateCopy(copy);
-
-				} else {
-					throw new IllegalArgumentException("The copy of the book is not available");
-				}
-
+				throw new IllegalArgumentException("The copy of the book is not available");
 			}
+
 		}
+
 	}
 
 }

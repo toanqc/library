@@ -39,7 +39,7 @@ public class CheckoutPeriodicalServiceImpl implements CheckoutService {
 	}
 
 	@Override
-	public void checkout(String memberId, Publication periodical) throws Exception {
+	public void checkout(int memberId, Publication periodical) throws Exception {
 		// TODO Auto-generated method stub
 		if (periodical instanceof Periodical) {
 			// check if memberID exist

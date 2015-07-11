@@ -26,8 +26,9 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	private CheckoutRecordEntryDAOFacade checkoutRecordEntryDAO = new CheckoutRecordEntryDAOFacade();
 	
 	@Override
-	public void save(LibraryMember member) {
+	public LibraryMember save(LibraryMember member) {
 		this.writeObject(SerializationFile.MEMBER.getValue(), member);
+		return null;
 		// TODO Auto-generated method stub
 	}
 
@@ -50,10 +51,10 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	}
 
 	@Override
-	public LibraryMember get(String memberId) {
+	public LibraryMember get(int memberId) {
 		// TODO Auto-generated method stub
 		List<LibraryMember> memberList = this.getObjectList(SerializationFile.MEMBER.getValue());
-		return memberList.stream().filter(s -> memberId.equals(String.valueOf(s.getMemberId()))).findFirst().get();
+		return memberList.stream().filter(s -> memberId == s.getId()).findFirst().get();
 	}
 
 
