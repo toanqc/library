@@ -30,7 +30,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 	}
 
 	@Override
-	public void checkout(String memberId, Publication pub) throws Exception {
+	public void checkout(int memberId, Publication pub) throws Exception {
 		// TODO Auto-generated method stub
 		if (pub instanceof Book) {
 			// check if memberID exist
@@ -44,7 +44,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 				if (copy != null) {
 					LocalDate chkoutDate = LocalDate.now();
 					LocalDate dueDate = chkoutDate.plus(copy.getPublication().getMaxCheckoutLength(), ChronoUnit.DAYS);
-					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(member.getMemberId(), copy, chkoutDate,
+					CheckoutRecordEntry ckRecordEntry = new CheckoutRecordEntry(member.getId(), copy, chkoutDate,
 							dueDate);
 					copy.setAvailable(false);
 					chkoutRecordEntryDAOFacade.save(ckRecordEntry);

@@ -11,7 +11,5 @@ import mpp.library.model.CheckoutRecord;
  */
 public interface CheckoutRecordDAO extends BaseDAO<CheckoutRecord> {
 
-	CheckoutRecord get(String memberId);
-
 	boolean update(CheckoutRecord record);
 }

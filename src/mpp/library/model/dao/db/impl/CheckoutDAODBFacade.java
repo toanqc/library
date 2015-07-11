@@ -40,7 +40,7 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 	 * @see mpp.library.model.dao.CheckoutDAO#get(java.lang.String)
 	 */
 	@Override
-	public LibraryMember get(String memberId) {
+	public LibraryMember get(int memberId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -138,9 +138,9 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 	}
 
 	@Override
-	public void save(LibraryMember member) {
+	public LibraryMember save(LibraryMember member) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }
