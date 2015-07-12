@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 public class LambdaLibrary {
 
-	public static final BiFunction<List<CheckoutRecordEntry>, LibraryMember, List<PublicationOverdueRecord>> publicationOverdueRecordLambda = (
+	public static final BiFunction<List<CheckoutRecordEntry>, LibraryMember, List<PublicationOverdueRecord>> PUBLICATION_OVERDUE_RECORD_LAMBDA = (
 			crEntries,
 			libraryMem) -> crEntries.stream().filter(cr -> cr.getDueDate().compareTo(LocalDate.now()) < 0).map((cr) -> {
 				PublicationOverdueRecord publicationOverdueRecord = new PublicationOverdueRecord();
@@ -37,6 +37,7 @@ public class LambdaLibrary {
 				return publicationOverdueRecord;
 			}).collect(Collectors.toList());
 
-	public static final Consumer<List<MemberCheckoutRecord>> printCheckoutRecord = s -> s.stream().forEach(e-> System.out.println(e));
+	public static final Consumer<List<MemberCheckoutRecord>> PRINT_CHECKOUT_RECORD = s -> s.stream()
+			.forEach(e -> System.out.println(e));
 
 }

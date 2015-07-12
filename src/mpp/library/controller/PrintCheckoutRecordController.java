@@ -68,7 +68,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				sb.append("Checkout Date\t");
 				sb.append("Due Date\t");
 				System.out.println(sb.toString());
-				LambdaLibrary.printCheckoutRecord.accept(listCheckoutRecord);
+				LambdaLibrary.PRINT_CHECKOUT_RECORD.accept(listCheckoutRecord);
 			}
 		} catch (Exception e) {
 			lblMessage.setText(e.getMessage());

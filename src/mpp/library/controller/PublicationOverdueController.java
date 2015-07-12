@@ -75,7 +75,7 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 			List<CheckoutRecordEntry> checkoutRecordEntries = checkoutService
 					.getOverdueCheckoutRecordEntryByMemberId(libraryMember.getId());
 
-			publicationOverdueRecords = LambdaLibrary.publicationOverdueRecordLambda.apply(checkoutRecordEntries,
+			publicationOverdueRecords = LambdaLibrary.PUBLICATION_OVERDUE_RECORD_LAMBDA.apply(checkoutRecordEntries,
 					libraryMember);
 		}
 
