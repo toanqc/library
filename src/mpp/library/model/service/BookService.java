@@ -26,6 +26,6 @@ public interface BookService {
 	 */
 	void saveBook(Book book, int copiesNum);
 
-	void addCopy(Book book, int copyNumber);
+	void addCopy(String isbn, int copyNumber);
 
 }

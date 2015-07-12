@@ -40,11 +40,15 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void addCopy(Book book, int copyNumber) {
+	public void addCopy(String isbn, int copyNumber) {
 
-		for (int i = 0; i < copyNumber; i++) {
-			Copy copy = new Copy(book, i, true);
-			copyService.saveCopy(copy);
+		Book book = getBook(isbn);
+		
+		if (book != null) {
+			for (int i = 0; i < copyNumber; i++) {
+				Copy copy = new Copy(book, i, true);
+				copyService.saveCopy(copy);
+			}
 		}
 
 	}

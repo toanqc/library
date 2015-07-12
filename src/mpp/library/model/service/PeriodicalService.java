@@ -25,12 +25,6 @@ public interface PeriodicalService {
 	 */
 	void savePeriodical(Periodical periodical, int copiesNum);
 
-	/**
-	 * Adds {@link Periodical} Copy to DB.
-	 * 
-	 * @param periodical
-	 * @param copyNumber
-	 */
-	void addCopy(Periodical periodical, int copyNumber);
+	void addCopy(String issueNumber, String title, int copyNumber);
 
 }

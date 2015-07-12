@@ -171,10 +171,7 @@ public class PublicationCopyController implements ControlledScreen {
 			return;
 		}
 
-		Book book = bookService.getBook(bookCopyISBNNumber.getText().trim());
-		if (book != null) {
-			bookService.addCopy(book, Integer.valueOf(bookCopyNumber.getText().trim()));
-		}
+		bookService.addCopy(bookCopyISBNNumber.getText().trim(), Integer.valueOf(bookCopyNumber.getText().trim()));
 
 		postSaveBook();
 	}
@@ -192,11 +189,8 @@ public class PublicationCopyController implements ControlledScreen {
 			return;
 		}
 
-		Periodical periodical = periodicalService.getPeriodical(periodicalCopyIssueNumber.getText().trim(),
-				periodicalCopyTitle.getText().trim());
-		if (periodical != null) {
-			periodicalService.addCopy(periodical, Integer.valueOf(periodicalCopyNumber.getText().trim()));
-		}
+		periodicalService.addCopy(periodicalCopyIssueNumber.getText().trim(), periodicalCopyTitle.getText().trim(),
+				Integer.valueOf(periodicalCopyNumber.getText().trim()));
 
 		postSavePeriodical();
 	}
