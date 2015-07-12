@@ -93,10 +93,5 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 		return listCheckoutRecord;
 	}
 
-	@Override
-	public Copy getAvailableCopy(Publication pub) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
