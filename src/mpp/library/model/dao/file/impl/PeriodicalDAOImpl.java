@@ -1,3 +1,4 @@
+package mpp.library.model.dao.file.impl;
 /*package mpp.library.model.dao.impl;
 
 import java.util.List;
@@ -19,7 +20,6 @@ public class PeriodicalDAOImpl extends AbstractSerializationDAO<Periodical>imple
 
 	@Override
 	public boolean isAvailable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

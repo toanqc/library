@@ -55,21 +55,19 @@ public class ScreenController extends StackPane implements ControlledScreen {
 			final DoubleProperty opacity = opacityProperty();
 			// Is there is more than one screen
 			if (!getChildren().isEmpty()) {
-				Timeline fade = new Timeline(new KeyFrame(Duration.ZERO,
-						new KeyValue(opacity, 1.0)), new KeyFrame(new Duration(
-						0.1), new EventHandler() {
-					@Override
-					public void handle(Event t) {
-						faceInNewScreen(name, opacity);
-					}
-				}, new KeyValue(opacity, 0.0)));
+				Timeline fade = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
+						new KeyFrame(new Duration(0.1), new EventHandler() {
+							@Override
+							public void handle(Event t) {
+								faceInNewScreen(name, opacity);
+							}
+						}, new KeyValue(opacity, 0.0)));
 				fade.play();
 			} else {
 				firstScene(name, opacity);
 			}
 			return true;
 		} else {
-			System.out.println("screen hasn't been loaded!\n");
 			return false;
 		}
 	}
@@ -79,9 +77,8 @@ public class ScreenController extends StackPane implements ControlledScreen {
 		getChildren().remove(0);
 		// add new screen
 		getChildren().add(0, screens.get(name));
-		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO,
-				new KeyValue(opacity, 0.0)), new KeyFrame(new Duration(1500),
-				new KeyValue(opacity, 1.0)));
+		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+				new KeyFrame(new Duration(1500), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
 	}
 
@@ -89,9 +86,8 @@ public class ScreenController extends StackPane implements ControlledScreen {
 		// no one else been displayed, then just show
 		setOpacity(0.0);
 		getChildren().add(screens.get(name));
-		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO,
-				new KeyValue(opacity, 0.0)), new KeyFrame(new Duration(1500),
-				new KeyValue(opacity, 1.0)));
+		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+				new KeyFrame(new Duration(1500), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
 	}
 
@@ -107,13 +103,10 @@ public class ScreenController extends StackPane implements ControlledScreen {
 	public boolean loadScreen(Screen screenName, String resource) {
 		try {
 			if (!screens.containsKey(screenName)) {
-				FXMLLoader myLoader = new FXMLLoader(getClass().getResource(
-						resource));
+				FXMLLoader myLoader = new FXMLLoader(getClass().getResource(resource));
 				Parent loadScreen = (Parent) myLoader.load();
-				ControlledScreen myScreenControler = ((ControlledScreen) myLoader
-						.getController());
-				ControlledScreen.controllerList.put(screenName,
-						myLoader.getController());
+				ControlledScreen myScreenControler = ((ControlledScreen) myLoader.getController());
+				ControlledScreen.controllerList.put(screenName, myLoader.getController());
 				myScreenControler.setScreenParent(this);
 				addScreen(screenName, loadScreen);
 				return true;
@@ -128,8 +121,6 @@ public class ScreenController extends StackPane implements ControlledScreen {
 
 	@Override
 	public void repaint() {
-		throw new UnsupportedOperationException(
-				"Repaint method not needed for screeen controller class");
-
+		throw new UnsupportedOperationException("Repaint method not needed for screeen controller class");
 	}
 }

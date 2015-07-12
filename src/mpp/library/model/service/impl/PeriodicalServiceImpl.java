@@ -41,14 +41,13 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
 	@Override
 	public void addCopy(String issueNumber, String title, int copyNumber) {
-
 		Periodical periodical = getPeriodical(issueNumber, title);
-
-		for (int i = 0; i < copyNumber; i++) {
-			Copy copy = new Copy(periodical, 1, true);
-			copy.setAvailable(true);
-			copyService.saveCopy(copy);
+		if (periodical != null) {
+			for (int i = 0; i < copyNumber; i++) {
+				Copy copy = new Copy(periodical, 1, true);
+				copy.setAvailable(true);
+				copyService.saveCopy(copy);
+			}
 		}
-
 	}
 }

@@ -19,7 +19,7 @@ import mpp.library.model.Publication;
 import mpp.library.model.PublicationType;
 import mpp.library.model.dao.CheckoutRecordEntryDAO;
 import mpp.library.model.dao.db.connection.ConnectionManager;
-import mpp.library.model.dao.impl.AbstractSerializationDAO;
+import mpp.library.model.dao.file.impl.AbstractSerializationDAO;
 
 public class CheckoutRecordEntryDAODBFacade extends AbstractSerializationDAO<CheckoutRecordEntry>
 		implements CheckoutRecordEntryDAO {
@@ -37,7 +37,6 @@ public class CheckoutRecordEntryDAODBFacade extends AbstractSerializationDAO<Che
 	@Override
 	public CheckoutRecordEntry save(CheckoutRecordEntry checkoutRecordEntry) {
 		try {
-			// TODO Auto-generated method stub
 			Connection conn = ConnectionManager.getInstance().getConnection();
 
 			String sql = "INSERT INTO CHECKOUTRECORD (idmem, copyid, checkoutdate, duedate) VALUES (?, ?, ?, ?)";
@@ -69,13 +68,11 @@ public class CheckoutRecordEntryDAODBFacade extends AbstractSerializationDAO<Che
 
 	@Override
 	public CheckoutRecordEntry get(int id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean update(CheckoutRecordEntry checkoutRecordEntry) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

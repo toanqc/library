@@ -1,4 +1,4 @@
-package mpp.library.model.dao.impl;
+package mpp.library.model.dao.file.impl;
 
 /**
  * @author Toan Quach

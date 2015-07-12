@@ -1,4 +1,4 @@
-package mpp.library.model.dao.impl;
+package mpp.library.model.dao.file.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,13 +77,11 @@ public class CheckoutRecordEntryDAOFacade extends
 
 	@Override
 	public List<CheckoutRecordEntry> getCheckoutEnteriesOfMemeber(int memId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<CheckoutRecordEntry> getOverdueCheckoutEnteriesOfMemeber(int memId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

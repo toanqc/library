@@ -13,5 +13,4 @@ public enum PublicationType {
 	String getValue() {
 		return this.publicationType;
 	}
-
 }

@@ -134,14 +134,12 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	@Override
 	public void setScreenParent(ScreenController screenPage) {
-		// TODO Auto-generated method stub
 		myController = screenPage;
 	}
 
 	@Override
 	public void repaint() {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException("Repaint method is not support for CheckoutController");
 	}
 
 	private boolean validateData() {
@@ -153,8 +151,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 				FXUtil.showErrorMessage(lblMessage, "Member ID is not numeric. Try again!");
 				return false;
 			}
-		}
-		else {
+		} else {
 			if (FormValidation.isEmpty(txtMemberID1)) {
 				FXUtil.showErrorMessage(lblMessage, "Member ID must not non-empty");
 				return false;
@@ -180,7 +177,6 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		FormValidation.addLengthLimiter(txtISBN, ISBN_MAX_LENTH);
 
 	}

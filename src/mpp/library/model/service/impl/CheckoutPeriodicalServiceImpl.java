@@ -28,7 +28,6 @@
 //	private MemberService memberService;
 //
 //	public CheckoutPeriodicalServiceImpl() {
-//		// TODO Auto-generated constructor stub
 //		checkoutDAO = new CheckoutDAOFacade();
 //		chkoutRecordDAOFacade = new CheckoutRecordDAOFacade();
 //		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAOFacade();
@@ -40,7 +39,6 @@
 //
 //	@Override
 //	public void checkout(int memberId, Publication periodical) throws Exception {
-//		// TODO Auto-generated method stub
 //		if (periodical instanceof Periodical) {
 //			// check if memberID exist
 //			LibraryMember member = checkoutDAO.get(memberId);

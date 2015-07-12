@@ -1,6 +1,7 @@
 package mpp.library.model.service.impl;
 
 import mpp.library.model.Copy;
+import mpp.library.model.Publication;
 import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.db.impl.CopyDAODBImpl;
 import mpp.library.model.service.CopyService;
@@ -23,4 +24,8 @@ public class CopyServiceImpl implements CopyService {
 		copyDao.update(copy);
 	}
 
+	@Override
+	public Copy getAvailableCopy(Publication pub) {
+		return copyDao.getAvailableCopy(pub);
+	}
 }

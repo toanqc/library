@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import mpp.library.controller.ValidationDialog;
 
 /**
  * All utilites regarding FX resides here.
@@ -25,11 +24,6 @@ public class FXUtil {
 				textField.clear();
 			}
 		}
-	}
-
-	public void createDialogAndRequestFocus(String message, TextField textField) {
-		ValidationDialog.showWarning(message);
-		textField.requestFocus();
 	}
 
 	/**
@@ -66,7 +60,7 @@ public class FXUtil {
 		}
 		messageBox.setVisible(true);
 	}
-	
+
 	/**
 	 * Creates fadein effect on node.
 	 * 
@@ -83,5 +77,4 @@ public class FXUtil {
 		fadeTransition.setToValue(1.0);
 		return fadeTransition;
 	}
-
 }

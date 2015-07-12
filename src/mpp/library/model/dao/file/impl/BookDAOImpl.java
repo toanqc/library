@@ -1,3 +1,4 @@
+package mpp.library.model.dao.file.impl;
 /*package mpp.library.model.dao.impl;
 
 import java.util.List;
@@ -47,13 +48,11 @@ public class BookDAOImpl extends AbstractSerializationDAO<Book>implements BookDA
 
 	@Override
 	public boolean isAvailable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Book save() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

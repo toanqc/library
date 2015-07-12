@@ -32,47 +32,66 @@ import javafx.scene.image.ImageView;
  *
  */
 public class PrintCheckoutRecordController implements Initializable, ControlledScreen {
-	
-	@FXML private TableView<MemberCheckoutRecord> tableView;
-	@FXML private TextField txtMemberID;
-	@FXML private TableColumn<MemberCheckoutRecord, String> ISBNTC;
-	@FXML private TableColumn<MemberCheckoutRecord, String> titleTC;
-	@FXML private TableColumn<MemberCheckoutRecord, String> typeTC;
-	@FXML private TableColumn<MemberCheckoutRecord, String> chkoutDateTC;
-	@FXML private TableColumn<MemberCheckoutRecord, String> dueDateTC;
-	@FXML private Label lblMessage;
-	@FXML private Button btnCheckout;
-	@FXML private Button btnSearch;
-	@FXML private Button btnHome;
+
+	@FXML
+	private TableView<MemberCheckoutRecord> tableView;
+	@FXML
+	private TextField txtMemberID;
+	@FXML
+	private TableColumn<MemberCheckoutRecord, String> ISBNTC;
+	@FXML
+	private TableColumn<MemberCheckoutRecord, String> titleTC;
+	@FXML
+	private TableColumn<MemberCheckoutRecord, String> typeTC;
+	@FXML
+	private TableColumn<MemberCheckoutRecord, String> chkoutDateTC;
+	@FXML
+	private TableColumn<MemberCheckoutRecord, String> dueDateTC;
+	@FXML
+	private Label lblMessage;
+	@FXML
+	private Button btnCheckout;
+	@FXML
+	private Button btnSearch;
+	@FXML
+	private Button btnHome;
 
 	List<MemberCheckoutRecord> listCheckoutRecord;
-	private PrintCheckoutServiceImpl printCheckoutService; 
+	private PrintCheckoutServiceImpl printCheckoutService;
 
 	ScreenController myController;
 	private boolean fromLibraryList = false;
-	@FXML ImageView iconSearch;
-	@FXML ImageView iconPrint;
-	@FXML Label lblStatus;
-	@FXML ImageView iconHome;
+	@FXML
+	ImageView iconSearch;
+	@FXML
+	ImageView iconPrint;
+	@FXML
+	Label lblStatus;
+	@FXML
+	ImageView iconHome;
 
 	@FXML
 	protected void printCheckoutRecord(MouseEvent event) {
-		try {
-			String memID = txtMemberID.getText().trim();
-			listCheckoutRecord = printCheckoutService.search(memID);
-			if (listCheckoutRecord != null) {
-				StringBuilder sb = new StringBuilder();
-				sb.append("ISBN/IssueNo\t");
-				sb.append("Title\t");
-				sb.append("Type      \t");
-				sb.append("Checkout Date\t");
-				sb.append("Due Date\t");
-				System.out.println(sb.toString());
-				LambdaLibrary.printCheckoutRecord.accept(listCheckoutRecord);
+		if (validateData()) {
+			try {
+				lblMessage.setText("");
+				lblMessage.setVisible(false);
+				String memID = txtMemberID.getText().trim();
+				listCheckoutRecord = printCheckoutService.search(memID);
+				if (listCheckoutRecord != null) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("ISBN/IssueNo\t");
+					sb.append("Title\t");
+					sb.append("Type      \t");
+					sb.append("Checkout Date\t");
+					sb.append("Due Date\t");
+					System.out.println(sb.toString());
+					LambdaLibrary.PRINT_CHECKOUT_RECORD.accept(listCheckoutRecord);
+				}
+			} catch (Exception e) {
+				lblMessage.setText(e.getMessage());
+				lblMessage.setVisible(true);
 			}
-		} catch (Exception e) {
-			lblMessage.setText(e.getMessage());
-			lblMessage.setVisible(true);
 		}
 	}
 
@@ -84,15 +103,13 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			try {
 				search(txtMemberID.getText().trim());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
-		}
-		else {
+		} else {
 			tableView.setItems(FXCollections.observableArrayList());
 		}
 	}
-	
+
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
 		if (!fromLibraryList) {
@@ -105,7 +122,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			repaint();
 		}
 	}
-	
+
 	@FXML
 	protected void onEnter(ActionEvent event) {
 		if (validateData()) {
@@ -117,18 +134,18 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 				tableView.setItems(FXCollections.observableArrayList());
 			}
-		}
-		else {
+		} else {
 			tableView.setItems(FXCollections.observableArrayList());
 		}
 	}
-	
+
 	private void search(String memberId) throws Exception {
 		// display in table view
-		ObservableList<MemberCheckoutRecord> listData = FXCollections.observableArrayList(printCheckoutService.search(memberId));
+		ObservableList<MemberCheckoutRecord> listData = FXCollections
+				.observableArrayList(printCheckoutService.search(memberId));
 		tableView.setItems(listData);
 	}
-	
+
 	private void bindProperties() {
 		ISBNTC.setCellValueFactory(cellData -> cellData.getValue().issueNoProperty());
 		titleTC.setCellValueFactory(cellData -> cellData.getValue().titlePropery());
@@ -140,7 +157,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		bindProperties();
-		printCheckoutService =  new PrintCheckoutServiceImpl();
+		printCheckoutService = new PrintCheckoutServiceImpl();
 	}
 
 	@Override
@@ -162,21 +179,21 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		txtMemberID.getStyleClass().remove("disable");
 		tableView.setItems(FXCollections.observableArrayList());
 	}
-	
+
 	private boolean validateData() {
 		if (FormValidation.isEmpty(txtMemberID)) {
 			FXUtil.showErrorMessage(lblMessage, "Member ID must not be non-empty");
 			return false;
-		}
-		else if (!FormValidation.isNumber(txtMemberID)) {
+		} else if (!FormValidation.isNumber(txtMemberID)) {
 			FXUtil.showErrorMessage(lblMessage, "Member ID must be numeric");
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * This method will be called from the screen library member list
+	 * 
 	 * @param memberId
 	 */
 	public void loadCheckoutRecordForMember(String memberId, boolean fromLibraryList) {
@@ -193,7 +210,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			}
 		}
 	}
-	
+
 	private void paintScreenForLibraryList() {
 		btnCheckout.setVisible(false);
 		iconPrint.setVisible(false);

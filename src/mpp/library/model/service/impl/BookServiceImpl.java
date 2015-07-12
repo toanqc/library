@@ -50,6 +50,5 @@ public class BookServiceImpl implements BookService {
 				copyService.saveCopy(copy);
 			}
 		}
-
 	}
 }
