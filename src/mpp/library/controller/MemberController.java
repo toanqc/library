@@ -195,6 +195,14 @@ public class MemberController implements ControlledScreen {
 		return true;
 	}
 
+	@FXML
+	public void handleCancel() {
+		myController.setScreen(Screen.MEMBER_LIST);
+		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
+				.get(Screen.MEMBER_LIST);
+		memberListController.repaint();
+	}
+
 	ScreenController myController;
 
 	@Override

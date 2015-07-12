@@ -84,6 +84,7 @@ public class AuthorController implements ControlledScreen {
 		txtState.clear();
 		txtZip.clear();
 		txtPhone.clear();
+		txtBio.clear();
 	}
 
 	private void initalizeNumericLimiter() {
@@ -119,6 +120,7 @@ public class AuthorController implements ControlledScreen {
 		txtState.setText(author.getAddress().getState());
 		txtZip.setText(String.valueOf(author.getAddress().getZip()));
 		txtPhone.setText(author.getPhone());
+		txtBio.setText(author.getBio());
 		lblStatus.setText("");
 	}
 
@@ -126,13 +128,13 @@ public class AuthorController implements ControlledScreen {
 	public void returnHome() {
 		clearTextField();
 		myController.setScreen(Screen.HOME);
-		AuthorListController memberListController = (AuthorListController) ControlledScreen.controllerList
-				.get(Screen.MEMBER_LIST);
-		memberListController.repaint();
+		AuthorListController authorListController = (AuthorListController) ControlledScreen.controllerList
+				.get(Screen.AUTHOR_LIST);
+		authorListController.repaint();
 	}
 
 	@FXML
-	public void saveMember() {
+	public void saveAuthor() {
 		if (!validation()) {
 			return;
 		}
@@ -140,15 +142,16 @@ public class AuthorController implements ControlledScreen {
 				Integer.parseInt(txtZip.getText()));
 		Author author = new Author(txtFirstName.getText(), txtLastName.getText(), txtPhone.getText(), txtBio.getText(),
 				address);
+		author.setId(Integer.parseInt(txtAuthorId.getText()));
 
 		if (FunctionType.ADD.equals(functionType)) {
 			authorService.saveAuthor(author);
-			FXUtil.showSuccessMessage(lblStatus, "Library member was created, your id is: " + author.getId());
+			FXUtil.showSuccessMessage(lblStatus, "Author was created, your id is: " + author.getId());
 			clearTextField();
 			txtAuthorId.setText(String.valueOf(authorService.generateAuthorId()));
 		} else if (FunctionType.UPDATE.equals(functionType)) {
 			authorService.updateAuthor(author);
-			FXUtil.showSuccessMessage(lblStatus, "Member id " + author.getId() + " was updated successfully");
+			FXUtil.showSuccessMessage(lblStatus, "Author id " + author.getId() + " was updated successfully");
 		}
 	}
 
@@ -172,7 +175,7 @@ public class AuthorController implements ControlledScreen {
 		if (FormValidation.isEmpty(txtFirstName) || FormValidation.isEmpty(txtLastName)
 				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtCity)
 				|| FormValidation.isEmpty(txtState) || FormValidation.isEmpty(txtZip)
-				|| FormValidation.isEmpty(txtPhone)) {
+				|| FormValidation.isEmpty(txtPhone) || FormValidation.isEmpty(txtBio)) {
 			FXUtil.showErrorMessage(lblStatus, "All fields are mandatory!");
 			return false;
 		}
@@ -192,6 +195,12 @@ public class AuthorController implements ControlledScreen {
 		if (!FormValidation.isCorrectPhone(txtPhone)) {
 			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, ie. 000-000-0000!");
 			txtPhone.requestFocus();
+			return false;
+		}
+
+		if (!FormValidation.isEnoughLength(txtBio, 10)) {
+			FXUtil.showErrorMessage(lblStatus, "Bio must have at least 10 characters");
+			txtBio.requestFocus();
 			return false;
 		}
 

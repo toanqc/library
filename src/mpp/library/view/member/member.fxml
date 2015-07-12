@@ -79,13 +79,13 @@
             <Label text="State *" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
             <Label text="Zip *" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
             <Label text="Phone *" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-            <TextField fx:id="txtFirstName" onKeyReleased="#onFirstNameChanged" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-            <TextField fx:id="txtLastName" onKeyReleased="#onLastNameChanged" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
-            <TextField fx:id="txtStreet" onKeyReleased="#onStreetChanged" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-            <TextField fx:id="txtCity" onKeyReleased="#onCityChanged" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
-            <TextField fx:id="txtState" onKeyReleased="#onStateChanged" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="txtZip" onKeyReleased="#onZipChanged" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <TextField fx:id="txtPhone" onKeyReleased="#onPhoneChanged" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+            <TextField fx:id="txtFirstName" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+            <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+            <TextField fx:id="txtStreet" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+            <TextField fx:id="txtCity" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+            <TextField fx:id="txtState" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtZip" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" />
             <Label text="Member ID *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <TextField fx:id="txtMemberId" editable="false" styleClass="disable" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
             <Label fx:id="lblStatus" styleClass="red" stylesheets="@../css/common.css" GridPane.columnSpan="4" GridPane.halignment="CENTER" />
@@ -93,7 +93,6 @@
       </GridPane>
    </children>
    <stylesheets>
-      <URL value="@../css/member.css" />
       <URL value="@../css/common.css" />
    </stylesheets>
 </AnchorPane>

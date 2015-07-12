@@ -9,16 +9,16 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.util.Callback;
 import mpp.library.model.Author;
 import mpp.library.model.service.AuthorService;
 import mpp.library.model.service.impl.AuthorServiceImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
+import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
@@ -79,64 +79,26 @@ public class AuthorListController implements ControlledScreen {
 
 	@FXML
 	private void initialize() {
+		initalizeNumericLimiter();
 		handleSelectedRow();
 		bindProperties();
 		buildData();
 	}
 
+	private void initalizeNumericLimiter() {
+		FormValidation.addNumbericLimiter(txtSearch);
+	}
+
 	private void handleSelectedRow() {
-		authorId.setCellFactory(new Callback<TableColumn<Author, Integer>, TableCell<Author, Integer>>() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public TableCell<Author, Integer> call(TableColumn<Author, Integer> param) {
-				TableCell<Author, Integer> cell = new TableCell<Author, Integer>() {
-					@Override
-					protected void updateItem(Integer item, boolean empty) {
-						super.updateItem(item, empty);
-						setText((item == null || empty) ? null : item.toString());
-						setGraphic(null);
-					}
-				};
-				cell.setOnMouseClicked(event -> {
-					if (event.getClickCount() == 2) {
-						Author author = (Author) authorTable.getItems()
-								.get(((TableCell<Author, Integer>) event.getSource()).getIndex());
-						openDetailMemberStage(author.getId());
-					}
-				});
-
-				return cell;
-			}
-		});
-
-		bio.setCellFactory(new Callback<TableColumn<Author, String>, TableCell<Author, String>>() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public TableCell<Author, String> call(TableColumn<Author, String> param) {
-
-				TableCell<Author, String> cell = new TableCell<Author, String>() {
-					@Override
-					protected void updateItem(String item, boolean empty) {
-						super.updateItem(item, empty);
-						setText((item == null || empty) ? null : item.toString());
-						setGraphic(null);
-					}
-				};
-
-				cell.setOnMouseClicked(event -> {
-					if (event.getClickCount() == 2) {
-						Author author = (Author) authorTable.getItems()
-								.get(((TableCell<Author, String>) event.getSource()).getIndex());
-						myController.loadScreen(Screen.PRINT_CHECKOUT_RECORD, Screen.PRINT_CHECKOUT_RECORD.getValue());
-						PrintCheckoutRecordController printCheckoutRecordController = (PrintCheckoutRecordController) ControlledScreen.controllerList
-								.get(Screen.PRINT_CHECKOUT_RECORD);
-						printCheckoutRecordController.loadCheckoutRecordForMember(String.valueOf(author.getId()), true);
-						myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
-					}
-				});
-
-				return cell;
-			}
+		authorTable.setRowFactory(tv -> {
+			TableRow<Author> row = new TableRow<Author>();
+			row.setOnMouseClicked(event -> {
+				if (event.getClickCount() == 2 && (!row.isEmpty())) {
+					Author author = row.getItem();
+					this.openDetailMemberStage(author.getId());
+				}
+			});
+			return row;
 		});
 	}
 
@@ -167,7 +129,7 @@ public class AuthorListController implements ControlledScreen {
 	public void repaint() {
 		lblStatus.setText("");
 		txtSearch.clear();
-		// buildData();
+		buildData();
 	}
 
 	private void buildData() {
@@ -186,16 +148,16 @@ public class AuthorListController implements ControlledScreen {
 	}
 
 	@FXML
-	public void addMember() {
-		myController.loadScreen(Screen.MEMBER, Screen.MEMBER.getValue());
-		AuthorController memberController = (AuthorController) ControlledScreen.controllerList.get(Screen.MEMBER);
-		memberController.setFunctionType(FunctionType.ADD);
-		myController.setScreen(Screen.MEMBER);
-		memberController.repaint();
+	public void addAuthor() {
+		myController.loadScreen(Screen.AUTHOR, Screen.AUTHOR.getValue());
+		AuthorController authorController = (AuthorController) ControlledScreen.controllerList.get(Screen.AUTHOR);
+		authorController.setFunctionType(FunctionType.ADD);
+		myController.setScreen(Screen.AUTHOR);
+		authorController.repaint();
 	}
 
 	@FXML
-	public void searchMember() {
+	public void searchAuthor() {
 		String authorId = txtSearch.getText();
 		if ("".equals(authorId.trim())) {
 			buildData();

@@ -37,7 +37,7 @@
                   </ImageView>
                </graphic></Button>
             <Label fx:id="lblStatus" styleClass="title" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <Button fx:id="btnAdd" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addMember" prefHeight="26.0" prefWidth="75.0" styleClass="lion" text="Add" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+            <Button fx:id="btnAdd" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addAuthor" prefHeight="26.0" prefWidth="75.0" styleClass="lion" text="Add" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -46,7 +46,7 @@
                   </ImageView>
                </graphic></Button>
             <TextField fx:id="txtSearch" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Button fx:id="btnSearch" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#searchMember" prefHeight="26.0" prefWidth="75.0" styleClass="lion" text="Find" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Button fx:id="btnSearch" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#searchAuthor" prefHeight="26.0" prefWidth="75.0" styleClass="lion" text="Find" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -66,7 +66,7 @@
                         <TableColumn fx:id="state" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="State" />
                         <TableColumn fx:id="zip" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" sortable="false" text="Zip" />
                         <TableColumn fx:id="phone" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" sortable="false" text="Phone" />
-                        <TableColumn fx:id="bio" maxWidth="78.0" minWidth="78.0" prefWidth="78.0" sortable="false" styleClass="column-link" text="Bio" />
+                        <TableColumn fx:id="bio" maxWidth="78.0" minWidth="78.0" prefWidth="78.0" sortable="false" text="Bio" />
                     </columns>
                   </TableView>
                </content>
@@ -76,6 +76,5 @@
    </children>
    <stylesheets>
       <URL value="@../css/common.css" />
-      <URL value="@../css/member.css" />
    </stylesheets>
 </AnchorPane>

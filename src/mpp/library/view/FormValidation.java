@@ -2,8 +2,8 @@ package mpp.library.view;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import mpp.library.util.LibraryConstant;
 
 /**
  * Provide some static method to validate the screen
@@ -14,12 +14,18 @@ import mpp.library.util.LibraryConstant;
 public class FormValidation {
 
 	public static boolean isEmpty(TextField textField) {
-		if (textField.getText() == null || textField.getText().trim().isEmpty()) {
-			textField.getStyleClass().add(LibraryConstant.STYLE_ERROR);
+		return isEmpty(textField.getText());
+	}
+
+	public static boolean isEmpty(TextArea textArea) {
+		return isEmpty(textArea.getText());
+	}
+
+	private static boolean isEmpty(String text) {
+		if (text == null || text.trim().isEmpty()) {
 			return true;
 		}
 
-		textField.getStyleClass().remove(LibraryConstant.STYLE_ERROR);
 		return false;
 	}
 
@@ -87,6 +93,14 @@ public class FormValidation {
 
 	public static boolean isCorrectPhone(TextField textField) {
 		if (textField.getText().trim().matches("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$")) {
+			return true;
+		}
+		return false;
+
+	}
+
+	public static boolean isEnoughLength(TextArea textField, int length) {
+		if (textField.getText().trim().length() >= length) {
 			return true;
 		}
 		return false;

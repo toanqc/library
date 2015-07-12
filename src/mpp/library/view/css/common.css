@@ -50,3 +50,12 @@
 	-fx-font-weight: bold;
 	-fx-font-size: 15.0px;
 }
+
+.text-field.disable {  
+	-fx-background-color: #C0C0C0;
+}
+
+.column-link {
+	-fx-text-fill: blue;
+	-fx-font-weight: bold;
+}

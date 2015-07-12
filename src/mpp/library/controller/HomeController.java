@@ -29,6 +29,8 @@ public class HomeController implements ControlledScreen {
 	ImageView overdueIcon;
 	@FXML
 	ImageView printIcon;
+	@FXML
+	ImageView authorIcon;
 
 	@Override
 	public void setScreenParent(ScreenController screenPage) {
@@ -47,11 +49,16 @@ public class HomeController implements ControlledScreen {
 
 	@FXML
 	public void gotoMemberList() {
-		myController.loadScreen(Screen.MEMBER_LIST,
-				Screen.MEMBER_LIST.getValue());
+		myController.loadScreen(Screen.MEMBER_LIST, Screen.MEMBER_LIST.getValue());
 		myController.setScreen(Screen.MEMBER_LIST);
 	}
 
+	@FXML
+	public void gotoAuthorList() {
+		myController.loadScreen(Screen.AUTHOR_LIST, Screen.AUTHOR_LIST.getValue());
+		myController.setScreen(Screen.AUTHOR_LIST);
+	}
+	
 	@FXML
 	public void gotoCheckout(MouseEvent event) {
 		myController.loadScreen(Screen.CHECKOUT, Screen.CHECKOUT.getValue());
@@ -60,29 +67,25 @@ public class HomeController implements ControlledScreen {
 
 	@FXML
 	public void gotoPrintCheckoutRecord(MouseEvent event) {
-		myController.loadScreen(Screen.PRINT_CHECKOUT_RECORD,
-				Screen.PRINT_CHECKOUT_RECORD.getValue());
+		myController.loadScreen(Screen.PRINT_CHECKOUT_RECORD, Screen.PRINT_CHECKOUT_RECORD.getValue());
 		myController.setScreen(Screen.PRINT_CHECKOUT_RECORD);
 	}
 
 	@FXML
 	public void gotoPublication() {
-		myController.loadScreen(Screen.PUBLICATION,
-				Screen.PUBLICATION.getValue());
+		myController.loadScreen(Screen.PUBLICATION, Screen.PUBLICATION.getValue());
 		myController.setScreen(Screen.PUBLICATION);
 	}
 
 	@FXML
 	public void gotoOverdue() {
-		myController.loadScreen(Screen.PUBLICATION_OVERDUE,
-				Screen.PUBLICATION_OVERDUE.getValue());
+		myController.loadScreen(Screen.PUBLICATION_OVERDUE, Screen.PUBLICATION_OVERDUE.getValue());
 		myController.setScreen(Screen.PUBLICATION_OVERDUE);
 	}
 
 	@Override
 	public void repaint() {
-		throw new UnsupportedOperationException(
-				"Repaint method not need for home screen");
+		throw new UnsupportedOperationException("Repaint method not need for home screen");
 	}
 
 	@FXML
@@ -95,6 +98,15 @@ public class HomeController implements ControlledScreen {
 		removeHoverEffect(memberIcon);
 	}
 
+	@FXML
+	public void addAuthorEffect() {
+		addHoverEffect(authorIcon);
+	}
+
+	@FXML
+	public void removeAuthorEffect() {
+		removeHoverEffect(authorIcon);
+	}
 	@FXML
 	public void addCheckoutEffect() {
 		addHoverEffect(checkoutIcon);

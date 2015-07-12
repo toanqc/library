@@ -10,12 +10,17 @@
   <children>
     <GridPane prefWidth="800.0" vgap="30.0" AnchorPane.topAnchor="100.0">
       <children>
-            <ImageView fx:id="memberIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoMemberList" onMouseEntered="#addMemberEffect" onMouseExited="#removeMemberEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <ImageView fx:id="memberIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoMemberList" onMouseEntered="#addMemberEffect" onMouseExited="#removeMemberEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@icon/member.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="publicationIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoPublication" onMouseEntered="#addPublicationEffect" onMouseExited="#removePublicationEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+            <ImageView fx:id="authorIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoAuthorList" onMouseEntered="#addAuthorEffect" onMouseExited="#removeAuthorEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+               <image>
+                  <Image url="@icon/author.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="publicationIcon" fitHeight="128.0" fitWidth="128.0" onMouseClicked="#gotoPublication" onMouseEntered="#addPublicationEffect" onMouseExited="#removePublicationEffect" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER">
                <image>
                   <Image url="@icon/publication.png" />
                </image>
@@ -38,11 +43,12 @@
                   <Insets />
                </GridPane.margin>
             </ImageView>
-            <Label styleClass="title" text="Member Management" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label styleClass="title" text="Member Management" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label styleClass="title" text="Author Management" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label styleClass="title" text="Publication Management" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label styleClass="title" text="Checkout" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
             <Label styleClass="title" text="Publication Overdue" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
             <Label styleClass="title" text="Print Checkout Record" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-            <Label styleClass="title" text="Publication Management" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       </children>
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
