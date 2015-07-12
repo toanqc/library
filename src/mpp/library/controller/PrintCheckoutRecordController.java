@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.service.impl.PrintCheckoutServiceImpl;
 import mpp.library.util.FXUtil;
+import mpp.library.util.LambdaLibrary;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
@@ -61,14 +62,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				StringBuilder sb = new StringBuilder();
 				sb.append("ISBN/IssueNo\t");
 				sb.append("Title\t");
-				sb.append("Type\t\t");
+				sb.append("Type      \t");
 				sb.append("Checkout Date\t");
 				sb.append("Due Date\t");
 				System.out.println(sb.toString());
-				for (int i = 0; i < listCheckoutRecord.size(); i++) {
-					MemberCheckoutRecord record = listCheckoutRecord.get(i);
-					System.out.println(record);
-				}
+				LambdaLibrary.printCheckoutRecord.accept(listCheckoutRecord);
 			}
 		} catch (Exception e) {
 			lblMessage.setText(e.getMessage());

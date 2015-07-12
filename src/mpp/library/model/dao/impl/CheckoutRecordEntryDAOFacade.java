@@ -80,4 +80,10 @@ public class CheckoutRecordEntryDAOFacade extends
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<CheckoutRecordEntry> getOverdueCheckoutEnteriesOfMemeber(int memId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

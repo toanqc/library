@@ -30,6 +30,10 @@ public class CheckoutRecordEntryDAODBFacade extends AbstractSerializationDAO<Che
 			+ "CR.DUEDATE,PC.ID,PC.PUBID,PC.COPYNUMBER,PC.STATUS FROM CHECKOUTRECORD AS CR "
 			+ "JOIN PUBCOPY AS PC ON CR.COPYID=PC.ID JOIN PUBLICATION AS PUB ON PC.PUBID=PUB.ID WHERE CR.IDMEM = ?";
 
+	private static final String SELECT_OVERDUE_CHECKOUT_ENTRIES_BY_MEM_ID = "SELECT PUB.PUBTYPE,PUB.ISBN_ISSUENUM,PUB.TITLE,CR.ID,CR.IDMEM,CR.CHECKOUTDATE,"
+			+ "CR.DUEDATE,PC.ID,PC.PUBID,PC.COPYNUMBER,PC.STATUS FROM CHECKOUTRECORD AS CR "
+			+ "JOIN PUBCOPY AS PC ON CR.COPYID=PC.ID JOIN PUBLICATION AS PUB ON PC.PUBID=PUB.ID WHERE CR.IDMEM = ? AND CR.DUEDATE < CURRENT_DATE";
+
 	@Override
 	public CheckoutRecordEntry save(CheckoutRecordEntry checkoutRecordEntry) {
 		try {
@@ -84,31 +88,57 @@ public class CheckoutRecordEntryDAODBFacade extends AbstractSerializationDAO<Che
 			statement.setInt(1, memId);
 
 			statement.executeQuery();
+			System.out.println("Executed Query: " + SELECT_CHECKOUT_ENTRIES_BY_MEM_ID);
 			ResultSet resultSet = statement.getResultSet();
 
-			CheckoutRecordEntry checkoutRecordEntry = null;
-			Copy copy = null;
-
-			while (resultSet.next()) {
-				Publication publication = null;
-
-				if (resultSet.getString("PUBTYPE").trim().equals(PublicationType.BOOK)) {
-					publication = new Book(resultSet.getString("ISBN_ISSUENUM").trim());
-				} else {
-					publication = new Periodical(resultSet.getString("TITLE").trim(),
-							resultSet.getString("ISBN_ISSUENUM").trim());
-				}
-
-				copy = new Copy(publication, resultSet.getInt("COPYNUMBER"), resultSet.getBoolean("STATUS"));
-				checkoutRecordEntry = new CheckoutRecordEntry(resultSet.getDate("CHECKOUTDATE").toLocalDate(),
-						resultSet.getDate("DUEDATE").toLocalDate(), copy);
-				checkoutRecordEntries.add(checkoutRecordEntry);
-			}
+			buildCheckoutRecordEntries(checkoutRecordEntries, resultSet);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return checkoutRecordEntries;
+	}
+
+	@Override
+	public List<CheckoutRecordEntry> getOverdueCheckoutEnteriesOfMemeber(int memId) {
+		List<CheckoutRecordEntry> checkoutRecordEntries = new ArrayList<>();
+		try {
+			Connection conn = ConnectionManager.getInstance().getConnection();
+			PreparedStatement statement = conn.prepareStatement(SELECT_OVERDUE_CHECKOUT_ENTRIES_BY_MEM_ID);
+			statement.setInt(1, memId);
+
+			statement.executeQuery();
+			System.out.println("Executed Query: " + SELECT_OVERDUE_CHECKOUT_ENTRIES_BY_MEM_ID);
+			ResultSet resultSet = statement.getResultSet();
+
+			buildCheckoutRecordEntries(checkoutRecordEntries, resultSet);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return checkoutRecordEntries;
+	}
+
+	private void buildCheckoutRecordEntries(List<CheckoutRecordEntry> checkoutRecordEntries, ResultSet resultSet)
+			throws SQLException {
+		CheckoutRecordEntry checkoutRecordEntry = null;
+		Copy copy = null;
+
+		while (resultSet.next()) {
+			Publication publication = null;
+
+			if (resultSet.getString("PUBTYPE").trim().equals(PublicationType.BOOK)) {
+				publication = new Book(resultSet.getString("ISBN_ISSUENUM").trim());
+			} else {
+				publication = new Periodical(resultSet.getString("TITLE").trim(),
+						resultSet.getString("ISBN_ISSUENUM").trim());
+			}
+
+			copy = new Copy(publication, resultSet.getInt("COPYNUMBER"), resultSet.getBoolean("STATUS"));
+			checkoutRecordEntry = new CheckoutRecordEntry(resultSet.getDate("CHECKOUTDATE").toLocalDate(),
+					resultSet.getDate("DUEDATE").toLocalDate(), copy);
+			checkoutRecordEntries.add(checkoutRecordEntry);
+		}
 	}
 
 }

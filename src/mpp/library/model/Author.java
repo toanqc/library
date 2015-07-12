@@ -14,7 +14,7 @@ public class Author extends Person {
 	public Author() {
 		// empty constructor
 	}
-	
+
 	public Author(String firstName, String lastName, String phone, String bio, Address address) {
 		super(firstName, lastName, phone, address);
 		this.bio = bio;
@@ -36,11 +36,6 @@ public class Author extends Person {
 		this.books = books;
 	}
 
-	@Override
-	public String toString() {
-		return "Author [bio=" + bio + ", books=" + books + "]";
-	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -56,4 +51,10 @@ public class Author extends Person {
 	public int getAddressId() {
 		return this.addressId;
 	}
+
+	@Override
+	public String toString() {
+		return "Author [ id=" + id + ", addressId=" + addressId + ", toString()=" + super.toString() + "]";
+	}
+
 }

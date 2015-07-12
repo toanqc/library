@@ -86,12 +86,10 @@ public class MemberCheckoutRecord {
 		StringBuilder sb = new StringBuilder();
 		sb.append(this.issueNo.get() + "\t");
 		sb.append(this.title.get() + "\t");
-		sb.append(this.getType());
-		if (this.getType() == PublicationType.BOOK.getValue()) {
+		sb.append(this.getType() + "\t");
+		if (this.getType().equals(PublicationType.BOOK.getValue().toLowerCase())) {
 			sb.append("      \t");
-		} else {
-			sb.append("\t");
-		}
+		} 
 		sb.append(this.getChkoutDate() + "\t");
 		sb.append(this.getDueDate() + "\t");
 
