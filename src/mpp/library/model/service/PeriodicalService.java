@@ -25,6 +25,6 @@ public interface PeriodicalService {
 	 */
 	void savePeriodical(Periodical periodical, int copiesNum);
 
-	void addCopy(String issueNumber, String title, int copyNumber);
+	boolean addCopy(String issueNumber, String title, int copyNumber);
 
 }

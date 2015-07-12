@@ -113,37 +113,45 @@ public class PublicationCopyController implements ControlledScreen {
 		Book book = null;
 
 		if (isbnNumber.length() > 0) {
+
 			book = bookService.getBook(isbnNumber);
-			if (book != null) {
-				bookCopyMaxCheckoutCount.setText(String.valueOf(book.getMaxCheckoutLength()));
-				bookCopyTitle.setText(book.getTitle());
 
-				// Set Author
-				ObservableList<Author> authors = FXCollections.observableArrayList(book.getAuthorList());
-				authorCopyPublicationListView.setItems(authors);
-				authorCopyPublicationListView.setMouseTransparent(true);
-				authorCopyPublicationListView.setFocusTraversable(false);
-				authorCopyPublicationListView.setCellFactory(new Callback<ListView<Author>, ListCell<Author>>() {
-
-					@Override
-					public ListCell<Author> call(ListView<Author> p) {
-
-						ListCell<Author> cell = new ListCell<Author>() {
-
-							@Override
-							protected void updateItem(Author t, boolean bln) {
-								super.updateItem(t, bln);
-								if (t != null) {
-									setText(t.getFirstName() + " " + t.getLastName());
-								}
-							}
-						};
-
-						return cell;
-					}
-				});
+			if (book == null) {
+				FXUtil.showErrorMessage(lblStatus, "No book found with provided ISBN number.");
+				return;
+			} else {
+				lblStatus.setText("");
 			}
+
+			bookCopyMaxCheckoutCount.setText(String.valueOf(book.getMaxCheckoutLength()));
+			bookCopyTitle.setText(book.getTitle());
+
+			// Set Author
+			ObservableList<Author> authors = FXCollections.observableArrayList(book.getAuthorList());
+			authorCopyPublicationListView.setItems(authors);
+			authorCopyPublicationListView.setMouseTransparent(true);
+			authorCopyPublicationListView.setFocusTraversable(false);
+			authorCopyPublicationListView.setCellFactory(new Callback<ListView<Author>, ListCell<Author>>() {
+
+				@Override
+				public ListCell<Author> call(ListView<Author> p) {
+
+					ListCell<Author> cell = new ListCell<Author>() {
+
+						@Override
+						protected void updateItem(Author t, boolean bln) {
+							super.updateItem(t, bln);
+							if (t != null) {
+								setText(t.getFirstName() + " " + t.getLastName());
+							}
+						}
+					};
+
+					return cell;
+				}
+			});
 		}
+
 	}
 
 	@FXML
@@ -155,11 +163,17 @@ public class PublicationCopyController implements ControlledScreen {
 
 		if (title.length() > 0) {
 			periodical = periodicalService.getPeriodical(issueNumber, title);
-			if (periodical != null) {
-				System.out.println("Got it");
-				periodicalCopyMaxCheckoutCount.setText(String.valueOf(periodical.getMaxCheckoutLength()));
-				periodicalCopyTitle.setText(periodical.getTitle());
+
+			if (periodical == null) {
+				FXUtil.showErrorMessage(lblStatus, "No periodical found with provided issue number and title.");
+				return;
+			} else {
+				lblStatus.setText("");
 			}
+
+			System.out.println("Got it");
+			periodicalCopyMaxCheckoutCount.setText(String.valueOf(periodical.getMaxCheckoutLength()));
+			periodicalCopyTitle.setText(periodical.getTitle());
 		}
 	}
 
@@ -171,9 +185,13 @@ public class PublicationCopyController implements ControlledScreen {
 			return;
 		}
 
-		bookService.addCopy(bookCopyISBNNumber.getText().trim(), Integer.valueOf(bookCopyNumber.getText().trim()));
+		if (bookService.addCopy(bookCopyISBNNumber.getText().trim(),
+				Integer.valueOf(bookCopyNumber.getText().trim()))) {
+			postSaveBook();
+		} else {
+			FXUtil.showErrorMessage(lblStatus, "No book found with provided ISBN number.");
+		}
 
-		postSaveBook();
 	}
 
 	private void postSaveBook() {
@@ -189,10 +207,13 @@ public class PublicationCopyController implements ControlledScreen {
 			return;
 		}
 
-		periodicalService.addCopy(periodicalCopyIssueNumber.getText().trim(), periodicalCopyTitle.getText().trim(),
-				Integer.valueOf(periodicalCopyNumber.getText().trim()));
+		if (periodicalService.addCopy(periodicalCopyIssueNumber.getText().trim(), periodicalCopyTitle.getText().trim(),
+				Integer.valueOf(periodicalCopyNumber.getText().trim()))) {
+			postSavePeriodical();
+		} else {
+			FXUtil.showErrorMessage(lblStatus, "No periodical found with provided issue number and title.");
+		}
 
-		postSavePeriodical();
 	}
 
 	private void postSavePeriodical() {
