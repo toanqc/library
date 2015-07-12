@@ -1,14 +1,16 @@
 package mpp.library.controller;
 
-import java.util.Iterator;
-import java.util.List;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
+import javafx.util.Callback;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
@@ -45,9 +47,6 @@ public class PublicationCopyController implements ControlledScreen {
 	TextField bookCopyISBNNumber;
 
 	@FXML
-	TextField bookCopyAuthor;
-
-	@FXML
 	TextField bookCopyTitle;
 
 	@FXML
@@ -70,10 +69,12 @@ public class PublicationCopyController implements ControlledScreen {
 
 	@FXML
 	Label lblStatus;
-	
+
+	@FXML
+	ListView<Author> authorCopyPublicationListView;
+
 	ScreenController myController;
 
-	
 	public PublicationCopyController() {
 		bookService = new BookServiceImpl();
 		periodicalService = new PeriodicalServiceImpl();
@@ -100,7 +101,7 @@ public class PublicationCopyController implements ControlledScreen {
 
 		myController.loadScreen(Screen.PUBLICATION, Screen.PUBLICATION.getValue());
 		myController.setScreen(Screen.PUBLICATION);
-		
+
 		FXUtil.clearTextFields(periodicalCopyGridPane);
 		FXUtil.clearTextFields(bookCopyGridPane);
 	}
@@ -117,22 +118,30 @@ public class PublicationCopyController implements ControlledScreen {
 				bookCopyMaxCheckoutCount.setText(String.valueOf(book.getMaxCheckoutLength()));
 				bookCopyTitle.setText(book.getTitle());
 
-				List<Author> authors = book.getAuthorList();
-				StringBuilder builder = new StringBuilder();
+				// Set Author
+				ObservableList<Author> authors = FXCollections.observableArrayList(book.getAuthorList());
+				authorCopyPublicationListView.setItems(authors);
+				authorCopyPublicationListView.setMouseTransparent(true);
+				authorCopyPublicationListView.setFocusTraversable(false);
+				authorCopyPublicationListView.setCellFactory(new Callback<ListView<Author>, ListCell<Author>>() {
 
-				Iterator<Author> authorIterator = authors.iterator();
+					@Override
+					public ListCell<Author> call(ListView<Author> p) {
 
-				while (authorIterator.hasNext()) {
-					Author auth = authorIterator.next();
-					builder.append(auth.getFirstName());
-					builder.append(" ");
-					builder.append(auth.getLastName());
-					if (authorIterator.hasNext()) {
-						builder.append(", ");
+						ListCell<Author> cell = new ListCell<Author>() {
+
+							@Override
+							protected void updateItem(Author t, boolean bln) {
+								super.updateItem(t, bln);
+								if (t != null) {
+									setText(t.getFirstName() + " " + t.getLastName());
+								}
+							}
+						};
+
+						return cell;
 					}
-				}
-
-				bookCopyAuthor.setText(String.join(",", builder.toString()));
+				});
 			}
 		}
 	}
@@ -169,7 +178,7 @@ public class PublicationCopyController implements ControlledScreen {
 
 		postSaveBook();
 	}
-	
+
 	private void postSaveBook() {
 		FXUtil.showSuccessMessage(lblStatus, "Book Copy successfully added to system");
 		FXUtil.clearTextFields(bookCopyGridPane);
@@ -191,7 +200,7 @@ public class PublicationCopyController implements ControlledScreen {
 
 		postSavePeriodical();
 	}
-	
+
 	private void postSavePeriodical() {
 		FXUtil.showSuccessMessage(lblStatus, "Periodical successfully added to system.");
 		FXUtil.clearTextFields(periodicalCopyGridPane);
@@ -211,7 +220,6 @@ public class PublicationCopyController implements ControlledScreen {
 
 	private void initializeTextLimiter() {
 		FormValidation.addLengthLimiter(bookCopyISBNNumber, 13);
-		FormValidation.addLengthLimiter(bookCopyAuthor, 100);
 		FormValidation.addLengthLimiter(bookCopyTitle, 50);
 		FormValidation.addLengthLimiter(periodicalCopyIssueNumber, 10);
 		FormValidation.addLengthLimiter(periodicalCopyTitle, 50);
@@ -223,8 +231,7 @@ public class PublicationCopyController implements ControlledScreen {
 
 	private boolean validateBookCopy() {
 		if (FormValidation.isEmpty(bookCopyMaxCheckoutCount) || FormValidation.isEmpty(bookCopyNumber)
-				|| FormValidation.isEmpty(bookCopyISBNNumber) || FormValidation.isEmpty(bookCopyAuthor)
-				|| FormValidation.isEmpty(bookCopyTitle)) {
+				|| FormValidation.isEmpty(bookCopyISBNNumber) || FormValidation.isEmpty(bookCopyTitle)) {
 			FXUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
@@ -234,7 +241,7 @@ public class PublicationCopyController implements ControlledScreen {
 			bookCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
-		
+
 		if (!FormValidation.isEnteredNumberGreaterThan(bookCopyNumber, 0)) {
 			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
 			bookCopyNumber.requestFocus();
@@ -252,11 +259,11 @@ public class PublicationCopyController implements ControlledScreen {
 		}
 
 		if (FormValidation.isEnteredNumberGreaterThan(periodicalCopyMaxCheckoutCount, 7)) {
-			FXUtil.showErrorMessage(lblStatus,"Periodicals cannot be checked out for more than " + 7 + " days.");
+			FXUtil.showErrorMessage(lblStatus, "Periodicals cannot be checked out for more than " + 7 + " days.");
 			periodicalCopyMaxCheckoutCount.requestFocus();
 			return false;
 		}
-		
+
 		if (!FormValidation.isEnteredNumberGreaterThan(periodicalCopyNumber, 0)) {
 			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
 			periodicalCopyNumber.requestFocus();
@@ -284,7 +291,7 @@ public class PublicationCopyController implements ControlledScreen {
 		lblStatus.setVisible(false);
 		myController.setScreen(Screen.HOME);
 	}
-	
+
 	@FXML
 	protected void cancelCopyBook(ActionEvent event) {
 		System.out.println("Cancel Book Copy");

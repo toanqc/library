@@ -24,7 +24,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 	public CheckoutServiceImpl() {
 		// TODO Auto-generated constructor stub
-		chkoutRecordEntryDAOFacade = (CheckoutRecordEntryDAO) DataAccessFactory.getDAOImpl(CheckoutRecordEntryDAO.class);
+		chkoutRecordEntryDAOFacade = (CheckoutRecordEntryDAO) DataAccessFactory
+				.getDAOImpl(CheckoutRecordEntryDAO.class);
 		memberService = new MemberServiceImpl();
 		copyService = new CopyServiceImpl();
 		checkoutDAODBFacade = (CheckoutDAO) DataAccessFactory.getDAOImpl(CheckoutDAO.class);
@@ -56,10 +57,15 @@ public class CheckoutServiceImpl implements CheckoutService {
 		}
 
 	}
-	
+
 	@Override
-	public List<CheckoutRecordEntry> getCheckRecordEntryByMemberId(int memberId){
+	public List<CheckoutRecordEntry> getCheckRecordEntryByMemberId(int memberId) {
 		return chkoutRecordEntryDAOFacade.getCheckoutEnteriesOfMemeber(memberId);
+	}
+
+	@Override
+	public List<CheckoutRecordEntry> getOverdueCheckoutRecordEntryByMemberId(int memberId) {
+		return chkoutRecordEntryDAOFacade.getOverdueCheckoutEnteriesOfMemeber(memberId);
 	}
 
 }

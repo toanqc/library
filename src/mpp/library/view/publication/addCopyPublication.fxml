@@ -147,7 +147,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <ListView prefHeight="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <ListView fx:id="authorCopyPublicationListView" prefHeight="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -167,6 +167,5 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
       </GridPane>
-      <TextField fx:id="bookCopyAuthor" layoutX="349.0" layoutY="1.0" prefHeight="31.0" prefWidth="211.0" />
    </children>
 </AnchorPane>

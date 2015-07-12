@@ -10,5 +10,7 @@ public interface CheckoutService {
 	void checkout(String memberID, Publication pub) throws Exception;
 
 	List<CheckoutRecordEntry> getCheckRecordEntryByMemberId(int memberId);
+
+	List<CheckoutRecordEntry> getOverdueCheckoutRecordEntryByMemberId(int memberId);
 	
 }

@@ -1,22 +1,30 @@
 package mpp.library.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.net.URL;
 import java.util.List;
+import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import mpp.library.model.Address;
+import javafx.util.Callback;
 import mpp.library.model.Author;
 import mpp.library.model.Book;
 import mpp.library.model.Periodical;
+import mpp.library.model.service.AuthorService;
 import mpp.library.model.service.BookService;
 import mpp.library.model.service.PeriodicalService;
+import mpp.library.model.service.impl.AuthorServiceImpl;
 import mpp.library.model.service.impl.BookServiceImpl;
 import mpp.library.model.service.impl.PeriodicalServiceImpl;
 import mpp.library.util.FXUtil;
@@ -29,11 +37,11 @@ import mpp.library.view.ScreenController;
  * @author Anil
  *
  */
-public class PublicationController implements ControlledScreen {
+public class PublicationController implements ControlledScreen, Initializable {
 
 	private BookService bookService;
-
 	private PeriodicalService periodicalSerivce;
+	private AuthorService authorService;
 
 	@FXML
 	GridPane periodicalGridPane;
@@ -46,9 +54,6 @@ public class PublicationController implements ControlledScreen {
 
 	@FXML
 	TextField bookISBNNumber;
-
-	@FXML
-	TextField bookAuthor;
 
 	@FXML
 	TextField bookTitle;
@@ -74,11 +79,15 @@ public class PublicationController implements ControlledScreen {
 	@FXML
 	TextField periodicalCopiesNum;
 
+	@FXML
+	ListView<Author> authorPublicationListView;
+
 	ScreenController myController;
 
 	public PublicationController() {
 		bookService = new BookServiceImpl();
 		periodicalSerivce = new PeriodicalServiceImpl();
+		authorService = new AuthorServiceImpl();
 	}
 
 	@FXML
@@ -114,27 +123,9 @@ public class PublicationController implements ControlledScreen {
 		book.setTitle(bookTitle.getText());
 		book.setMaxCheckoutLength(7);
 
-		List<String> authorList = new ArrayList<String>(Arrays.asList(bookAuthor.getText().split(" , ")));
-
-		List<Author> authors = new ArrayList<>();
-		Author author = null;
-		for (String string : authorList) {
-			author = new Author();
-			String[] authorNames = string.split("\\s+");
-			author.setFirstName(authorNames[0]);
-			String lastName = authorNames.length > 0 ? authorNames[authorNames.length - 1] : "";
-			author.setLastName(lastName);
-
-			// FIXME Just to fullfill DB requirement. Remove this once Author UI
-			// is
-			// done.
-			Address address = new Address("Dummy Street", "Dummy City", "State", 52557);
-			author.setAddress(address);
-			author.setBio("Dummy BIO to reach 10 char long");
-
-			authors.add(author);
-		}
-		book.setAuthorList(authors);
+		// Set Authors
+		List<Author> authorList = authorPublicationListView.getSelectionModel().getSelectedItems();
+		book.setAuthorList(authorList);
 
 		bookService.saveBook(book, Integer.parseInt(bookCopiesNum.getText()));
 		postSaveBook();
@@ -210,7 +201,6 @@ public class PublicationController implements ControlledScreen {
 
 	private void initializeTextLimiter() {
 		FormValidation.addLengthLimiter(bookISBNNumber, 13);
-		FormValidation.addLengthLimiter(bookAuthor, 100);
 		FormValidation.addLengthLimiter(bookTitle, 50);
 		FormValidation.addLengthLimiter(bookMaxCheckoutCount, 2);
 		FormValidation.addLengthLimiter(periodicalIssueNumber, 10);
@@ -221,9 +211,8 @@ public class PublicationController implements ControlledScreen {
 	}
 
 	private boolean validateBook() {
-		if (FormValidation.isEmpty(bookISBNNumber) || FormValidation.isEmpty(bookAuthor)
-				|| FormValidation.isEmpty(bookTitle) || FormValidation.isEmpty(bookMaxCheckoutCount)
-				|| FormValidation.isEmpty(bookCopiesNum)) {
+		if (FormValidation.isEmpty(bookISBNNumber) || FormValidation.isEmpty(bookTitle)
+				|| FormValidation.isEmpty(bookMaxCheckoutCount) || FormValidation.isEmpty(bookCopiesNum)) {
 			FXUtil.showErrorMessage(lblStatus, "Please complete the fields");
 			return false;
 		}
@@ -242,6 +231,12 @@ public class PublicationController implements ControlledScreen {
 
 		if (FormValidation.isNumberAndExactLength(bookISBNNumber, 14)) {
 			FXUtil.showErrorMessage(lblStatus, "Book ISBN should be length of 13 digits");
+			bookISBNNumber.requestFocus();
+			return false;
+		}
+
+		if (authorPublicationListView.getSelectionModel().getSelectedItems().isEmpty()) {
+			FXUtil.showErrorMessage(lblStatus, "Please select at least one author names.");
 			bookISBNNumber.requestFocus();
 			return false;
 		}
@@ -290,6 +285,33 @@ public class PublicationController implements ControlledScreen {
 
 	@FXML
 	public void renderAddPublication() {
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		ObservableList<Author> authors = FXCollections.observableArrayList(authorService.getList());
+		authorPublicationListView.setItems(authors);
+		authorPublicationListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		authorPublicationListView.setCellFactory(new Callback<ListView<Author>, ListCell<Author>>() {
+
+			@Override
+			public ListCell<Author> call(ListView<Author> p) {
+
+				ListCell<Author> cell = new ListCell<Author>() {
+
+					@Override
+					protected void updateItem(Author t, boolean bln) {
+						super.updateItem(t, bln);
+						if (t != null) {
+							setText(t.getFirstName() + " " + t.getLastName());
+						}
+					}
+
+				};
+
+				return cell;
+			}
+		});
 	}
 
 }
