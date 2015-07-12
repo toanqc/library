@@ -186,12 +186,6 @@ public class PublicationController implements ControlledScreen, Initializable {
 		FXUtil.clearTextFields(bookGridPane);
 	}
 
-	@FXML
-	public void initialize() {
-		initializeTextLimiter();
-		initalizeNumericLimiter();
-	}
-
 	private void initalizeNumericLimiter() {
 		FormValidation.addNumbericLimiter(bookMaxCheckoutCount);
 		FormValidation.addNumbericLimiter(periodicalMaxCheckoutCount);
@@ -289,6 +283,10 @@ public class PublicationController implements ControlledScreen, Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		initializeTextLimiter();
+		initalizeNumericLimiter();
+
 		ObservableList<Author> authors = FXCollections.observableArrayList(authorService.getList());
 		authorPublicationListView.setItems(authors);
 		authorPublicationListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
