@@ -6,10 +6,10 @@ public class Person implements Serializable {
 
 	private static final long serialVersionUID = 451126961827667000L;
 
-	private String firstName;
-	private String lastName;
-	private String phone;
-	private Address address;
+	protected String firstName;
+	protected String lastName;
+	protected String phone;
+	protected Address address;
 	
 
 	public Person() {

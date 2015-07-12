@@ -3,6 +3,7 @@ package mpp.library.model.dao;
 import java.util.List;
 
 import mpp.library.model.Copy;
+import mpp.library.model.Publication;
 
 public interface CopyDAO extends BaseDAO<Copy> {
 
@@ -15,5 +16,7 @@ public interface CopyDAO extends BaseDAO<Copy> {
 	 * @return {@link List} of Copies
 	 */
 	List<Copy> getByPubId(int pubId);
+	
+	Copy getAvailableCopy(Publication pub);
 
 }

@@ -1,6 +1,7 @@
 package mpp.library.model.service;
 
 import mpp.library.model.Copy;
+import mpp.library.model.Publication;
 
 public interface CopyService {
 
@@ -19,4 +20,5 @@ public interface CopyService {
 	 */
 	void updateCopy(Copy copy);
 
+	Copy getAvailableCopy(Publication pub);
 }
