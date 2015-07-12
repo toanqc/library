@@ -41,12 +41,10 @@ public class PeriodicalServiceImpl implements PeriodicalService {
 
 	@Override
 	public void addCopy(Periodical periodical, int copyNumber) {
-
 		for (int i = 0; i < copyNumber; i++) {
 			Copy copy = new Copy(periodical, 1, true);
 			copy.setAvailable(true);
 			copyService.saveCopy(copy);
 		}
-
 	}
 }

@@ -41,11 +41,9 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void addCopy(Book book, int copyNumber) {
-
 		for (int i = 0; i < copyNumber; i++) {
 			Copy copy = new Copy(book, i, true);
 			copyService.saveCopy(copy);
 		}
-
 	}
 }

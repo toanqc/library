@@ -48,13 +48,11 @@ public class BookDAOImpl extends AbstractSerializationDAO<Book>implements BookDA
 
 	@Override
 	public boolean isAvailable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public Book save() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

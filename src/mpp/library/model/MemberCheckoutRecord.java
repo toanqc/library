@@ -14,7 +14,6 @@ public class MemberCheckoutRecord {
 	private final SimpleStringProperty dueDate = new SimpleStringProperty("");
 
 	public MemberCheckoutRecord(String i, String t, String type, LocalDate outDate, LocalDate dueDate) {
-		// TODO Auto-generated constructor stub
 		setIssueNo(i);
 		setTitle(t);
 		setType(type);

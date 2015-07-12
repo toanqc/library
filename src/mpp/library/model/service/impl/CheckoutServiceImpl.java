@@ -8,9 +8,7 @@ import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.Publication;
-import mpp.library.model.dao.CheckoutDAO;
 import mpp.library.model.dao.CheckoutRecordEntryDAO;
-import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.db.connection.DataAccessFactory;
 import mpp.library.model.service.CheckoutService;
 import mpp.library.model.service.CopyService;
@@ -21,9 +19,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 	private CheckoutRecordEntryDAO chkoutRecordEntryDAOFacade;
 	private CopyService copyService;
 	private MemberService memberService;
-	
+
 	public CheckoutServiceImpl() {
-		// TODO Auto-generated constructor stub
 		chkoutRecordEntryDAOFacade = (CheckoutRecordEntryDAO) DataAccessFactory
 				.getDAOImpl(CheckoutRecordEntryDAO.class);
 		memberService = new MemberServiceImpl();
@@ -31,8 +28,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 	}
 
 	@Override
-	public void checkout(String memberId, Publication pub) throws Exception {
-		// TODO Auto-generated method stub
+	public void checkout(String memberId, Publication pub) throws IllegalArgumentException {
 		// check if memberID exist
 		LibraryMember member = memberService.getByMemberId(memberId);
 		if (member == null) {
@@ -52,9 +48,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 			} else {
 				throw new IllegalArgumentException("The copy of the book is not available");
 			}
-
 		}
-
 	}
 
 	@Override
@@ -66,5 +60,4 @@ public class CheckoutServiceImpl implements CheckoutService {
 	public List<CheckoutRecordEntry> getOverdueCheckoutRecordEntryByMemberId(int memberId) {
 		return chkoutRecordEntryDAOFacade.getOverdueCheckoutEnteriesOfMemeber(memberId);
 	}
-
 }

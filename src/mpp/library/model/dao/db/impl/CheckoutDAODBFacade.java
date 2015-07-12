@@ -37,7 +37,6 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 	 */
 	@Override
 	public LibraryMember get(int memberId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -49,9 +48,7 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 	 */
 	@Override
 	public List<MemberCheckoutRecord> printCheckoutRecord(int memberId) {
-		// TODO Auto-generated method stub
 		try {
-			// TODO Auto-generated method stub
 			Connection conn = ConnectionManager.getInstance().getConnection();
 
 			String sql = "SELECT p.ISBN_ISSUENUM, p.TITLE, p.PUBTYPE, r.CHECKOUTDATE, r.DUEDATE FROM PUBLICATION p "
@@ -82,17 +79,13 @@ public class CheckoutDAODBFacade extends AbstractSerializationDAO<LibraryMember>
 		return null;
 	}
 
-	
-
 	@Override
 	public Publication getPublication(Publication pub) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public LibraryMember save(LibraryMember member) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

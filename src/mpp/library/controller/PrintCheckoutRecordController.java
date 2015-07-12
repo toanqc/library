@@ -103,7 +103,6 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 			try {
 				search(txtMemberID.getText().trim());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
 		} else {

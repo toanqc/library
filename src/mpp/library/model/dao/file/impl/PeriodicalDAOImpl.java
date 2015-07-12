@@ -20,7 +20,6 @@ public class PeriodicalDAOImpl extends AbstractSerializationDAO<Periodical>imple
 
 	@Override
 	public boolean isAvailable() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

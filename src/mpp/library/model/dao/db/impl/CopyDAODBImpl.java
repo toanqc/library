@@ -141,9 +141,7 @@ public class CopyDAODBImpl implements CopyDAO {
 	
 	@Override
 	public Copy getAvailableCopy(Publication pub) {
-		// TODO Auto-generated method stub
 		try {
-			// TODO Auto-generated method stub
 			Connection conn = ConnectionManager.getInstance().getConnection();
 
 			String sql = "SELECT p.ID as PUBID, p.pubtype, p.title, p.isbn_issuenum, p.maxcheckoutlength, c.id as COPYID, c.COPYNUMBER, c.STATUS "

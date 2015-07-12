@@ -3,7 +3,6 @@ package mpp.library.model.dao.file.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Publication;
@@ -23,12 +22,10 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 	public LibraryMember save(LibraryMember member) {
 		this.writeObject(SerializationFile.MEMBER.getValue(), member);
 		return null;
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public Publication getPublication(Publication pub) {
-		// TODO Auto-generated method stub
 //		if (pub instanceof Book) {
 //			String ISBN = ((Book) pub).getISBN();
 //			PublicationDAODBImpl bookDAO = new PublicationDAODBImpl();
@@ -46,7 +43,6 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 
 	@Override
 	public LibraryMember get(int memberId) {
-		// TODO Auto-generated method stub
 		List<LibraryMember> memberList = this.getObjectList(SerializationFile.MEMBER.getValue());
 		return memberList.stream().filter(s -> memberId == s.getId()).findFirst().get();
 	}
@@ -55,7 +51,6 @@ public class CheckoutDAOFacade extends AbstractSerializationDAO<LibraryMember>im
 
 	@Override
 	public List<MemberCheckoutRecord> printCheckoutRecord(int memberId) {
-		// TODO Auto-generated method stub
 		List<MemberCheckoutRecord> listCheckoutRecord = new ArrayList<MemberCheckoutRecord>();
 //		LibraryMember member = get(memberId);
 //		if (member != null) {

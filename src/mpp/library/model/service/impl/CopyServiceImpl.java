@@ -26,8 +26,6 @@ public class CopyServiceImpl implements CopyService {
 
 	@Override
 	public Copy getAvailableCopy(Publication pub) {
-		// TODO Auto-generated method stub
 		return copyDao.getAvailableCopy(pub);
 	}
-
 }
