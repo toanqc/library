@@ -195,49 +195,6 @@ public class MemberController implements ControlledScreen {
 		return true;
 	}
 
-	@FXML
-	public void handleCancel() {
-		myController.setScreen(Screen.MEMBER_LIST);
-		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
-				.get(Screen.MEMBER_LIST);
-		memberListController.repaint();
-	}
-
-	@FXML
-	public boolean onFirstNameChanged() {
-		return FormValidation.isEmpty(txtFirstName);
-	}
-
-	@FXML
-	public boolean onLastNameChanged() {
-		return FormValidation.isEmpty(txtLastName);
-	}
-
-	@FXML
-	public boolean onCityChanged() {
-		return FormValidation.isEmpty(txtCity);
-	}
-
-	@FXML
-	public boolean onStreetChanged() {
-		return FormValidation.isEmpty(txtStreet);
-	}
-
-	@FXML
-	public boolean onStateChanged() {
-		return FormValidation.isEmpty(txtState);
-	}
-
-	@FXML
-	public boolean onZipChanged() {
-		return FormValidation.isEmpty(txtZip);
-	}
-
-	@FXML
-	public boolean onPhoneChanged() {
-		return FormValidation.isEmpty(txtPhone);
-	}
-
 	ScreenController myController;
 
 	@Override

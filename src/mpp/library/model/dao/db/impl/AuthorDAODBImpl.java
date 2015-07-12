@@ -166,13 +166,59 @@ public class AuthorDAODBImpl implements AuthorDAO {
 
 	@Override
 	public boolean update(Author author) {
-		// TODO Auto-generated method stub
+		try (Connection conn = cm.getConnection()) {
+			PreparedStatement statement = buildUpdateAuthor(conn, author);
+			int authorResult = statement.executeUpdate();
+
+			AddressDAO addressDAO = new AddressDAODBImpl();
+			boolean addressResult = addressDAO.update(author.getAddress());
+
+			return ((authorResult == 1) && addressResult);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		return false;
+	}
+
+	private PreparedStatement buildUpdateAuthor(Connection conn, Author author) throws SQLException {
+		String sql = "UPDATE Author SET firstname=?, lastname=?, telephone=?, bio=? WHERE id=?";
+		PreparedStatement statement = conn.prepareStatement(sql);
+		statement.setString(1, author.getFirstName());
+		statement.setString(2, author.getLastName());
+		statement.setString(3, author.getPhone());
+		statement.setString(4, author.getBio());
+		statement.setInt(5, author.getId());
+
+		return statement;
 	}
 
 	@Override
 	public int geneateAuthorId() {
-		// TODO Auto-generated method stub
-		return 0;
+		int maxId = -1;
+
+		try (Connection conn = cm.getConnection()) {
+			maxId = getMaxId(conn);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		if (maxId < 0) {
+			return 1001;
+		}
+
+		maxId++;
+		return maxId;
+	}
+
+	private int getMaxId(Connection conn) throws SQLException {
+		String sql = "SELECT max(id) FROM Author";
+		Statement statement = conn.createStatement();
+		ResultSet rs = statement.executeQuery(sql);
+		if (rs.next()) {
+			return rs.getInt(1);
+		}
+
+		return -1;
 	}
 }
