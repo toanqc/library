@@ -19,7 +19,7 @@ import mpp.library.model.Publication;
 import mpp.library.model.PublicationType;
 import mpp.library.model.dao.CheckoutDAO;
 import mpp.library.model.dao.db.connection.ConnectionManager;
-import mpp.library.model.dao.impl.AbstractSerializationDAO;
+import mpp.library.model.dao.file.impl.AbstractSerializationDAO;
 
 /**
  * @author bpham4

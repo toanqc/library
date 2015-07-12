@@ -19,7 +19,7 @@ import mpp.library.model.Publication;
 import mpp.library.model.PublicationType;
 import mpp.library.model.dao.CheckoutRecordEntryDAO;
 import mpp.library.model.dao.db.connection.ConnectionManager;
-import mpp.library.model.dao.impl.AbstractSerializationDAO;
+import mpp.library.model.dao.file.impl.AbstractSerializationDAO;
 
 public class CheckoutRecordEntryDAODBFacade extends AbstractSerializationDAO<CheckoutRecordEntry>
 		implements CheckoutRecordEntryDAO {
