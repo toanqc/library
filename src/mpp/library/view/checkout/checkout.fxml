@@ -92,7 +92,7 @@
             <Insets fx:id="x2" />
           </GridPane.margin>
         </TextField>
-      <Label alignment="CENTER_RIGHT" text="ISBN Number *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+      <Label alignment="CENTER_RIGHT" text="ISBN *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
