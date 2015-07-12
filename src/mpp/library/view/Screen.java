@@ -9,6 +9,8 @@ public enum Screen {
 	HOME("home.fxml", 800, 600),
 	MEMBER_LIST("member/memberList.fxml", 800, 600),
 	MEMBER("member/member.fxml", 800, 600),
+	AUTHOR_LIST("author/authorList.fxml", 800, 600),
+	AUTHOR("author/author.fxml", 800, 600),
 	PUBLICATION("publication/addPublication.fxml",  800, 600),
 	COPY_PUBLICATION("publication/addCopyPublication.fxml",  800, 600),
 	CHECKOUT("checkout/checkout.fxml", 800, 600),

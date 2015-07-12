@@ -119,7 +119,7 @@ public class ScreenController extends StackPane implements ControlledScreen {
 				return true;
 			}
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return false;
 		}
 

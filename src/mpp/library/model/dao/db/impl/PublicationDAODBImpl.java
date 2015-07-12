@@ -76,7 +76,7 @@ public class PublicationDAODBImpl implements PublicationDAO {
 			Book book = (Book) publication;
 			int authorId = -1;
 			for (int i = 0; i < book.getAuthorList().size(); i++) {
-				authorId = authorDAO.save(book.getAuthorList().get(i)).getID();
+				authorId = authorDAO.save(book.getAuthorList().get(i)).getId();
 				book.getAuthorList().get(i).setId(authorId);
 				statement = conn.prepareStatement(INSERT_PUBLICATION_AUTHOR, Statement.RETURN_GENERATED_KEYS);
 				statement.setInt(1, authorId);

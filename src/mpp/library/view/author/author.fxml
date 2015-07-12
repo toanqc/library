@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.AuthorController">
+   <children>
+      <GridPane hgap="15.0" prefWidth="800.0" vgap="15.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="30.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Button fx:id="btnHome" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#returnHome" prefHeight="26.0" prefWidth="85.0" text="Home" GridPane.halignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/home.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveMember" prefHeight="26.0" prefWidth="85.0" text="Save" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/save.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCancel" prefHeight="26.0" prefWidth="85.0" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/cancel.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+         </children>
+         <opaqueInsets>
+            <Insets top="100.0" />
+         </opaqueInsets>
+      </GridPane>
+      <GridPane hgap="15.0" layoutY="100.0" prefWidth="800.0" vgap="15.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="70.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="399.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="401.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="401.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="401.0" minWidth="10.0" prefWidth="401.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label text="First Name *" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+            <Label text="Last Name *" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Label text="Street *" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <Label text="City *" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <Label text="State *" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <Label text="Zip *" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="6" />
+            <Label text="Phone *" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
+            <TextField fx:id="txtFirstName" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+            <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+            <TextField fx:id="txtStreet" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+            <TextField fx:id="txtCity" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+            <TextField fx:id="txtState" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="txtZip" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="txtPhone" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7" />
+            <Label text="Author ID *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <TextField fx:id="txtAuthorId" editable="false" styleClass="disable" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+            <Label fx:id="lblStatus" styleClass="red" stylesheets="@../css/common.css" GridPane.columnSpan="4" GridPane.halignment="CENTER" />
+            <Label text="Bio *" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+            <TextArea fx:id="txtBio" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
+         </children>
+      </GridPane>
+   </children>
+   <stylesheets>
+      <URL value="@../css/member.css" />
+      <URL value="@../css/common.css" />
+   </stylesheets>
+</AnchorPane>

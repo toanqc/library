@@ -96,7 +96,7 @@ public class MemberDAODBImpl implements MemberDAO {
 
 	private PreparedStatement buildSelectMemberById(Connection conn, int id) throws SQLException {
 		if (id != -1) {
-			String sql = SELECT_STATEMENT + " WHERE id=?";
+			String sql = SELECT_STATEMENT + " WHERE m.id=?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
 			return statement;
