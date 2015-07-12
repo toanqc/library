@@ -53,7 +53,9 @@ public class PublicationDAODBImpl implements PublicationDAO {
 			insertPublicationCopies(publication, conn);
 
 			// Insert Book Author
-			insertBookAuthor(publication, conn);
+			if (publication instanceof Book) {
+				insertBookAuthor(publication, conn);
+			}
 
 			conn.commit();
 		} catch (SQLException e) {
@@ -72,15 +74,13 @@ public class PublicationDAODBImpl implements PublicationDAO {
 
 	private void insertBookAuthor(Publication publication, Connection conn) throws SQLException {
 		PreparedStatement statement;
-		if (publication instanceof Book) {
-			Book book = (Book) publication;
-			for (int i = 0; i < book.getAuthorList().size(); i++) {
-				statement = conn.prepareStatement(INSERT_PUBLICATION_AUTHOR, Statement.RETURN_GENERATED_KEYS);
-				statement.setInt(1, book.getAuthorList().get(i).getId());
-				statement.setInt(2, publication.getId());
-				statement.executeUpdate();
-				System.out.println("Executed query: " + INSERT_PUBLICATION_AUTHOR);
-			}
+		Book book = (Book) publication;
+		for (int i = 0; i < book.getAuthorList().size(); i++) {
+			statement = conn.prepareStatement(INSERT_PUBLICATION_AUTHOR, Statement.RETURN_GENERATED_KEYS);
+			statement.setInt(1, book.getAuthorList().get(i).getId());
+			statement.setInt(2, publication.getId());
+			statement.executeUpdate();
+			System.out.println("Executed query: " + INSERT_PUBLICATION_AUTHOR);
 		}
 	}
 
