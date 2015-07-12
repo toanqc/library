@@ -1,7 +1,6 @@
 package mpp.library.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -23,8 +22,6 @@ import mpp.library.view.ScreenController;
  */
 public class AuthorController implements ControlledScreen {
 
-	@FXML
-	Button btnHome;
 	@FXML
 	Label lblStatus;
 	@FXML
@@ -49,6 +46,8 @@ public class AuthorController implements ControlledScreen {
 	private FunctionType functionType;
 
 	private int authorId;
+
+	private int addressId;
 
 	private AuthorService authorService;
 
@@ -85,6 +84,8 @@ public class AuthorController implements ControlledScreen {
 		txtZip.clear();
 		txtPhone.clear();
 		txtBio.clear();
+		txtFirstName.requestFocus();
+		lblStatus.setText("");
 	}
 
 	private void initalizeNumericLimiter() {
@@ -121,7 +122,7 @@ public class AuthorController implements ControlledScreen {
 		txtZip.setText(String.valueOf(author.getAddress().getZip()));
 		txtPhone.setText(author.getPhone());
 		txtBio.setText(author.getBio());
-		lblStatus.setText("");
+		addressId = author.getAddress().getId();
 	}
 
 	@FXML
@@ -140,13 +141,14 @@ public class AuthorController implements ControlledScreen {
 		}
 		Address address = new Address(txtStreet.getText(), txtCity.getText(), txtState.getText(),
 				Integer.parseInt(txtZip.getText()));
+		address.setId(addressId);
 		Author author = new Author(txtFirstName.getText(), txtLastName.getText(), txtPhone.getText(), txtBio.getText(),
 				address);
 		author.setId(Integer.parseInt(txtAuthorId.getText()));
 
 		if (FunctionType.ADD.equals(functionType)) {
 			authorService.saveAuthor(author);
-			FXUtil.showSuccessMessage(lblStatus, "Author was created, your id is: " + author.getId());
+			FXUtil.showSuccessMessage(lblStatus, "Author was created, the id is: " + author.getId());
 			clearTextField();
 			txtAuthorId.setText(String.valueOf(authorService.generateAuthorId()));
 		} else if (FunctionType.UPDATE.equals(functionType)) {
@@ -173,14 +175,13 @@ public class AuthorController implements ControlledScreen {
 
 	private boolean validation() {
 		if (FormValidation.isEmpty(txtFirstName) || FormValidation.isEmpty(txtLastName)
-				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtCity)
-				|| FormValidation.isEmpty(txtState) || FormValidation.isEmpty(txtZip)
-				|| FormValidation.isEmpty(txtPhone) || FormValidation.isEmpty(txtBio)) {
-			FXUtil.showErrorMessage(lblStatus, "All fields are mandatory!");
+				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtZip)
+				|| FormValidation.isEmpty(txtBio)) {
+			FXUtil.showErrorMessage(lblStatus, "(*) fields are required. Please input!");
 			return false;
 		}
 
-		if (!FormValidation.isCharacter(txtState, 2)) {
+		if (!FormValidation.isEmpty(txtState) && !FormValidation.isCharacter(txtState, 2)) {
 			FXUtil.showErrorMessage(lblStatus, "State must have exaclty two characters in the range A-Z!");
 			txtState.requestFocus();
 			return false;
@@ -192,8 +193,8 @@ public class AuthorController implements ControlledScreen {
 			return false;
 		}
 
-		if (!FormValidation.isCorrectPhone(txtPhone)) {
-			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, ie. 000-000-0000!");
+		if (!FormValidation.isEmpty(txtPhone) && !FormValidation.isCorrectPhone(txtPhone)) {
+			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, 10 digits or 000-000-0000!");
 			txtPhone.requestFocus();
 			return false;
 		}
@@ -205,6 +206,11 @@ public class AuthorController implements ControlledScreen {
 		}
 
 		return true;
+	}
+
+	@FXML
+	public void clearFields() {
+		clearTextField();
 	}
 
 	@FXML

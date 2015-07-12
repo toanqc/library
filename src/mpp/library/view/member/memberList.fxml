@@ -45,7 +45,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <TextField fx:id="txtSearch" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <TextField fx:id="txtSearch" promptText="Enter the Member ID to search" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Button fx:id="btnSearch" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#searchMember" prefHeight="26.0" prefWidth="75.0" styleClass="lion" text="Find" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">

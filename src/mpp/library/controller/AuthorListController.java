@@ -158,6 +158,10 @@ public class AuthorListController implements ControlledScreen {
 
 	@FXML
 	public void searchAuthor() {
+		if (!validation()) {
+			return;
+		}
+
 		String authorId = txtSearch.getText();
 		if ("".equals(authorId.trim())) {
 			buildData();
@@ -165,7 +169,7 @@ public class AuthorListController implements ControlledScreen {
 			libraryAuthorList.clear();
 			Author author = authorService.get(Integer.parseInt(authorId));
 			if (author == null) {
-				FXUtil.showErrorMessage(lblStatus, "No record found with author id: " + txtSearch.getText());
+				FXUtil.showErrorMessage(lblStatus, "No record found with Author ID: " + txtSearch.getText());
 				txtSearch.requestFocus();
 			} else {
 				lblStatus.setText("");
@@ -173,6 +177,16 @@ public class AuthorListController implements ControlledScreen {
 			}
 			authorTable.setItems(libraryAuthorList);
 		}
+	}
+
+	private boolean validation() {
+		if (!FormValidation.isEmpty(txtSearch) && !FormValidation.isNumber(txtSearch)) {
+			FXUtil.showErrorMessage(lblStatus, "Please enter Author ID in number");
+			txtSearch.requestFocus();
+			return false;
+		}
+
+		return true;
 	}
 
 	ScreenController myController;

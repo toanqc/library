@@ -17,12 +17,13 @@ import mpp.library.model.dao.db.connection.ConnectionManager;
 
 public class AuthorDAODBImpl implements AuthorDAO {
 
-	private static final String INSERT_AUTHOR = "INSERT INTO AUTHOR(ADDRESSID,TELEPHONE,FIRSTNAME,LASTNAME,BIO) VALUES(?,?,?,?,?)";
-	private static final String SELECT_AUTHOR = "SELECT AU.CREDENTIALS,AU.ADDRESSID,AU.TELEPHONE, AU.FIRSTNAME, AU.LASTNAME, AU.BIO, AD.STREET, AD.CITY, AD.STATE, AD.ZIP FROM AUTHOR AS AU JOIN ADDRESS AS AD ON AU.ADDRESSID=AS.ID";
-	private static final String SELECT_AUTHORS_BY_PUB_ID = "SELECT AU.ID,AU.ADDRESSID,AU.TELEPHONE, AU.FIRSTNAME, AU.LASTNAME, AU.BIO FROM AUTHOR AS AU JOIN PUBLICATIONAUTHOR AS PA ON AU.ID=PA.AUTHORID AND PA.PUBID=?";
+	private static final String INSERT_AUTHOR = "INSERT INTO AUTHOR(ADDRESSID, TELEPHONE, FIRSTNAME, LASTNAME, BIO) "
+			+ "VALUES (?, ?, ?, ?, ?)";
+	private static final String SELECT_AUTHORS_BY_PUB_ID = "SELECT AU.ID,AU.ADDRESSID,AU.TELEPHONE, AU.FIRSTNAME, AU.LASTNAME, AU.BIO "
+			+ "FROM AUTHOR AS AU JOIN PUBLICATIONAUTHOR AS PA ON AU.ID=PA.AUTHORID AND PA.PUBID=?";
 
-	public static final String SELECT_STATEMENT = "SELECT a.id, a.firstname, a.lastname, a.telephone, "
-			+ "a.bio, addr.street, addr.city, addr.state, addr.zip "
+	public static final String SELECT_STATEMENT = "SELECT a.id as id, a.firstname, a.lastname, a.telephone, "
+			+ "a.bio, addr.id as addrid, addr.street, addr.city, addr.state, addr.zip "
 			+ "FROM Author a INNER JOIN Address addr ON a.addressId = addr.Id";
 
 	private ConnectionManager cm;
@@ -76,11 +77,10 @@ public class AuthorDAODBImpl implements AuthorDAO {
 
 			if (resultSet.next()) {
 				author = createAuthor(resultSet);
+				// Get Books
+				PublicationDAO publicationDAO = new PublicationDAODBImpl();
+				author.setBooks(publicationDAO.getBooksByAuthorId(author.getId()));
 			}
-
-			// Get Books
-			PublicationDAO publicationDAO = new PublicationDAODBImpl();
-			author.setBooks(publicationDAO.getBooksByAuthorId(author.getId()));
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,7 +105,6 @@ public class AuthorDAODBImpl implements AuthorDAO {
 
 				author = new Author();
 				author.setAddress(address);
-				author.setAddressId(address.getId());
 				author.setBio(resultSet.getString("bio"));
 				author.setFirstName(resultSet.getString("firstName"));
 				author.setId(resultSet.getInt("id"));
@@ -147,6 +146,7 @@ public class AuthorDAODBImpl implements AuthorDAO {
 	private Author createAuthor(ResultSet rs) throws SQLException {
 		Address address = new Address(rs.getString("street"), rs.getString("city"), rs.getString("state"),
 				rs.getInt("zip"));
+		address.setId(rs.getInt("addrid"));
 		Author author = new Author(rs.getString("firstname"), rs.getString("lastname"), rs.getString("telephone"),
 				rs.getString("bio"), address);
 		author.setId(rs.getInt("id"));

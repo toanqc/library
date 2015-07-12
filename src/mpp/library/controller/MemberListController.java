@@ -193,8 +193,8 @@ public class MemberListController implements ControlledScreen {
 		myController.loadScreen(Screen.MEMBER, Screen.MEMBER.getValue());
 		MemberController memberController = (MemberController) ControlledScreen.controllerList.get(Screen.MEMBER);
 		memberController.setFunctionType(FunctionType.ADD);
-		myController.setScreen(Screen.MEMBER);
 		memberController.repaint();
+		myController.setScreen(Screen.MEMBER);
 	}
 
 	@FXML

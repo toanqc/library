@@ -9,7 +9,6 @@ public class Author extends Person {
 	private String bio;
 	private List<Book> books;
 	private int id;
-	private int addressId;
 
 	public Author() {
 		// empty constructor
@@ -44,17 +43,9 @@ public class Author extends Person {
 		return this.id;
 	}
 
-	public void setAddressId(int addrId) {
-		this.addressId = addrId;
-	}
-
-	public int getAddressId() {
-		return this.addressId;
-	}
-
 	@Override
 	public String toString() {
-		return "Author [ id=" + id + ", addressId=" + addressId + ", toString()=" + super.toString() + "]";
+		return "Author [ id=" + id + ", toString()=" + super.toString() + "]";
 	}
 
 }

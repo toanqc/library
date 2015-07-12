@@ -1,7 +1,6 @@
 package mpp.library.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import mpp.library.model.Address;
@@ -22,8 +21,6 @@ import mpp.library.view.ScreenController;
  */
 public class MemberController implements ControlledScreen {
 
-	@FXML
-	Button btnHome;
 	@FXML
 	Label lblStatus;
 	@FXML
@@ -46,6 +43,8 @@ public class MemberController implements ControlledScreen {
 	private FunctionType functionType;
 
 	private String memberId;
+
+	private int addressId;
 
 	private MemberService memberService;
 
@@ -81,6 +80,8 @@ public class MemberController implements ControlledScreen {
 		txtState.clear();
 		txtZip.clear();
 		txtPhone.clear();
+		txtFirstName.requestFocus();
+		lblStatus.setText("");
 	}
 
 	private void initalizeNumericLimiter() {
@@ -116,7 +117,7 @@ public class MemberController implements ControlledScreen {
 		txtState.setText(libraryMember.getAddress().getState());
 		txtZip.setText(String.valueOf(libraryMember.getAddress().getZip()));
 		txtPhone.setText(libraryMember.getPhone());
-		lblStatus.setText("");
+		addressId = libraryMember.getAddress().getId();
 	}
 
 	@FXML
@@ -135,6 +136,7 @@ public class MemberController implements ControlledScreen {
 		}
 		Address address = new Address(txtStreet.getText(), txtCity.getText(), txtState.getText(),
 				Integer.parseInt(txtZip.getText()));
+		address.setId(addressId);
 		LibraryMember member = new LibraryMember(memberId, txtFirstName.getText(), txtLastName.getText(),
 				txtPhone.getText(), address);
 
@@ -167,14 +169,12 @@ public class MemberController implements ControlledScreen {
 
 	private boolean validation() {
 		if (FormValidation.isEmpty(txtFirstName) || FormValidation.isEmpty(txtLastName)
-				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtCity)
-				|| FormValidation.isEmpty(txtState) || FormValidation.isEmpty(txtZip)
-				|| FormValidation.isEmpty(txtPhone)) {
-			FXUtil.showErrorMessage(lblStatus, "All fields are mandatory!");
+				|| FormValidation.isEmpty(txtStreet) || FormValidation.isEmpty(txtZip)) {
+			FXUtil.showErrorMessage(lblStatus, "(*) fields are required. Please input!");
 			return false;
 		}
 
-		if (!FormValidation.isCharacter(txtState, 2)) {
+		if (!FormValidation.isEmpty(txtState) && !FormValidation.isCharacter(txtState, 2)) {
 			FXUtil.showErrorMessage(lblStatus, "State must have exaclty two characters in the range A-Z!");
 			txtState.requestFocus();
 			return false;
@@ -186,13 +186,18 @@ public class MemberController implements ControlledScreen {
 			return false;
 		}
 
-		if (!FormValidation.isCorrectPhone(txtPhone)) {
-			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, ie. 000-000-0000!");
+		if (!FormValidation.isEmpty(txtPhone) && !FormValidation.isCorrectPhone(txtPhone)) {
+			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, 10 digits or 000-000-0000!");
 			txtPhone.requestFocus();
 			return false;
 		}
 
 		return true;
+	}
+
+	@FXML
+	public void clearFields() {
+		clearTextField();
 	}
 
 	@FXML
