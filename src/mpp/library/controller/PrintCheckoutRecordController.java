@@ -88,6 +88,9 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
 		}
+		else {
+			tableView.setItems(FXCollections.observableArrayList());
+		}
 	}
 	
 	@FXML
@@ -112,7 +115,11 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 				search(txtMemberID.getText().trim());
 			} catch (Exception e) {
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
+				tableView.setItems(FXCollections.observableArrayList());
 			}
+		}
+		else {
+			tableView.setItems(FXCollections.observableArrayList());
 		}
 	}
 	
@@ -153,6 +160,7 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		txtMemberID.setText("");
 		txtMemberID.setEditable(true);
 		txtMemberID.getStyleClass().remove("disable");
+		tableView.setItems(FXCollections.observableArrayList());
 	}
 	
 	private boolean validateData() {

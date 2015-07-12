@@ -23,6 +23,9 @@ public class PrintCheckoutServiceImpl implements PrintCheckoutService {
 	public List<MemberCheckoutRecord> search(String memberId) throws Exception {
 		// TODO Auto-generated method stub
 		LibraryMember member = memberService.getByMemberId(memberId);
+		if (member == null) {
+			throw new IllegalArgumentException("Member ID not found");
+		}
 		return checkoutDAO.printCheckoutRecord(member.getId());
 	}
 
