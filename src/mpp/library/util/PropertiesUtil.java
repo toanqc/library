@@ -17,7 +17,6 @@ public class PropertiesUtil {
 		try (InputStream input = PropertiesUtil.class.getClassLoader().getResourceAsStream(fileName)) {
 			// load a properties file
 			props.load(input);
-			// get the property value and print it out
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

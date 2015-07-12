@@ -60,7 +60,7 @@ public class FXUtil {
 		}
 		messageBox.setVisible(true);
 	}
-	
+
 	/**
 	 * Creates fadein effect on node.
 	 * 
@@ -77,5 +77,4 @@ public class FXUtil {
 		fadeTransition.setToValue(1.0);
 		return fadeTransition;
 	}
-
 }
