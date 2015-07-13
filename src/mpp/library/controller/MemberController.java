@@ -95,7 +95,7 @@ public class MemberController implements ControlledScreen {
 		FormValidation.addLengthLimiter(txtCity, 20);
 		FormValidation.addLengthLimiter(txtState, 2);
 		FormValidation.addLengthLimiter(txtZip, 5);
-		FormValidation.addLengthLimiter(txtPhone, 14);
+		FormValidation.addLengthLimiter(txtPhone, 12);
 	}
 
 	private void setGenerateMemberId() {
@@ -187,7 +187,7 @@ public class MemberController implements ControlledScreen {
 		}
 
 		if (!FormValidation.isEmpty(txtPhone) && !FormValidation.isCorrectPhone(txtPhone)) {
-			FXUtil.showErrorMessage(lblStatus, "Incorrect format of phone number, 10 digits or 000-000-0000!");
+			FXUtil.showErrorMessage(lblStatus, "Incorrect phone format, 10 digits or 000-000-0000!");
 			txtPhone.requestFocus();
 			return false;
 		}

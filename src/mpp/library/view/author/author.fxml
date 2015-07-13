@@ -33,6 +33,8 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
          <children>
+         	<Label fx:id="lblStatus" styleClass="red" stylesheets="@../css/common.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+         	<Label text="Author ID" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Label text="First Name *" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <Label text="Last Name *" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <Label text="Street *" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
@@ -40,6 +42,8 @@
             <Label text="State" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
             <Label text="Zip *" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
             <Label text="Phone" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+            <Label text="Bio *" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
+            <TextField fx:id="txtAuthorId" editable="false" styleClass="disable" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
             <TextField fx:id="txtFirstName" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
             <TextField fx:id="txtLastName" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4" />
             <TextField fx:id="txtStreet" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="5" />
@@ -47,10 +51,6 @@
             <TextField fx:id="txtState" promptText="Enter 2 chars" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextField fx:id="txtZip" promptText="Enter 2 digits" GridPane.columnIndex="3" GridPane.rowIndex="7" />
             <TextField fx:id="txtPhone" promptText="Enter phone with 10 digits or format 000-000-0000" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8" />
-            <Label text="Author ID" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <TextField fx:id="txtAuthorId" editable="false" styleClass="disable" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-            <Label fx:id="lblStatus" styleClass="red" stylesheets="@../css/common.css" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label text="Bio *" GridPane.halignment="RIGHT" GridPane.rowIndex="9" />
             <TextArea fx:id="txtBio" promptText="Please enter bio with at least 10 chars" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="9" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveAuthor" prefHeight="26.0" prefWidth="85.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <graphic>

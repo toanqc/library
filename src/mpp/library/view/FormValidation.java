@@ -101,7 +101,7 @@ public class FormValidation {
 
 	public static boolean isCorrectPhone(TextField textField) {
 		if (LambdaLibrary.REGEX_MATCHER.test(textField.getText().trim(),
-				"^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$")) {
+				"^(\\d{3})[- ]?(\\d{3})[- ]?(\\d{4})$")) {
 			return true;
 		}
 		return false;
