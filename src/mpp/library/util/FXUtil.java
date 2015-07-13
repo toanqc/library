@@ -1,10 +1,8 @@
 package mpp.library.util;
 
 import javafx.animation.FadeTransition;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
@@ -16,14 +14,13 @@ import javafx.util.Duration;
  */
 public class FXUtil {
 
+	/**
+	 * Clears the textfield inside the provided pane
+	 * 
+	 * @param pane
+	 */
 	public static void clearTextFields(Pane pane) {
-		ObservableList<Node> nodes = pane.getChildren();
-		for (Node node : nodes) {
-			if (node instanceof TextField) {
-				TextField textField = (TextField) node;
-				textField.clear();
-			}
-		}
+		LambdaLibrary.PANE_TEXTFIELD_CLEANER.accept(pane);
 	}
 
 	/**

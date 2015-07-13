@@ -7,6 +7,10 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.LibraryMember;
@@ -16,6 +20,10 @@ import mpp.library.model.Publication;
 import mpp.library.model.PublicationOverdueRecord;
 import mpp.library.model.PublicationType;
 
+/**
+ * @author Anil
+ *
+ */
 public class LambdaLibrary {
 
 	public static final BiFunction<List<CheckoutRecordEntry>, LibraryMember, List<PublicationOverdueRecord>> PUBLICATION_OVERDUE_RECORD_LAMBDA = (
@@ -43,5 +51,13 @@ public class LambdaLibrary {
 
 	public static final BiPredicate<String, String> REGEX_MATCHER = (input, regex) -> input.matches(regex) ? true
 			: false;
+
+	public static final Consumer<Pane> PANE_TEXTFIELD_CLEANER = pane -> {
+		ObservableList<Node> nodes = pane.getChildren();
+		nodes.stream().filter(node -> node instanceof TextField).forEach(node -> {
+			TextField textField = (TextField) node;
+			textField.clear();
+		});
+	};
 
 }
