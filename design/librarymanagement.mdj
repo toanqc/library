@@ -31855,7 +31855,7 @@
 													"left": 317,
 													"top": 112,
 													"width": 14,
-													"height": 385,
+													"height": 325,
 													"autoResize": false
 												}
 											],
@@ -32022,7 +32022,7 @@
 													"left": 590,
 													"top": 124,
 													"width": 14,
-													"height": 361,
+													"height": 305,
 													"autoResize": false
 												}
 											],
@@ -33093,173 +33093,6 @@
 										},
 										{
 											"_type": "UMLSeqMessageView",
-											"_id": "AAAAAAFOiLl3Gkfz73Y=",
-											"_parent": {
-												"$ref": "AAAAAAFOhO0+EvHK958="
-											},
-											"model": {
-												"$ref": "AAAAAAFOiLl3GkfyCp4="
-											},
-											"subViews": [
-												{
-													"_type": "EdgeLabelView",
-													"_id": "AAAAAAFOiLl3Gkf0eKs=",
-													"_parent": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"model": {
-														"$ref": "AAAAAAFOiLl3GkfyCp4="
-													},
-													"visible": true,
-													"enabled": true,
-													"lineColor": "#000000",
-													"fillColor": "#ffffff",
-													"fontColor": "#000000",
-													"font": "Arial;13;0",
-													"showShadow": true,
-													"containerChangeable": false,
-													"containerExtending": false,
-													"left": 644,
-													"top": 339,
-													"width": 177.04248046875,
-													"height": 13,
-													"autoResize": false,
-													"alpha": 1.5808959923600188,
-													"distance": 99.00505037623081,
-													"hostEdge": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"edgePosition": 1,
-													"underline": false,
-													"text": "8 : validate the ISBN_Issue No",
-													"horizontalAlignment": 2,
-													"verticalAlignment": 5
-												},
-												{
-													"_type": "EdgeLabelView",
-													"_id": "AAAAAAFOiLl3G0f1aI8=",
-													"_parent": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"model": {
-														"$ref": "AAAAAAFOiLl3GkfyCp4="
-													},
-													"visible": false,
-													"enabled": true,
-													"lineColor": "#000000",
-													"fillColor": "#ffffff",
-													"fontColor": "#000000",
-													"font": "Arial;13;0",
-													"showShadow": true,
-													"containerChangeable": false,
-													"containerExtending": false,
-													"left": 657,
-													"top": 339,
-													"width": 0,
-													"height": 13,
-													"autoResize": false,
-													"alpha": 1.5707963267948966,
-													"distance": 25,
-													"hostEdge": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"edgePosition": 1,
-													"underline": false,
-													"horizontalAlignment": 2,
-													"verticalAlignment": 5
-												},
-												{
-													"_type": "EdgeLabelView",
-													"_id": "AAAAAAFOiLl3G0f2aNQ=",
-													"_parent": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"model": {
-														"$ref": "AAAAAAFOiLl3GkfyCp4="
-													},
-													"visible": false,
-													"enabled": true,
-													"lineColor": "#000000",
-													"fillColor": "#ffffff",
-													"fontColor": "#000000",
-													"font": "Arial;13;0",
-													"showShadow": true,
-													"containerChangeable": false,
-													"containerExtending": false,
-													"left": 623,
-													"top": 340,
-													"width": 0,
-													"height": 13,
-													"autoResize": false,
-													"alpha": -1.5707963267948966,
-													"distance": 10,
-													"hostEdge": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"edgePosition": 1,
-													"underline": false,
-													"horizontalAlignment": 2,
-													"verticalAlignment": 5
-												},
-												{
-													"_type": "UMLActivationView",
-													"_id": "AAAAAAFOiLl3G0f3oXs=",
-													"_parent": {
-														"$ref": "AAAAAAFOiLl3Gkfz73Y="
-													},
-													"model": {
-														"$ref": "AAAAAAFOiLl3GkfyCp4="
-													},
-													"visible": true,
-													"enabled": true,
-													"lineColor": "#000000",
-													"fillColor": "#ffffff",
-													"fontColor": "#000000",
-													"font": "Arial;13;0",
-													"showShadow": true,
-													"containerChangeable": false,
-													"containerExtending": false,
-													"left": 597,
-													"top": 356,
-													"width": 14,
-													"height": 29,
-													"autoResize": false
-												}
-											],
-											"visible": true,
-											"enabled": true,
-											"lineColor": "#000000",
-											"fillColor": "#ffffff",
-											"fontColor": "#000000",
-											"font": "Arial;13;0",
-											"showShadow": true,
-											"containerChangeable": false,
-											"containerExtending": false,
-											"head": {
-												"$ref": "AAAAAAFOhQDD9Gdla5E="
-											},
-											"tail": {
-												"$ref": "AAAAAAFOhQDD9Gdla5E="
-											},
-											"lineStyle": 0,
-											"points": "603:336;633:336;633:356;610:356",
-											"nameLabel": {
-												"$ref": "AAAAAAFOiLl3Gkf0eKs="
-											},
-											"stereotypeLabel": {
-												"$ref": "AAAAAAFOiLl3G0f1aI8="
-											},
-											"propertyLabel": {
-												"$ref": "AAAAAAFOiLl3G0f2aNQ="
-											},
-											"activation": {
-												"$ref": "AAAAAAFOiLl3G0f3oXs="
-											},
-											"showProperty": true,
-											"showType": true
-										},
-										{
-											"_type": "UMLSeqMessageView",
 											"_id": "AAAAAAFOiLxsekgNgMM=",
 											"_parent": {
 												"$ref": "AAAAAAFOhO0+EvHK958="
@@ -33286,19 +33119,19 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 638,
-													"top": 428,
-													"width": 415.5048828125,
+													"left": 615,
+													"top": 380,
+													"width": 422.73486328125,
 													"height": 13,
 													"autoResize": false,
-													"alpha": 1.4216758176756377,
-													"distance": 215.3903433304288,
+													"alpha": 1.4274552790371653,
+													"distance": 196.01020381602586,
 													"hostEdge": {
 														"$ref": "AAAAAAFOiLxsekgNgMM="
 													},
 													"edgePosition": 1,
 													"underline": false,
-													"text": "9 : display the list of PublicationOverdueRecord basd on ISBN_Issue No",
+													"text": "8 : display the list of PublicationOverdueRecord based on ISBN_Issue No",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5
 												},
@@ -33321,7 +33154,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 657,
-													"top": 395,
+													"top": 351,
 													"width": 0,
 													"height": 13,
 													"autoResize": false,
@@ -33354,7 +33187,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 623,
-													"top": 396,
+													"top": 352,
 													"width": 0,
 													"height": 13,
 													"autoResize": false,
@@ -33387,7 +33220,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 597,
-													"top": 412,
+													"top": 368,
 													"width": 14,
 													"height": 29,
 													"autoResize": false
@@ -33409,7 +33242,7 @@
 												"$ref": "AAAAAAFOhQDD9Gdla5E="
 											},
 											"lineStyle": 0,
-											"points": "603:392;633:392;633:412;610:412",
+											"points": "603:348;633:348;633:368;610:368",
 											"nameLabel": {
 												"$ref": "AAAAAAFOiLxse0gO/dM="
 											},
@@ -33453,9 +33286,9 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 333,
-													"top": 468,
-													"width": 252.18603515625,
+													"left": 337,
+													"top": 424,
+													"width": 244.9560546875,
 													"height": 13,
 													"autoResize": false,
 													"alpha": 1.5707963267948966,
@@ -33465,7 +33298,7 @@
 													},
 													"edgePosition": 1,
 													"underline": false,
-													"text": "10 : return list of PublicationOverdueRecord",
+													"text": "9 : return list of PublicationOverdueRecord",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5
 												},
@@ -33488,7 +33321,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 459,
-													"top": 483,
+													"top": 439,
 													"width": 0,
 													"height": 13,
 													"autoResize": false,
@@ -33521,7 +33354,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 460,
-													"top": 448,
+													"top": 404,
 													"width": 0,
 													"height": 13,
 													"autoResize": false,
@@ -33554,7 +33387,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 317,
-													"top": 464,
+													"top": 420,
 													"width": 14,
 													"height": 25,
 													"autoResize": false
@@ -33576,7 +33409,7 @@
 												"$ref": "AAAAAAFOhQDD9Gdla5E="
 											},
 											"lineStyle": 0,
-											"points": "590:464;330:464",
+											"points": "590:420;330:420",
 											"nameLabel": {
 												"$ref": "AAAAAAFOhQpe+mh8aiU="
 											},
@@ -33620,8 +33453,8 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 66,
-													"top": 484,
+													"left": 69,
+													"top": 452,
 													"width": 252.18603515625,
 													"height": 13,
 													"autoResize": false,
@@ -33632,7 +33465,7 @@
 													},
 													"edgePosition": 1,
 													"underline": false,
-													"text": "11 : return list of PublicationOverdueRecord",
+													"text": "10 : return list of PublicationOverdueRecord",
 													"horizontalAlignment": 2,
 													"verticalAlignment": 5
 												},
@@ -33654,8 +33487,8 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 193,
-													"top": 499,
+													"left": 196,
+													"top": 467,
 													"width": 0,
 													"height": 13,
 													"autoResize": false,
@@ -33687,8 +33520,8 @@
 													"showShadow": true,
 													"containerChangeable": false,
 													"containerExtending": false,
-													"left": 194,
-													"top": 464,
+													"left": 197,
+													"top": 432,
 													"width": 0,
 													"height": 13,
 													"autoResize": false,
@@ -33721,7 +33554,7 @@
 													"containerChangeable": false,
 													"containerExtending": false,
 													"left": 71,
-													"top": 480,
+													"top": 448,
 													"width": 14,
 													"height": 25,
 													"autoResize": false
@@ -33743,7 +33576,7 @@
 												"$ref": "AAAAAAFOhP/5oWdBd0c="
 											},
 											"lineStyle": 0,
-											"points": "317:480;71:480",
+											"points": "324:448;71:448",
 											"nameLabel": {
 												"$ref": "AAAAAAFOhRL8fvCnj5Q="
 											},
@@ -33883,27 +33716,11 @@
 								},
 								{
 									"_type": "UMLMessage",
-									"_id": "AAAAAAFOiLl3GkfyCp4=",
-									"_parent": {
-										"$ref": "AAAAAAFOhO0+EvHJIKQ="
-									},
-									"name": "validate the ISBN_Issue No",
-									"source": {
-										"$ref": "AAAAAAFOhQDD8mdegXw="
-									},
-									"target": {
-										"$ref": "AAAAAAFOhQDD8mdegXw="
-									},
-									"visibility": "public",
-									"messageSort": "synchCall"
-								},
-								{
-									"_type": "UMLMessage",
 									"_id": "AAAAAAFOiLxsekgMbvY=",
 									"_parent": {
 										"$ref": "AAAAAAFOhO0+EvHJIKQ="
 									},
-									"name": "display the list of PublicationOverdueRecord basd on ISBN_Issue No",
+									"name": "display the list of PublicationOverdueRecord based on ISBN_Issue No",
 									"source": {
 										"$ref": "AAAAAAFOhQDD8mdegXw="
 									},
