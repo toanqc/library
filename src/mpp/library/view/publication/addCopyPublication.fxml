@@ -79,7 +79,17 @@
             <Label alignment="CENTER_RIGHT" text="Title *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" text="Maximum Checkout *" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <TextField fx:id="periodicalCopyTitle" promptText="Enter title to search" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchPeriodical" prefHeight="26.0" prefWidth="95.0" text="Search" GridPane.columnIndex="3" GridPane.rowSpan="2">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <TextField fx:id="periodicalCopyMaxCheckoutCount" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <TextField fx:id="periodicalCopyNumber" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#addPeriodicalCopy" prefHeight="26.0" prefWidth="105.0" text="Add Copy" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -97,16 +107,6 @@
                   </ImageView>
                </graphic></Button>
             <Label alignment="CENTER_RIGHT" text="Copy Number *" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <TextField fx:id="periodicalCopyNumber" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchPeriodical" prefHeight="26.0" prefWidth="95.0" text="Search" GridPane.columnIndex="3" GridPane.rowSpan="2">
-               <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icon/search.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -119,8 +119,18 @@
             <Label alignment="CENTER_RIGHT" text="Title *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" text="Author *" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Maximum Checkout *" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" prefHeight="26.0" prefWidth="95.0" text="Search" GridPane.columnIndex="3">
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icon/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
             <TextField fx:id="bookCopyTitle" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <ListView fx:id="authorCopyPublicationListView" prefHeight="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
             <TextField fx:id="bookCopyMaxCheckoutCount" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <TextField fx:id="bookCopyNumber" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#addBookCopy" prefHeight="26.0" prefWidth="105.0" text="Add Copy" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -138,16 +148,6 @@
                   </ImageView>
                </graphic></Button>
             <Label alignment="CENTER_RIGHT" text="Copy Number *" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <TextField fx:id="bookCopyNumber" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#searchBook" prefHeight="26.0" prefWidth="95.0" text="Search" GridPane.columnIndex="3">
-               <graphic>
-                  <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icon/search.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <ListView fx:id="authorCopyPublicationListView" prefHeight="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
          </children>
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
