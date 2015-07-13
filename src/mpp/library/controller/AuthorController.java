@@ -64,6 +64,7 @@ public class AuthorController implements ControlledScreen {
 
 	public void repaint() {
 		clearTextField();
+		lblStatus.setText("");
 		builData();
 	}
 
@@ -85,7 +86,6 @@ public class AuthorController implements ControlledScreen {
 		txtPhone.clear();
 		txtBio.clear();
 		txtFirstName.requestFocus();
-		lblStatus.setText("");
 	}
 
 	private void initalizeNumericLimiter() {
@@ -128,6 +128,7 @@ public class AuthorController implements ControlledScreen {
 	@FXML
 	public void returnHome() {
 		clearTextField();
+		lblStatus.setText("");
 		myController.setScreen(Screen.HOME);
 		AuthorListController authorListController = (AuthorListController) ControlledScreen.controllerList
 				.get(Screen.AUTHOR_LIST);

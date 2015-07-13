@@ -78,7 +78,7 @@ public class ScreenController extends StackPane implements ControlledScreen {
 		// add new screen
 		getChildren().add(0, screens.get(name));
 		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-				new KeyFrame(new Duration(1500), new KeyValue(opacity, 1.0)));
+				new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
 	}
 
@@ -87,7 +87,7 @@ public class ScreenController extends StackPane implements ControlledScreen {
 		setOpacity(0.0);
 		getChildren().add(screens.get(name));
 		Timeline fadeIn = new Timeline(new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-				new KeyFrame(new Duration(1500), new KeyValue(opacity, 1.0)));
+				new KeyFrame(new Duration(1000), new KeyValue(opacity, 1.0)));
 		fadeIn.play();
 	}
 

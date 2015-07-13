@@ -61,6 +61,7 @@ public class MemberController implements ControlledScreen {
 
 	public void repaint() {
 		clearTextField();
+		lblStatus.setText("");
 		builData();
 	}
 
@@ -81,7 +82,6 @@ public class MemberController implements ControlledScreen {
 		txtZip.clear();
 		txtPhone.clear();
 		txtFirstName.requestFocus();
-		lblStatus.setText("");
 	}
 
 	private void initalizeNumericLimiter() {
@@ -123,6 +123,7 @@ public class MemberController implements ControlledScreen {
 	@FXML
 	public void returnHome() {
 		clearTextField();
+		lblStatus.setText("");
 		myController.setScreen(Screen.HOME);
 		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
 				.get(Screen.MEMBER_LIST);
