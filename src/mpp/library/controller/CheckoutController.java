@@ -63,6 +63,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
+		lblMessage.setText("");
 		myController.setScreen(Screen.HOME);
 	}
 
@@ -88,7 +89,8 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			String title = txtTitle.getText().trim();
 			String issueNo = txtIssueNumber.getText().trim();
 			try {
-				chkoutBookService.checkout(memberId, new Periodical(title, issueNo));
+				chkoutBookService.checkout(memberId, new Periodical(title,
+						issueNo));
 				FXUtil.showSuccessMessage(lblMessage, "Check out successfully");
 				clear();
 			} catch (Exception e) {
@@ -107,6 +109,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	protected void checkoutBook(MouseEvent event) {
 		if (rdBook.isSelected()) {
 			clear();
+			lblMessage.setText("");
 			rdPeriodical.setSelected(false);
 			bookGridPane.setVisible(true);
 			periodicalGridPane.setVisible(false);
@@ -118,6 +121,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	protected void checkoutPeriodical(MouseEvent event) {
 		if (rdPeriodical.isSelected()) {
 			clear();
+			lblMessage.setText("");
 			rdBook.setSelected(false);
 			bookGridPane.setVisible(false);
 			periodicalGridPane.setVisible(true);
@@ -130,8 +134,6 @@ public class CheckoutController implements ControlledScreen, Initializable {
 		txtISBN.clear();
 		txtIssueNumber.clear();
 		txtTitle.clear();
-		lblMessage.setText("");
-		lblMessage.setVisible(false);
 	}
 
 	@Override
@@ -141,24 +143,29 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	@Override
 	public void repaint() {
-		throw new UnsupportedOperationException("Repaint method is not support for CheckoutController");
+		throw new UnsupportedOperationException(
+				"Repaint method is not support for CheckoutController");
 	}
 
 	private boolean validateData() {
 		if (rdBook.isSelected()) {
 			if (FormValidation.isEmpty(txtMemberID)) {
-				FXUtil.showErrorMessage(lblMessage, "Member ID must not non-empty");
+				FXUtil.showErrorMessage(lblMessage,
+						"Member ID must not non-empty");
 				return false;
 			} else if (!FormValidation.isNumber(txtMemberID)) {
-				FXUtil.showErrorMessage(lblMessage, "Member ID is not numeric. Try again!");
+				FXUtil.showErrorMessage(lblMessage,
+						"Member ID is not numeric. Try again!");
 				return false;
 			}
 		} else {
 			if (FormValidation.isEmpty(txtMemberID1)) {
-				FXUtil.showErrorMessage(lblMessage, "Member ID must not non-empty");
+				FXUtil.showErrorMessage(lblMessage,
+						"Member ID must not non-empty");
 				return false;
 			} else if (!FormValidation.isNumber(txtMemberID1)) {
-				FXUtil.showErrorMessage(lblMessage, "Member ID is not numeric. Try again!");
+				FXUtil.showErrorMessage(lblMessage,
+						"Member ID is not numeric. Try again!");
 				return false;
 			}
 		}
@@ -169,8 +176,10 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			}
 		}
 		if (rdPeriodical.isSelected()) {
-			if ((FormValidation.isEmpty(txtTitle) || FormValidation.isEmpty(txtIssueNumber))) {
-				FXUtil.showErrorMessage(lblMessage, "Title and Issue Number must not non-empty");
+			if ((FormValidation.isEmpty(txtTitle) || FormValidation
+					.isEmpty(txtIssueNumber))) {
+				FXUtil.showErrorMessage(lblMessage,
+						"Title and Issue Number must not non-empty");
 				return false;
 			}
 		}
