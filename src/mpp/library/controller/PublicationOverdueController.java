@@ -54,14 +54,16 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	private ScreenController myController;
 	private OverdueCalculator<PublicationOverdueRecord> publicationOverdueCalculator;
 
+	@FXML
+	TextField txtSearch;
+
 	public PublicationOverdueController() {
 		publicationOverdueCalculator = new PublicationOverdueImpl();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<PublicationOverdueRecord> publicationOverdueRecords = publicationOverdueCalculator
-				.getOverdueRecords();
+		List<PublicationOverdueRecord> publicationOverdueRecords = publicationOverdueCalculator.getOverdueRecords();
 
 		ObservableList<PublicationOverdueRecord> listData = FXCollections
 				.observableArrayList(publicationOverdueRecords);
@@ -87,6 +89,10 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	@FXML
 	public void returnHome() {
 		myController.setScreen(Screen.HOME);
+	}
+
+	@FXML
+	public void searchPublication() {
 	}
 
 }

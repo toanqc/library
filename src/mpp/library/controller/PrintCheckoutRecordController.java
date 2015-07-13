@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.service.impl.PrintCheckoutServiceImpl;
@@ -23,8 +24,6 @@ import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -173,7 +172,6 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		btnSearch.setVisible(true);
 		iconPrint.setVisible(true);
 		btnHome.setText("Home");
-		iconHome.setImage(new Image(getClass().getResourceAsStream("../view/icon/home.png")));
 		txtMemberID.setText("");
 		txtMemberID.setEditable(true);
 		txtMemberID.getStyleClass().remove("disable");
@@ -217,6 +215,5 @@ public class PrintCheckoutRecordController implements Initializable, ControlledS
 		btnSearch.setVisible(false);
 		iconSearch.setVisible(false);
 		btnHome.setText("Back");
-		iconHome.setImage(new Image(getClass().getResourceAsStream("../view/icon/back.png")));
 	}
 }
