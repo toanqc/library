@@ -143,7 +143,7 @@ public class MemberController implements ControlledScreen {
 
 		if (FunctionType.ADD.equals(functionType)) {
 			memberService.saveMember(member);
-			FXUtil.showSuccessMessage(lblStatus, "Library member was created, your id is: " + member.getMemberId());
+			FXUtil.showSuccessMessage(lblStatus, "Library member was created, id is: " + member.getMemberId());
 			clearTextField();
 			txtMemberId.setText(memberService.generateMemberId());
 		} else if (FunctionType.UPDATE.equals(functionType)) {
