@@ -3,6 +3,8 @@ package mpp.library.util;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import mpp.library.model.Book;
@@ -13,7 +15,6 @@ import mpp.library.model.Periodical;
 import mpp.library.model.Publication;
 import mpp.library.model.PublicationOverdueRecord;
 import mpp.library.model.PublicationType;
-import java.util.function.Consumer;
 
 public class LambdaLibrary {
 
@@ -39,5 +40,8 @@ public class LambdaLibrary {
 
 	public static final Consumer<List<MemberCheckoutRecord>> PRINT_CHECKOUT_RECORD = s -> s.stream()
 			.forEach(e -> System.out.println(e));
+
+	public static final BiPredicate<String, String> REGEX_MATCHER = (input, regex) -> input.matches(regex) ? true
+			: false;
 
 }

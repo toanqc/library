@@ -17,8 +17,8 @@ import mpp.library.util.LambdaLibrary;
  */
 public class PublicationOverdueImpl implements OverdueCalculator<PublicationOverdueRecord> {
 
-	MemberService memberService;
-	CheckoutService checkoutService;
+	private MemberService memberService;
+	private CheckoutService checkoutService;
 
 	public PublicationOverdueImpl() {
 		memberService = new MemberServiceImpl();

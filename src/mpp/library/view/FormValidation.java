@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import mpp.library.util.LambdaLibrary;
 
 /**
  * Provide some static method to validate the screen
@@ -12,6 +13,8 @@ import javafx.scene.control.TextField;
  *
  */
 public class FormValidation {
+
+	private static final String ISBN_10_AND_13_REGEX = "^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$";
 
 	public static boolean isEmpty(TextField textField) {
 		return isEmpty(textField.getText());
@@ -30,7 +33,7 @@ public class FormValidation {
 	}
 
 	public static boolean isNumber(TextField textField) {
-		if (textField.getText() != null && textField.getText().trim().matches("^[0-9]+")) {
+		if (textField.getText() != null && LambdaLibrary.REGEX_MATCHER.test(textField.getText().trim(), "^[0-9]+")) {
 			return true;
 		}
 
@@ -38,7 +41,8 @@ public class FormValidation {
 	}
 
 	public static boolean isNumberAndExactLength(TextField textField, int length) {
-		if (textField.getText() != null && textField.getText().trim().matches("^[0-9]{" + length + "}$")) {
+		if (textField.getText() != null
+				&& LambdaLibrary.REGEX_MATCHER.test(textField.getText().trim(), "^[0-9]{" + length + "}$")) {
 			return true;
 		}
 
@@ -46,16 +50,11 @@ public class FormValidation {
 	}
 
 	public static boolean isValidISBN(String isbn) {
-		if (isbn.matches(
-				"^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$")) {
-			return true;
-		}
-
-		return false;
+		return LambdaLibrary.REGEX_MATCHER.test(isbn, ISBN_10_AND_13_REGEX);
 	}
 
 	public static boolean isCharacter(TextField textField, int length) {
-		if (textField.getText().matches("^[A-Z]{" + length + "}$")) {
+		if (LambdaLibrary.REGEX_MATCHER.test(textField.getText(), "^[A-Z]{" + length + "}$")) {
 			return true;
 		}
 
@@ -101,7 +100,8 @@ public class FormValidation {
 	}
 
 	public static boolean isCorrectPhone(TextField textField) {
-		if (textField.getText().trim().matches("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$")) {
+		if (LambdaLibrary.REGEX_MATCHER.test(textField.getText().trim(),
+				"^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$")) {
 			return true;
 		}
 		return false;
