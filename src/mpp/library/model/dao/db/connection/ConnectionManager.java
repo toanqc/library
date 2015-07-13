@@ -41,7 +41,6 @@ public class ConnectionManager {
 	public Connection getConnection() {
 		try {
 			conn = DriverManager.getConnection(databaseUrl, user, pass);
-			System.out.println("Got connection...");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
