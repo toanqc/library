@@ -161,7 +161,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			}
 		}
 		if (rdBook.isSelected()) {
-			if (FormValidation.isValidISBN(txtISBN.getText().trim())) {
+			if (!FormValidation.isValidISBN(txtISBN.getText().trim())) {
 				FXUtil.showErrorMessage(lblMessage, "Please enter valid ISBN");
 				return false;
 			}
