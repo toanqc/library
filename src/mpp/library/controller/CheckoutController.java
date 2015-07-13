@@ -57,7 +57,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 
 	private CheckoutServiceImpl chkoutBookService = new CheckoutServiceImpl();
 
-	public static final int ISBN_MAX_LENTH = 13;
+	public static final int ISBN_MAX_LENTH = 30;
 
 	private ScreenController myController;
 
@@ -161,8 +161,8 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			}
 		}
 		if (rdBook.isSelected()) {
-			if (!txtISBN.getText().trim().matches("^[0-9]{13}$")) {
-				FXUtil.showErrorMessage(lblMessage, "ISBN must be 13 digits long");
+			if (FormValidation.isValidISBN(txtISBN.getText().trim())) {
+				FXUtil.showErrorMessage(lblMessage, "Please enter valid ISBN");
 				return false;
 			}
 		}

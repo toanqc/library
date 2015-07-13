@@ -80,7 +80,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField id="bookISBNNumber" fx:id="bookISBNNumber" promptText="Enter 13 digit ISBN" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+            <TextField id="bookISBNNumber" fx:id="bookISBNNumber" promptText="Enter valid ISBN" GridPane.columnIndex="1" GridPane.columnSpan="2" />
             <Label alignment="CENTER_RIGHT" text="ISBN *" GridPane.halignment="RIGHT" />
             <Label alignment="CENTER_RIGHT" text="Author *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" text="Title *" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />

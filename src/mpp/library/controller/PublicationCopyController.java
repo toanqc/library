@@ -234,7 +234,7 @@ public class PublicationCopyController implements ControlledScreen {
 	}
 
 	private void initializeTextLimiter() {
-		FormValidation.addLengthLimiter(bookCopyISBNNumber, 13);
+		FormValidation.addLengthLimiter(bookCopyISBNNumber, 30);
 		FormValidation.addLengthLimiter(bookCopyTitle, 50);
 		FormValidation.addLengthLimiter(periodicalCopyIssueNumber, 10);
 		FormValidation.addLengthLimiter(periodicalCopyTitle, 50);
@@ -260,6 +260,12 @@ public class PublicationCopyController implements ControlledScreen {
 		if (!FormValidation.isEnteredNumberGreaterThan(bookCopyNumber, 0)) {
 			FXUtil.showErrorMessage(lblStatus, "Enter valid number of copies");
 			bookCopyNumber.requestFocus();
+			return false;
+		}
+		
+		if (!FormValidation.isValidISBN(bookCopyISBNNumber.getText().trim())) {
+			FXUtil.showErrorMessage(lblStatus, "Please enter valid ISBN.");
+			bookCopyISBNNumber.requestFocus();
 			return false;
 		}
 
@@ -310,6 +316,7 @@ public class PublicationCopyController implements ControlledScreen {
 	@FXML
 	protected void cancelCopyBook(ActionEvent event) {
 		System.out.println("Cancel Book Copy");
+		authorCopyPublicationListView.getItems().clear();
 		FXUtil.clearTextFields(bookCopyGridPane);
 	}
 

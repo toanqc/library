@@ -1,7 +1,6 @@
 package mpp.library.controller;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -14,14 +13,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import mpp.library.model.Author;
-import mpp.library.model.CheckoutRecordEntry;
-import mpp.library.model.LibraryMember;
 import mpp.library.model.PublicationOverdueRecord;
-import mpp.library.model.service.CheckoutService;
-import mpp.library.model.service.MemberService;
-import mpp.library.model.service.impl.CheckoutServiceImpl;
-import mpp.library.model.service.impl.MemberServiceImpl;
-import mpp.library.util.LambdaLibrary;
+import mpp.library.model.service.OverdueCalculator;
+import mpp.library.model.service.impl.PublicationOverdueImpl;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
@@ -57,27 +51,17 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	@FXML
 	ListView<Author> authorCopyPublicationListView;
 
-	private MemberService memberService;
-	private CheckoutService checkoutService;
 	private ScreenController myController;
+	private OverdueCalculator<PublicationOverdueRecord> publicationOverdueCalculator;
 
 	public PublicationOverdueController() {
-		memberService = new MemberServiceImpl();
-		checkoutService = new CheckoutServiceImpl();
+		publicationOverdueCalculator = new PublicationOverdueImpl();
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<LibraryMember> libraryMembers = memberService.getList();
-		List<PublicationOverdueRecord> publicationOverdueRecords = new ArrayList<>();
-
-		for (LibraryMember libraryMember : libraryMembers) {
-			List<CheckoutRecordEntry> checkoutRecordEntries = checkoutService
-					.getOverdueCheckoutRecordEntryByMemberId(libraryMember.getId());
-
-			publicationOverdueRecords = LambdaLibrary.PUBLICATION_OVERDUE_RECORD_LAMBDA.apply(checkoutRecordEntries,
-					libraryMember);
-		}
+		List<PublicationOverdueRecord> publicationOverdueRecords = publicationOverdueCalculator
+				.getOverdueRecords();
 
 		ObservableList<PublicationOverdueRecord> listData = FXCollections
 				.observableArrayList(publicationOverdueRecords);

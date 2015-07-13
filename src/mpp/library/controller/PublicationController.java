@@ -167,6 +167,7 @@ public class PublicationController implements ControlledScreen, Initializable {
 	protected void cancelBook(MouseEvent event) {
 		System.out.println("Cancel Book");
 		FXUtil.clearTextFields(bookGridPane);
+		authorPublicationListView.getSelectionModel().clearSelection();
 	}
 
 	@FXML
@@ -194,7 +195,7 @@ public class PublicationController implements ControlledScreen, Initializable {
 	}
 
 	private void initializeTextLimiter() {
-		FormValidation.addLengthLimiter(bookISBNNumber, 13);
+		FormValidation.addLengthLimiter(bookISBNNumber, 30);
 		FormValidation.addLengthLimiter(bookTitle, 50);
 		FormValidation.addLengthLimiter(bookMaxCheckoutCount, 2);
 		FormValidation.addLengthLimiter(periodicalIssueNumber, 10);
@@ -223,8 +224,8 @@ public class PublicationController implements ControlledScreen, Initializable {
 			return false;
 		}
 
-		if (FormValidation.isNumberAndExactLength(bookISBNNumber, 14)) {
-			FXUtil.showErrorMessage(lblStatus, "Book ISBN should be length of 13 digits");
+		if (!FormValidation.isValidISBN(bookISBNNumber.getText().trim())) {
+			FXUtil.showErrorMessage(lblStatus, "Please enter valid ISBN.");
 			bookISBNNumber.requestFocus();
 			return false;
 		}
@@ -283,10 +284,8 @@ public class PublicationController implements ControlledScreen, Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 		initializeTextLimiter();
 		initalizeNumericLimiter();
-
 		ObservableList<Author> authors = FXCollections.observableArrayList(authorService.getList());
 		authorPublicationListView.setItems(authors);
 		authorPublicationListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
