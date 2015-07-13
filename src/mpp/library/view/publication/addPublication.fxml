@@ -83,10 +83,12 @@
             <TextField id="bookISBNNumber" fx:id="bookISBNNumber" promptText="Enter valid ISBN" GridPane.columnIndex="1" GridPane.columnSpan="2" />
             <Label alignment="CENTER_RIGHT" text="ISBN *" GridPane.halignment="RIGHT" />
             <Label alignment="CENTER_RIGHT" text="Author *" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+            <ListView fx:id="authorPublicationListView" editable="true" prefHeight="140.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <Label alignment="CENTER_RIGHT" text="Title *" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <Label alignment="CENTER_RIGHT" text="Maximum Checkout *" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
             <TextField id="bookTitle" fx:id="bookTitle" promptText="Enter title of book" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
             <TextField id="bookMaxCheckoutCount" fx:id="bookMaxCheckoutCount" promptText="Enter maximum checkout days" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <TextField id="bookMaxCheckoutCount" fx:id="bookCopiesNum" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#saveBook" prefHeight="26.0" prefWidth="85.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -103,9 +105,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <TextField id="bookMaxCheckoutCount" fx:id="bookCopiesNum" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
             <Label alignment="CENTER_RIGHT" text="Copy number *" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <ListView fx:id="authorPublicationListView" editable="true" prefHeight="140.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -131,6 +131,7 @@
             <Label alignment="CENTER_RIGHT" text="Maximum Checkout *" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
             <TextField id="periodicalTitle" fx:id="periodicalTitle" promptText="Enter pediodical title" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <TextField id="periodicalMaxCheckoutCount" fx:id="periodicalMaxCheckoutCount" promptText="Enter maximum checkout days" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+            <TextField id="bookMaxCheckoutCount" fx:id="periodicalCopiesNum" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
             <Button alignment="CENTER" mnemonicParsing="false" onMouseClicked="#savePeriodical" prefWidth="85.0" text="Save" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
@@ -148,7 +149,6 @@
                   </ImageView>
                </graphic></Button>
             <Label alignment="CENTER_RIGHT" text="Copy number *" GridPane.halignment="RIGHT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES" />
-            <TextField id="bookMaxCheckoutCount" fx:id="periodicalCopiesNum" promptText="Enter number of copies" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

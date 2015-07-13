@@ -1,6 +1,7 @@
 package mpp.library.util;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecordEntry;
+import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.MemberCheckoutRecord;
 import mpp.library.model.Periodical;
@@ -58,6 +60,15 @@ public class LambdaLibrary {
 			TextField textField = (TextField) node;
 			textField.clear();
 		});
+	};
+
+	public static final BiFunction<Integer, Publication, List<Copy>> GENERATE_LIST_OF_COPIES = (copyNumber, pub) -> {
+		List<Copy> copyList = new ArrayList<>();
+		for (int i = 0; i < copyNumber; i++) {
+			Copy copy = new Copy(pub, i, true);
+			copyList.add(copy);
+		}
+		return copyList;
 	};
 
 }

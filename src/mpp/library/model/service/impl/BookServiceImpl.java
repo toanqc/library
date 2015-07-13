@@ -1,14 +1,12 @@
 package mpp.library.model.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mpp.library.model.Book;
 import mpp.library.model.Copy;
 import mpp.library.model.dao.db.PublicationDAO;
 import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
 import mpp.library.model.service.BookService;
 import mpp.library.model.service.CopyService;
+import mpp.library.util.LambdaLibrary;
 import mpp.library.util.PublicationType;
 
 public class BookServiceImpl implements BookService {
@@ -24,13 +22,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public void saveBook(Book book, int copiesNum) {
 
-		List<Copy> copyList = new ArrayList<>();
-		for (int i = 0; i < copiesNum; i++) {
-			Copy copy = new Copy(book, i, true);
-			copyList.add(copy);
-		}
-		book.setCopies(copyList);
-
+		book.setCopies(LambdaLibrary.GENERATE_LIST_OF_COPIES.apply(copiesNum, book));
 		publicationDAO.save(book);
 	}
 
