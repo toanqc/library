@@ -76,6 +76,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			try {
 				chkoutBookService.checkout(memberId, new Book(ISBN));
 				FXUtil.showSuccessMessage(lblMessage, "Check out successfully");
+				clear();
 			} catch (Exception e) {
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
@@ -89,6 +90,7 @@ public class CheckoutController implements ControlledScreen, Initializable {
 			try {
 				chkoutBookService.checkout(memberId, new Periodical(title, issueNo));
 				FXUtil.showSuccessMessage(lblMessage, "Check out successfully");
+				clear();
 			} catch (Exception e) {
 				FXUtil.showErrorMessage(lblMessage, e.getMessage());
 			}
