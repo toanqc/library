@@ -71,4 +71,9 @@ public class LambdaLibrary {
 		return copyList;
 	};
 
+	public static final BiFunction<List<PublicationOverdueRecord>, String, List<PublicationOverdueRecord>> FILTER_PUBLICATION_OVERDUE_RECORD = (
+			publicationOverdueRecords, isbnIssueNumber) -> publicationOverdueRecords.stream()
+					.filter(publicationOverdue -> publicationOverdue.getIssueno().matches(isbnIssueNumber.trim()))
+					.collect(Collectors.toList());
+
 }

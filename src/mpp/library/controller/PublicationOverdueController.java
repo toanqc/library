@@ -1,11 +1,13 @@
 package mpp.library.controller;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
@@ -16,7 +18,9 @@ import mpp.library.model.Author;
 import mpp.library.model.PublicationOverdueRecord;
 import mpp.library.model.service.OverdueCalculator;
 import mpp.library.model.service.impl.PublicationOverdueImpl;
+import mpp.library.util.LambdaLibrary;
 import mpp.library.view.ControlledScreen;
+import mpp.library.view.FormValidation;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
 
@@ -51,8 +55,12 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	@FXML
 	ListView<Author> authorCopyPublicationListView;
 
+	@FXML
+	private TextField publicationSearchField;
+
 	private ScreenController myController;
 	private OverdueCalculator<PublicationOverdueRecord> publicationOverdueCalculator;
+	private static List<PublicationOverdueRecord> publicationOverdueRecords;
 
 	@FXML
 	TextField txtSearch;
@@ -63,10 +71,14 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<PublicationOverdueRecord> publicationOverdueRecords = publicationOverdueCalculator.getOverdueRecords();
+		FormValidation.addLengthLimiter(publicationSearchField, 30);
+		publicationOverdueRecords = publicationOverdueCalculator.getOverdueRecords();
+		setPublicationOverdueListView(publicationOverdueRecords);
+	}
 
+	private void setPublicationOverdueListView(List<PublicationOverdueRecord> publicationOverdueRecList) {
 		ObservableList<PublicationOverdueRecord> listData = FXCollections
-				.observableArrayList(publicationOverdueRecords);
+				.observableArrayList(publicationOverdueRecList);
 		tableView.setItems(listData);
 
 		isbnColumn.setCellValueFactory(cellData -> cellData.getValue().issueNoProperty());
@@ -83,16 +95,28 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 
 	@Override
 	public void repaint() {
-
 	}
 
 	@FXML
 	public void returnHome() {
+		publicationSearchField.setText("");
+		setPublicationOverdueListView(publicationOverdueRecords);
 		myController.setScreen(Screen.HOME);
 	}
 
 	@FXML
-	public void searchPublication() {
-	}
+	public void searchPublicationOverdue(ActionEvent actionEvent) {
+		List<PublicationOverdueRecord> filteredPublicationOverdueRecords = new ArrayList<>();
 
+		if (publicationSearchField.getText().trim().isEmpty()) {
+			setPublicationOverdueListView(publicationOverdueRecords);
+			return;
+		}
+
+		if (!publicationOverdueRecords.isEmpty()) {
+			filteredPublicationOverdueRecords = LambdaLibrary.FILTER_PUBLICATION_OVERDUE_RECORD
+					.apply(publicationOverdueRecords, publicationSearchField.getText().trim());
+		}
+		setPublicationOverdueListView(filteredPublicationOverdueRecords);
+	}
 }

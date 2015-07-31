@@ -50,8 +50,8 @@
               </TableView>
                </content>
           </ScrollPane>
-            <TextField fx:id="txtSearch" promptText="Enter ISBN or issue number to search" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#searchPublication" prefWidth="90.0" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <TextField fx:id="publicationSearchField" promptText="Enter ISBN or issue number to search" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#searchPublicationOverdue" prefWidth="90.0" text="Search" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                      <image>
