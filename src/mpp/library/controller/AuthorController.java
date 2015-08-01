@@ -3,11 +3,12 @@ package mpp.library.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import mpp.library.model.Address;
-import mpp.library.model.LibraryMember;
-import mpp.library.model.service.MemberService;
-import mpp.library.model.service.impl.MemberServiceImpl;
+import mpp.library.model.Author;
+import mpp.library.model.service.AuthorService;
+import mpp.library.model.service.impl.AuthorServiceImpl;
 import mpp.library.util.FXUtil;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.FormValidation;
@@ -20,14 +21,14 @@ import mpp.library.view.ScreenController;
  * @author Toan Quach
  *
  */
-public class MemberController implements ControlledScreen {
+public class AuthorController implements ControlledScreen {
 
 	@FXML
 	Button btnHome;
 	@FXML
 	Label lblStatus;
 	@FXML
-	TextField txtMemberId;
+	TextField txtAuthorId;
 	@FXML
 	TextField txtFirstName;
 	@FXML
@@ -42,15 +43,17 @@ public class MemberController implements ControlledScreen {
 	TextField txtZip;
 	@FXML
 	TextField txtPhone;
+	@FXML
+	TextArea txtBio;
 
 	private FunctionType functionType;
 
-	private String memberId;
+	private int authorId;
 
-	private MemberService memberService;
+	private AuthorService authorService;
 
-	public MemberController() {
-		memberService = new MemberServiceImpl();
+	public AuthorController() {
+		authorService = new AuthorServiceImpl();
 	}
 
 	@FXML
@@ -98,24 +101,24 @@ public class MemberController implements ControlledScreen {
 	}
 
 	private void setGenerateMemberId() {
-		memberId = memberService.generateMemberId();
-		txtMemberId.setText(memberId);
+		authorId = authorService.generateAuthorId();
+		txtAuthorId.setText(String.valueOf(authorId));
 	}
 
 	private void loadData() {
-		LibraryMember libraryMember = memberService.getByMemberId(memberId);
-		bindData(libraryMember);
+		Author author = authorService.get(authorId);
+		bindData(author);
 	}
 
-	private void bindData(LibraryMember libraryMember) {
-		txtMemberId.setText(libraryMember.getMemberId());
-		txtFirstName.setText(libraryMember.getFirstName());
-		txtLastName.setText(libraryMember.getLastName());
-		txtStreet.setText(libraryMember.getAddress().getStreet());
-		txtCity.setText(libraryMember.getAddress().getCity());
-		txtState.setText(libraryMember.getAddress().getState());
-		txtZip.setText(String.valueOf(libraryMember.getAddress().getZip()));
-		txtPhone.setText(libraryMember.getPhone());
+	private void bindData(Author author) {
+		txtAuthorId.setText(String.valueOf(author.getId()));
+		txtFirstName.setText(author.getFirstName());
+		txtLastName.setText(author.getLastName());
+		txtStreet.setText(author.getAddress().getStreet());
+		txtCity.setText(author.getAddress().getCity());
+		txtState.setText(author.getAddress().getState());
+		txtZip.setText(String.valueOf(author.getAddress().getZip()));
+		txtPhone.setText(author.getPhone());
 		lblStatus.setText("");
 	}
 
@@ -123,7 +126,7 @@ public class MemberController implements ControlledScreen {
 	public void returnHome() {
 		clearTextField();
 		myController.setScreen(Screen.HOME);
-		MemberListController memberListController = (MemberListController) ControlledScreen.controllerList
+		AuthorListController memberListController = (AuthorListController) ControlledScreen.controllerList
 				.get(Screen.MEMBER_LIST);
 		memberListController.repaint();
 	}
@@ -135,17 +138,17 @@ public class MemberController implements ControlledScreen {
 		}
 		Address address = new Address(txtStreet.getText(), txtCity.getText(), txtState.getText(),
 				Integer.parseInt(txtZip.getText()));
-		LibraryMember member = new LibraryMember(memberId, txtFirstName.getText(), txtLastName.getText(),
-				txtPhone.getText(), address);
+		Author author = new Author(txtFirstName.getText(), txtLastName.getText(), txtPhone.getText(), txtBio.getText(),
+				address);
 
 		if (FunctionType.ADD.equals(functionType)) {
-			memberService.saveMember(member);
-			FXUtil.showSuccessMessage(lblStatus, "Library member was created, your id is: " + member.getMemberId());
+			authorService.saveAuthor(author);
+			FXUtil.showSuccessMessage(lblStatus, "Library member was created, your id is: " + author.getId());
 			clearTextField();
-			txtMemberId.setText(memberService.generateMemberId());
+			txtAuthorId.setText(String.valueOf(authorService.generateAuthorId()));
 		} else if (FunctionType.UPDATE.equals(functionType)) {
-			memberService.updateMember(member);
-			FXUtil.showSuccessMessage(lblStatus, "Member id " + member.getMemberId() + " was updated successfully");
+			authorService.updateAuthor(author);
+			FXUtil.showSuccessMessage(lblStatus, "Member id " + author.getId() + " was updated successfully");
 		}
 	}
 
@@ -157,12 +160,12 @@ public class MemberController implements ControlledScreen {
 		this.functionType = functionType;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public int getAuthorId() {
+		return authorId;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setAuthorId(int authorId) {
+		this.authorId = authorId;
 	}
 
 	private boolean validation() {
@@ -193,6 +196,14 @@ public class MemberController implements ControlledScreen {
 		}
 
 		return true;
+	}
+
+	@FXML
+	public void handleCancel() {
+		myController.setScreen(Screen.AUTHOR_LIST);
+		AuthorListController authorListController = (AuthorListController) ControlledScreen.controllerList
+				.get(Screen.AUTHOR_LIST);
+		authorListController.repaint();
 	}
 
 	ScreenController myController;

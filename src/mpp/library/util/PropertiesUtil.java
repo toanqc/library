@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/**
+ * 
+ * @author Toan Quach
+ *
+ */
 public class PropertiesUtil {
 
 	public static Properties getProperties(String fileName) {

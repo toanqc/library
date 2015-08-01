@@ -14,6 +14,9 @@ import mpp.library.model.dao.AddressDAO;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.db.connection.ConnectionManager;
 
+/**
+ * @author Toan Quach
+ */
 public class MemberDAODBImpl implements MemberDAO {
 
 	public static final String SELECT_STATEMENT = "SELECT m.id,m.memberid, m.firstname, m.lastname, m.telephone, "
@@ -93,7 +96,7 @@ public class MemberDAODBImpl implements MemberDAO {
 
 	private PreparedStatement buildSelectMemberById(Connection conn, int id) throws SQLException {
 		if (id != -1) {
-			String sql = SELECT_STATEMENT + " WHERE id=?";
+			String sql = SELECT_STATEMENT + " WHERE m.id=?";
 			PreparedStatement statement = conn.prepareStatement(sql);
 			statement.setInt(1, id);
 			return statement;
@@ -180,6 +183,10 @@ public class MemberDAODBImpl implements MemberDAO {
 			maxId = getMaxId(conn);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+
+		if (maxId < 0) {
+			return "1001";
 		}
 
 		maxId++;

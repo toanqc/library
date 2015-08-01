@@ -9,10 +9,6 @@ import mpp.library.util.PublicationType;
 
 public interface PublicationDAO extends BaseDAO<Publication> {
 
-	Publication save(Publication publication);
-
-	Publication get(int id);
-
 	/**
 	 * Gets {@link Publication} from DB.
 	 * 

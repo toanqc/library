@@ -15,7 +15,7 @@ import mpp.library.util.LibraryConstant;
 /**
  * @author Toan Quach
  */
-public class ScreenFramework extends Application {
+public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -31,7 +31,7 @@ public class ScreenFramework extends Application {
 
 		BackgroundImage myBI = new BackgroundImage(new Image(getClass()
 				.getResourceAsStream(LibraryConstant.BACKGROUND_IMAGE)),
-				BackgroundRepeat.ROUND, BackgroundRepeat.ROUND,
+				BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 				BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
 		mainContainer.setBackground(new Background(myBI));
 
@@ -40,7 +40,7 @@ public class ScreenFramework extends Application {
 		primaryStage.getIcons().add(
 				new Image(getClass().getResourceAsStream(
 						LibraryConstant.APP_ICON)));
-		//primaryStage.setResizable(false);
+		primaryStage.setResizable(false);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}

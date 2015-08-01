@@ -100,7 +100,6 @@ public class PublicationCopyController implements ControlledScreen {
 
 		myController.loadScreen(Screen.PUBLICATION, Screen.PUBLICATION.getValue());
 		myController.setScreen(Screen.PUBLICATION);
-		myController.setSize(Screen.PUBLICATION.getWidth(), Screen.PUBLICATION.getHeight());
 		
 		FXUtil.clearTextFields(periodicalCopyGridPane);
 		FXUtil.clearTextFields(bookCopyGridPane);
@@ -284,7 +283,6 @@ public class PublicationCopyController implements ControlledScreen {
 		lblStatus.setText("");
 		lblStatus.setVisible(false);
 		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 	
 	@FXML

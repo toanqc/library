@@ -7,6 +7,11 @@ import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.db.connection.DataAccessFactory;
 import mpp.library.model.service.MemberService;
 
+/**
+ * 
+ * @author Toan Quach
+ *
+ */
 public class MemberServiceImpl implements MemberService {
 
 	private MemberDAO memberDAO;

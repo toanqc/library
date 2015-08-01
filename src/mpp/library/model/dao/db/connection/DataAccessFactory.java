@@ -12,6 +12,7 @@ import mpp.library.model.dao.CheckoutRecordEntryDAO;
 import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.db.PublicationDAO;
+//github.com/toanqc/library.git
 import mpp.library.model.dao.db.impl.AddressDAODBImpl;
 import mpp.library.model.dao.db.impl.AuthorDAODBImpl;
 import mpp.library.model.dao.db.impl.CheckoutDAODBFacade;
@@ -19,12 +20,16 @@ import mpp.library.model.dao.db.impl.CheckoutRecordEntryDAODBFacade;
 import mpp.library.model.dao.db.impl.CopyDAODBImpl;
 import mpp.library.model.dao.db.impl.MemberDAODBImpl;
 import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
+//github.com/toanqc/library.git
 import mpp.library.model.dao.impl.CheckoutDAOFacade;
 import mpp.library.model.dao.impl.CheckoutRecordDAOFacade;
 import mpp.library.model.dao.impl.MemberDAOImpl;
 import mpp.library.util.LibraryConstant;
 import mpp.library.util.PropertiesUtil;
 
+/**
+ * @author Toan Quach
+ */
 public class DataAccessFactory {
 	static HashMap<Class<? extends BaseDAO<?>>, BaseDAO<?>> mapDB = new HashMap<>();
 	static HashMap<Class<? extends BaseDAO<?>>, BaseDAO<?>> mapFile = new HashMap<>();

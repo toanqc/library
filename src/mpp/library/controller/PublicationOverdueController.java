@@ -100,7 +100,6 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	@FXML
 	public void returnHome() {
 		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 }

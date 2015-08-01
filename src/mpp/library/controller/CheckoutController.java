@@ -64,7 +64,6 @@ public class CheckoutController implements ControlledScreen, Initializable {
 	@FXML
 	protected void gotoMainScreen(MouseEvent event) {
 		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 	@FXML

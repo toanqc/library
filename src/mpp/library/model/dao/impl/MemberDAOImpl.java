@@ -43,7 +43,7 @@ public class MemberDAOImpl extends AbstractSerializationDAO<LibraryMember>implem
 		List<LibraryMember> memberList = getList();
 		for (int i = 0; i < memberList.size(); i++) {
 			LibraryMember lm = memberList.get(i);
-			if (member.getMemberId() == lm.getMemberId()) {
+			if (member.getMemberId().equals(lm.getMemberId())) {
 				memberList.set(i, member);
 				this.writeObjectList(SerializationFile.MEMBER.getValue(), memberList);
 				return true;

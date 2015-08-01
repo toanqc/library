@@ -190,7 +190,6 @@ public class PublicationController implements ControlledScreen {
 
 		myController.loadScreen(Screen.COPY_PUBLICATION, Screen.COPY_PUBLICATION.getValue());
 		myController.setScreen(Screen.COPY_PUBLICATION);
-		myController.setSize(Screen.COPY_PUBLICATION.getWidth(), Screen.COPY_PUBLICATION.getHeight());
 
 		FXUtil.clearTextFields(periodicalGridPane);
 		FXUtil.clearTextFields(bookGridPane);
@@ -287,7 +286,6 @@ public class PublicationController implements ControlledScreen {
 		FXUtil.clearTextFields(bookGridPane);
 		FXUtil.clearTextFields(periodicalGridPane);
 		myController.setScreen(Screen.HOME);
-		myController.setSize(Screen.HOME.getWidth(), Screen.HOME.getHeight());
 	}
 
 	@FXML

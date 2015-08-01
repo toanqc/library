@@ -6,21 +6,18 @@ public class Author extends Person {
 
 	private static final long serialVersionUID = 3485880844682032355L;
 
-	private String credentials;
 	private String bio;
 	private List<Book> books;
 	private int id;
 	private int addressId;
-	private String firstName;
-	private String lastName;
-	private String phone;
 
-	public String getCredentials() {
-		return credentials;
+	public Author() {
+		// empty constructor
 	}
-
-	public void setCredentials(String credentials) {
-		this.credentials = credentials;
+	
+	public Author(String firstName, String lastName, String phone, String bio, Address address) {
+		super(firstName, lastName, phone, address);
+		this.bio = bio;
 	}
 
 	public String getBio() {
@@ -41,47 +38,22 @@ public class Author extends Person {
 
 	@Override
 	public String toString() {
-		return "Author [credentials=" + credentials + ", bio=" + bio + ", books=" + books + "]";
+		return "Author [bio=" + bio + ", books=" + books + "]";
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public int getID() {
+
+	public int getId() {
 		return this.id;
 	}
-	
+
 	public void setAddressId(int addrId) {
 		this.addressId = addrId;
 	}
-	
+
 	public int getAddressId() {
 		return this.addressId;
 	}
-	
-	public void setFirstName(String f) {
-		this.firstName = f;
-	}
-	
-	public String getFirstName() {
-		return this.firstName;
-	}
-	
-	public void setLastName(String l) {
-		this.lastName = l;
-	}
-	
-	public String getLastName() {
-		return this.lastName;
-	}
-	
-	public void setPhone(String f) {
-		this.phone = f;
-	}
-	
-	public String getPhone() {
-		return this.phone;
-	}
-
 }

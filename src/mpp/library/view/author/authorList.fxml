@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.MemberListController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mpp.library.controller.AuthorListController">
    <children>
       <GridPane hgap="15.0" vgap="15.0">
         <columnConstraints>
@@ -56,9 +56,9 @@
                </graphic></Button>
             <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
                <content>
-                  <TableView fx:id="memberTable" prefHeight="485.0" prefWidth="780.0">
+                  <TableView fx:id="authorTable" prefHeight="485.0" prefWidth="780.0">
                     <columns>
-                      <TableColumn fx:id="memberId" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" styleClass="column-link" text="ID" />
+                      <TableColumn fx:id="authorId" maxWidth="70.0" minWidth="70.0" prefWidth="70.0" styleClass="column-link" text="ID" />
                       <TableColumn fx:id="firstName" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" text="First Name" />
                         <TableColumn fx:id="lastName" maxWidth="90.0" minWidth="90.0" prefWidth="90.0" text="Last Name" />
                         <TableColumn fx:id="street" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" sortable="false" text="Street" />
@@ -66,7 +66,7 @@
                         <TableColumn fx:id="state" maxWidth="60.0" minWidth="60.0" prefWidth="60.0" text="State" />
                         <TableColumn fx:id="zip" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" sortable="false" text="Zip" />
                         <TableColumn fx:id="phone" maxWidth="105.0" minWidth="105.0" prefWidth="105.0" sortable="false" text="Phone" />
-                        <TableColumn fx:id="checkoutRecord" maxWidth="78.0" minWidth="78.0" prefWidth="78.0" sortable="false" styleClass="column-link" text="CR" />
+                        <TableColumn fx:id="bio" maxWidth="78.0" minWidth="78.0" prefWidth="78.0" sortable="false" styleClass="column-link" text="Bio" />
                     </columns>
                   </TableView>
                </content>
