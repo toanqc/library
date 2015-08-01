@@ -2,29 +2,32 @@ package mpp.library.model.service.impl;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.Copy;
 import mpp.library.model.LibraryMember;
 import mpp.library.model.Publication;
-import mpp.library.model.dao.db.impl.CheckoutDAODBFacade;
-import mpp.library.model.dao.db.impl.CheckoutRecordEntryDAODBFacade;
+import mpp.library.model.dao.CheckoutDAO;
+import mpp.library.model.dao.CheckoutRecordEntryDAO;
+import mpp.library.model.dao.db.connection.DataAccessFactory;
 import mpp.library.model.service.CheckoutService;
 import mpp.library.model.service.CopyService;
 import mpp.library.model.service.MemberService;
 
 public class CheckoutServiceImpl implements CheckoutService {
 
-	private CheckoutRecordEntryDAODBFacade chkoutRecordEntryDAOFacade;
+	private CheckoutRecordEntryDAO chkoutRecordEntryDAOFacade;
 	private CopyService copyService;
 	private MemberService memberService;
-	private CheckoutDAODBFacade checkoutDAODBFacade;
+	private CheckoutDAO checkoutDAODBFacade;
 
 	public CheckoutServiceImpl() {
 		// TODO Auto-generated constructor stub
-		chkoutRecordEntryDAOFacade = new CheckoutRecordEntryDAODBFacade();
+		chkoutRecordEntryDAOFacade = (CheckoutRecordEntryDAO) DataAccessFactory.getDAOImpl(CheckoutRecordEntryDAO.class);
 		memberService = new MemberServiceImpl();
 		copyService = new CopyServiceImpl();
-		checkoutDAODBFacade = new CheckoutDAODBFacade();
+		checkoutDAODBFacade = (CheckoutDAO) DataAccessFactory.getDAOImpl(CheckoutDAO.class);
 	}
 
 	@Override
@@ -52,6 +55,11 @@ public class CheckoutServiceImpl implements CheckoutService {
 
 		}
 
+	}
+	
+	@Override
+	public List<CheckoutRecordEntry> getCheckRecordEntryByMemberId(int memberId){
+		return chkoutRecordEntryDAOFacade.getCheckoutEnteriesOfMemeber(memberId);
 	}
 
 }

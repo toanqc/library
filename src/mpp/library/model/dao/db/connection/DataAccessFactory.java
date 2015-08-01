@@ -8,11 +8,14 @@ import mpp.library.model.dao.AuthorDAO;
 import mpp.library.model.dao.BaseDAO;
 import mpp.library.model.dao.CheckoutDAO;
 import mpp.library.model.dao.CheckoutRecordDAO;
+import mpp.library.model.dao.CheckoutRecordEntryDAO;
 import mpp.library.model.dao.CopyDAO;
 import mpp.library.model.dao.MemberDAO;
 import mpp.library.model.dao.db.PublicationDAO;
 import mpp.library.model.dao.db.impl.AddressDAODBImpl;
 import mpp.library.model.dao.db.impl.AuthorDAODBImpl;
+import mpp.library.model.dao.db.impl.CheckoutDAODBFacade;
+import mpp.library.model.dao.db.impl.CheckoutRecordEntryDAODBFacade;
 import mpp.library.model.dao.db.impl.CopyDAODBImpl;
 import mpp.library.model.dao.db.impl.MemberDAODBImpl;
 import mpp.library.model.dao.db.impl.PublicationDAODBImpl;
@@ -41,6 +44,8 @@ public class DataAccessFactory {
 		mapDB.put(CopyDAO.class, new CopyDAODBImpl());
 		mapDB.put(PublicationDAO.class, new PublicationDAODBImpl());
 		mapDB.put(AuthorDAO.class, new AuthorDAODBImpl());
+		mapDB.put(CheckoutRecordEntryDAO.class, new CheckoutRecordEntryDAODBFacade());
+		mapDB.put(CheckoutDAO.class, new CheckoutDAODBFacade());
 	}
 
 	public static BaseDAO<?> getDAOImpl(Class<? extends BaseDAO<?>> clazz) {

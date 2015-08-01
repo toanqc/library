@@ -1,7 +1,6 @@
 package mpp.library.controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,16 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import mpp.library.model.Book;
 import mpp.library.model.CheckoutRecordEntry;
 import mpp.library.model.LibraryMember;
-import mpp.library.model.Periodical;
-import mpp.library.model.Publication;
 import mpp.library.model.PublicationOverdueRecord;
-import mpp.library.model.PublicationType;
-import mpp.library.model.dao.db.impl.CheckoutRecordEntryDAODBFacade;
+import mpp.library.model.service.CheckoutService;
 import mpp.library.model.service.MemberService;
+import mpp.library.model.service.impl.CheckoutServiceImpl;
 import mpp.library.model.service.impl.MemberServiceImpl;
+import mpp.library.util.LambdaLibrary;
 import mpp.library.view.ControlledScreen;
 import mpp.library.view.Screen;
 import mpp.library.view.ScreenController;
@@ -56,13 +53,13 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	private TableColumn<PublicationOverdueRecord, String> duedateColumn;
 
 	private MemberService memberService;
-	private CheckoutRecordEntryDAODBFacade recordEntryDAODBFacade;
+	private CheckoutService checkoutService;
 
 	private ScreenController myController;
 
 	public PublicationOverdueController() {
 		memberService = new MemberServiceImpl();
-		recordEntryDAODBFacade = new CheckoutRecordEntryDAODBFacade();
+		checkoutService = new CheckoutServiceImpl();
 
 	}
 
@@ -70,35 +67,15 @@ public class PublicationOverdueController implements Initializable, ControlledSc
 	public void initialize(URL location, ResourceBundle resources) {
 		List<LibraryMember> libraryMembers = memberService.getList();
 		List<PublicationOverdueRecord> publicationOverdueRecords = new ArrayList<>();
-		PublicationOverdueRecord publicationOverdueRecord = null;
 
 		for (LibraryMember libraryMember : libraryMembers) {
-			List<CheckoutRecordEntry> checkoutRecordEntries = recordEntryDAODBFacade
-					.getCheckoutEnteriesOfMemeber(libraryMember.getId());
+			List<CheckoutRecordEntry> checkoutRecordEntries = checkoutService
+					.getCheckRecordEntryByMemberId(libraryMember.getId());
 
-			for (CheckoutRecordEntry crEntry : checkoutRecordEntries) {
-
-				if (crEntry.getDueDate().compareTo(LocalDate.now()) < 0) {
-					publicationOverdueRecord = new PublicationOverdueRecord();
-					Publication publication = crEntry.getCopy().getPublication();
-
-					if (publication instanceof Book) {
-						publicationOverdueRecord.setIssueNo(((Book) publication).getISBN());
-						publicationOverdueRecord.setType(PublicationType.BOOK.getValue());
-					} else {
-						publicationOverdueRecord.setIssueNo(((Periodical) publication).getIssueNumber());
-						publicationOverdueRecord.setType(PublicationType.PERIODICAL.getValue());
-					}
-
-					publicationOverdueRecord.setChkoutDate(crEntry.getCheckoutDate());
-					publicationOverdueRecord.setDueDate(crEntry.getDueDate());
-					publicationOverdueRecord
-							.setMember(libraryMember.getFirstName() + " " + libraryMember.getLastName());
-				}
-				publicationOverdueRecords.add(publicationOverdueRecord);
-			}
-
+			publicationOverdueRecords = LambdaLibrary.publicationOverdueRecordLambda.apply(checkoutRecordEntries,
+					libraryMember);
 		}
+
 		ObservableList<PublicationOverdueRecord> listData = FXCollections
 				.observableArrayList(publicationOverdueRecords);
 		tableView.setItems(listData);
